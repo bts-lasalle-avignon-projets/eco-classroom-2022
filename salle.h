@@ -1,14 +1,13 @@
 #ifndef SALLE_H
 #define SALLE_H
 
-#include <QMainWindow>
+#include <QObject>
 
-class Salle : public QMainWindow
-{
-    Q_OBJECT
-
+class Salle : public QObject {
+  Q_OBJECT
+private
 public:
-    Salle(QWidget *parent = nullptr);
-    ~Salle();
+  Salle();
 };
+
 #endif // SALLE_H
