@@ -1,12 +1,16 @@
 #ifndef SALLE_H
 #define SALLE_H
 
-#define VERSION 0.1
-
-class IHMCalssroom;
-class CommunicationMQTT;
+/**
+ * @file salle.h
+ * @brief Déclaration de la classe salle
+ * @version 0.1
+ * version 0.1
+ */
 
 class Salle {
+
+private:
 public:
   Salle();
 };
