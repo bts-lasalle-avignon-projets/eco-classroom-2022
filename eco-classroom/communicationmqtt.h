@@ -2,7 +2,7 @@
 #define COMMUNICATIONMQTT_H
 
 /**
- * @file communicationmqtt.cpp
+ * @file communicationmqtt.h
  * @brief Déclaration de la classe communicationmqtt
  * @version 0.1
  * version 0.1
