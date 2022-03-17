@@ -7,10 +7,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     main.cpp \
-    ihmecoclassroom.cpp
+    ihmecoclassroom.cpp \
+    salle.cpp
 
 HEADERS += \
-    ihmecoclassroom.h
+    ihmecoclassroom.h \
+    salle.h
 
 FORMS += \
     ihmecoclassroom.ui
