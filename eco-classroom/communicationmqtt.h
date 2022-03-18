@@ -10,12 +10,18 @@
  * @version 0.1
  */
 
+/**
+ * @class CommunicationMQTT
+ * @brief Déclaration de la classe CommunicationMQTT
+ * @details
+ */
 class CommunicationMQTT : public QObject
 {
     Q_OBJECT
   private:
   public:
-    CommunicationMQTT();
+    CommunicationMQTT(QObject* parent = nullptr);
+    virtual ~CommunicationMQTT();
 
   public slots:
   signals:

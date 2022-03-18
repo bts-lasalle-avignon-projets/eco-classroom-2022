@@ -4,19 +4,21 @@
 /**
  * @file salle.h
  * @brief Déclaration de la classe Salle
+ * @author
  * @version 0.1
  */
 
 /**
- * @file salle.h
+ * @class Salle
  * @brief Déclaration de la classe Salle
- * @version 0.1
+ * @details
  */
 class Salle
 {
   private:
   public:
     Salle();
+    ~Salle();
 };
 
 #endif // SALLE_H

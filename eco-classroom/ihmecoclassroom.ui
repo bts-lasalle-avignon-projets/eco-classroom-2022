@@ -21,7 +21,7 @@
     <item>
      <layout class="QVBoxLayout" name="principalLayout">
       <item>
-       <spacer name="verticalSpacer_2">
+       <spacer name="verticalSpacer2">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -37,39 +37,32 @@
        </spacer>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="hautLayout_2">
+       <layout class="QVBoxLayout" name="hautLayout">
         <item>
          <layout class="QHBoxLayout" name="enteteLayout">
+          <property name="spacing">
+           <number>0</number>
+          </property>
           <property name="leftMargin">
-           <number>30</number>
+           <number>0</number>
           </property>
           <property name="rightMargin">
            <number>0</number>
           </property>
           <item>
-           <widget class="QLabel" name="labelFiltrer">
+           <widget class="QComboBox" name="listeSallesDetectees">
             <property name="maximumSize">
              <size>
-              <width>70</width>
+              <width>16777215</width>
               <height>16777215</height>
              </size>
             </property>
-            <property name="text">
-             <string>Filtrer    :</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QComboBox" name="comboxFiltrer">
-            <property name="maximumSize">
-             <size>
-              <width>150</width>
-              <height>16777215</height>
-             </size>
+            <property name="currentText">
+             <string>Toutes</string>
             </property>
             <item>
              <property name="text">
-              <string>Tout</string>
+              <string>Toutes</string>
              </property>
             </item>
             <item>
@@ -84,28 +77,9 @@
             </item>
             <item>
              <property name="text">
-              <string>Par état des fenétres</string>
+              <string>Par état des fenêtres</string>
              </property>
             </item>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLabel" name="listlabel">
-            <property name="maximumSize">
-             <size>
-              <width>177</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="text">
-             <string>Les salles détectées</string>
-            </property>
-            <property name="textFormat">
-             <enum>Qt::AutoText</enum>
-            </property>
-            <property name="textInteractionFlags">
-             <set>Qt::LinksAccessibleByMouse</set>
-            </property>
            </widget>
           </item>
           <item>
@@ -126,7 +100,7 @@
        </layout>
       </item>
       <item>
-       <layout class="QVBoxLayout" name="millieuLayout">
+       <layout class="QVBoxLayout" name="milieuLayout">
         <item>
          <layout class="QHBoxLayout" name="titreLayout">
           <item>
@@ -144,14 +118,14 @@
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="labelconfort">
+           <widget class="QLabel" name="labelConfort">
             <property name="text">
-             <string>Indice de confort</string>
+             <string>Confort</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="labefenetres">
+           <widget class="QLabel" name="labeFenetres">
             <property name="text">
              <string>Fenêtres</string>
             </property>
@@ -172,7 +146,7 @@
        </layout>
       </item>
       <item>
-       <spacer name="verticalSpacer">
+       <spacer name="verticalSpacer1">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -195,19 +169,6 @@
         <property name="topMargin">
          <number>90</number>
         </property>
-        <item>
-         <widget class="QPushButton" name="infoButton">
-          <property name="maximumSize">
-           <size>
-            <width>150</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="text">
-           <string>À propos</string>
-          </property>
-         </widget>
-        </item>
        </layout>
       </item>
      </layout>
@@ -220,11 +181,15 @@
      <x>0</x>
      <y>0</y>
      <width>1058</width>
-     <height>22</height>
+     <height>39</height>
     </rect>
    </property>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="styleSheet">
+    <string notr="true">background: rgb(238, 238, 236);</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
