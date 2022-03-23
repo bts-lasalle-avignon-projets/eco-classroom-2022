@@ -1,0 +1,13 @@
+window_sizes 1848 1016 433 1409 843 120
+cleanlooks_style
+diagrams
+  classdiagram_ref 128015 // Diagramme de Classes
+    1127 674 100 A4 0 0
+  active  sequencediagram_ref 134543 // Diagramme de sequence systeme
+    1409 843 100 A4 82 0
+end
+show_stereotypes
+selected usecaseview_ref 134543 // Vue de diagramme de sequence de systeme
+open
+end
+end
