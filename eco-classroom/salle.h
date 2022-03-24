@@ -24,13 +24,14 @@ class Salle
     QString     lieu;          //!< lieu de la salle
     QString     description;   //!< la description d'une salle
     int         surface;       //!< la surface d'une salle
-    int         indiceConfort; //!< l'indice de confort d'une salle
+    QString     indiceConfort; //!< l'indice de confort d'une salle
     QString     code; //!< le code administrateur pour paramétrer une salle
     bool        etatFenetres; //!< l'état des fenêtres
     bool        etatLumieres; //!< l'état des lumières
 
   public:
     Salle();
+    Salle(QStringList salle);
     ~Salle();
 
     QStringList getSalle();
@@ -38,7 +39,7 @@ class Salle
     QString     getLieu();
     QString     getDesciption();
     int         getSurface();
-    int         getIndiceConfort();
+    QString     getIndiceConfort();
     QString     getCode();
     bool        getEtatFenetres();
     bool        getEtatLumierres();
