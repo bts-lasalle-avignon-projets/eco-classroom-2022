@@ -1,0 +1,97 @@
+format 224
+
+fragment 128002 "opt"
+  xyzwh 158.3 675.1 2015 543 78
+end
+fragment 128130 "alt"
+  xyzwh 158.7 771.9 2020 567 92
+end
+fragment 130703 "sd Visualiser Classroom"
+  xyzwh 124.2 124.9 2000 666 767
+end
+classinstance 130831 class_ref 135055 // Utilisateur
+  name ""   xyz 171.9 170.3 2000 life_line_z 2000
+classinstance 134543 class_ref 128015 // Salle
+  name ""   xyz 651.4 177.7 2000 life_line_z 2000
+textcanvas 135311 "filtrerParNom()"
+  xyzwh 392 374 2020 213 15
+textcanvas 135823 "filtrerParEtatDeLumiére()"
+  xyzwh 394 472 2020 271 15
+textcanvas 136335 "filtrerTout()"
+  xyzwh 394 276 2020 189 15
+textcanvas 136847 "filtrerParEtatDesFenetres()"
+  xyzwh 396 587 2020 203 15
+textcanvas 137359 "afficherinfo()"
+  xyzwh 399 689 2020 198 15
+textcanvas 137871 "afficherSalle()"
+  xyzwh 404 789 2020 94 17
+fragment 137999 "loop"
+  xyzwh 160.7 225.5 2020 563 420
+end
+durationcanvas 134671 classinstance_ref 130831 // :Utilisateur
+  xyzwh 202 261 2010 11 51
+end
+durationcanvas 134799 classinstance_ref 134543 // :Salle
+  xyzwh 666 269 2010 11 50
+end
+durationcanvas 135439 classinstance_ref 130831 // :Utilisateur
+  xyzwh 202 385 2010 11 32
+end
+durationcanvas 135567 classinstance_ref 134543 // :Salle
+  xyzwh 666 386 2010 11 33
+end
+durationcanvas 135951 classinstance_ref 130831 // :Utilisateur
+  xyzwh 202 487 2010 11 32
+end
+durationcanvas 136079 classinstance_ref 134543 // :Salle
+  xyzwh 666 487 2010 11 25
+end
+durationcanvas 136463 classinstance_ref 130831 // :Utilisateur
+  xyzwh 202 595 2010 11 40
+end
+durationcanvas 136591 classinstance_ref 134543 // :Salle
+  xyzwh 666 596 2010 11 25
+end
+durationcanvas 136975 classinstance_ref 130831 // :Utilisateur
+  xyzwh 202 701 2010 11 40
+end
+durationcanvas 137103 classinstance_ref 134543 // :Salle
+  xyzwh 666 702 2010 11 25
+end
+durationcanvas 137487 classinstance_ref 130831 // :Utilisateur
+  xyzwh 202 797 2010 11 40
+end
+durationcanvas 137615 classinstance_ref 134543 // :Salle
+  xyzwh 666 798 2010 11 25
+end
+msg 134927 synchronous
+  from durationcanvas_ref 134671
+  to durationcanvas_ref 134799
+  yz 293 2015 unspecifiedmsg
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+msg 135695 synchronous
+  from durationcanvas_ref 135439
+  to durationcanvas_ref 135567
+  yz 386 2015 unspecifiedmsg
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+msg 136207 synchronous
+  from durationcanvas_ref 135951
+  to durationcanvas_ref 136079
+  yz 487 2015 unspecifiedmsg
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+msg 136719 synchronous
+  from durationcanvas_ref 136463
+  to durationcanvas_ref 136591
+  yz 596 2015 unspecifiedmsg
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+msg 137231 synchronous
+  from durationcanvas_ref 136975
+  to durationcanvas_ref 137103
+  yz 702 2015 unspecifiedmsg
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+msg 137743 synchronous
+  from durationcanvas_ref 137487
+  to durationcanvas_ref 137615
+  yz 798 2015 unspecifiedmsg
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+end
