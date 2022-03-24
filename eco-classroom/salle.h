@@ -19,14 +19,15 @@
 class Salle
 {
   private:
-    QStringList salle;       //!< les données d'une salle
-    QString     nom;         //!< nom de la salle
-    QString     lieu;        //!< lieu de la salle
-    QString     description; //!< la description d'une salle
-    int         surface;     //!< la surface d'une salle
-    int         code; //!< le code administrateur pour paramétrer une salle
-    bool        etatfenetres; //!< l'état des fenétres
-    bool        etatlumieres; //!< l'état des lumières
+    QStringList salle;         //!< les données d'une salle
+    QString     nom;           //!< nom de la salle
+    QString     lieu;          //!< lieu de la salle
+    QString     description;   //!< la description d'une salle
+    int         surface;       //!< la surface d'une salle
+    int         indiceConfort; //!< l'indice de confort d'une salle
+    QString     code; //!< le code administrateur pour paramétrer une salle
+    bool        etatFenetres; //!< l'état des fenêtres
+    bool        etatLumieres; //!< l'état des lumières
 
   public:
     Salle();
@@ -37,21 +38,21 @@ class Salle
     QString     getLieu();
     QString     getDesciption();
     int         getSurface();
-    int         getCode();
+    QString     getCode();
     bool        getEtatFenetres();
     bool        getEtatLumierres();
 
     /**
-     * @enum ChampsUtilisateur
+     * @enum ChampsSalle
      * @brief Définit les différents champs de la table Salle
      */
     enum ChampsSalle
     {
-        TABLE_SALLER_NOM,              //!< Emplacment du nom
-        TABLE_SALLER_DESCRIPTION,      //!< Emplacment de description
-        TABLE_SALLE_INDICE_DE_CONFORT, //!< Emplacment de l'indice de confort
-        TABLE_SALLE_ETAT_DES_FENETRES, //!< Emplacment d'état des fenétres
-        TABLE_SALLE_ETAT_DES_LUMIERES, //!< Emplacment d'état des lumieres
+        TABLE_SALLE_NOM,               //!< Emplacement du nom
+        TABLE_SALLE_DESCRIPTION,       //!< Emplacement de description
+        TABLE_SALLE_INDICE_DE_CONFORT, //!< Emplacement de l'indice de confort
+        TABLE_SALLE_ETAT_DES_FENETRES, //!< Emplacement d'état des fenêtres
+        TABLE_SALLE_ETAT_DES_LUMIERES, //!< Emplacement d'état des lumieres
     };
 };
 
