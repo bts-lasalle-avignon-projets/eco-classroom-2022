@@ -1,5 +1,5 @@
 QT       += core gui widgets
-#QT       += mqtt
+QT       += mqtt
 
 CONFIG += c++11
 
