@@ -38,6 +38,7 @@ class Salle
     QString     getLieu();
     QString     getDesciption();
     int         getSurface();
+    int         getIndiceConfort();
     QString     getCode();
     bool        getEtatFenetres();
     bool        getEtatLumierres();
