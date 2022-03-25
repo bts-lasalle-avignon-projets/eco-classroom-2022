@@ -20,7 +20,9 @@ Salle::Salle() :
     qDebug() << Q_FUNC_INFO;
 }
 
-Salle::Salle(QStringList salle) : salle(salle)
+Salle::Salle(QStringList salle) :
+    salle(salle), nom(""), lieu(""), description(""), surface(0),
+    indiceConfort(""), code(""), etatFenetres(false), etatLumieres(false)
 {
     qDebug() << Q_FUNC_INFO << salle;
     nom           = salle.at(TABLE_SALLE_NOM);
@@ -43,7 +45,7 @@ Salle::~Salle()
  * @brief Retourne les données de la salle
  * @return QStringList
  */
-QStringList Salle::getSalle()
+QStringList Salle::getSalle() const
 {
     return salle;
 }
@@ -52,7 +54,7 @@ QStringList Salle::getSalle()
  * @brief Salle::getNom
  * @return
  */
-QString Salle::getNom()
+QString Salle::getNom() const
 {
     return nom;
 }
@@ -61,7 +63,7 @@ QString Salle::getNom()
  * @brief Salle::getLieu
  * @return
  */
-QString Salle::getLieu()
+QString Salle::getLieu() const
 {
     return lieu;
 }
@@ -70,7 +72,7 @@ QString Salle::getLieu()
  * @brief Salle::getDesciption
  * @return
  */
-QString Salle::getDesciption()
+QString Salle::getDesciption() const
 {
     return description;
 }
@@ -79,7 +81,7 @@ QString Salle::getDesciption()
  * @brief Salle::getSurface
  * @return
  */
-int Salle::getSurface()
+int Salle::getSurface() const
 {
     return surface;
 }
@@ -88,7 +90,7 @@ int Salle::getSurface()
  * @brief Salle::getIndiceConfort
  * @return
  */
-QString Salle::getIndiceConfort()
+QString Salle::getIndiceConfort() const
 {
     return indiceConfort;
 }
@@ -97,7 +99,7 @@ QString Salle::getIndiceConfort()
  * @brief Salle::getCode
  * @return
  */
-QString Salle::getCode()
+QString Salle::getCode() const
 {
     return code;
 }
@@ -106,7 +108,7 @@ QString Salle::getCode()
  * @brief Salle::getEtatFenetres
  * @return
  */
-bool Salle::getEtatFenetres()
+bool Salle::getEtatFenetres() const
 {
     return etatFenetres;
 }
@@ -115,7 +117,7 @@ bool Salle::getEtatFenetres()
  * @brief Salle::getEtatLumierres
  * @return
  */
-bool Salle::getEtatLumierres()
+bool Salle::getEtatLumierres() const
 {
     return etatLumieres;
 }

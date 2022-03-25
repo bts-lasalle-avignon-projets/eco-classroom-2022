@@ -34,15 +34,15 @@ class Salle
     Salle(QStringList salle);
     ~Salle();
 
-    QStringList getSalle();
-    QString     getNom();
-    QString     getLieu();
-    QString     getDesciption();
-    int         getSurface();
-    QString     getIndiceConfort();
-    QString     getCode();
-    bool        getEtatFenetres();
-    bool        getEtatLumierres();
+    QStringList getSalle() const;
+    QString     getNom() const;
+    QString     getLieu() const;
+    QString     getDesciption() const;
+    int         getSurface() const;
+    QString     getIndiceConfort() const;
+    QString     getCode() const;
+    bool        getEtatFenetres() const;
+    bool        getEtatLumierres() const;
 
     /**
      * @enum ChampsSalle
