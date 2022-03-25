@@ -27,6 +27,7 @@ IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
                                QString::fromUtf8(VERSION));
 
     communicationMQTT = new CommunicationMQTT(this);
+    initialiser();
 }
 
 /**
@@ -39,6 +40,13 @@ IHMEcoClassroom::~IHMEcoClassroom()
 {
     delete ui;
     qDebug() << Q_FUNC_INFO;
+}
+
+void IHMEcoClassroom::initialiser()
+{
+    qDebug() << Q_FUNC_INFO;
+    ui->statusbar->showMessage(QString::fromUtf8(NOM) + " " +
+                               QString::fromUtf8(VERSION));
 }
 
 void IHMEcoClassroom::ajouterMenuAide()
