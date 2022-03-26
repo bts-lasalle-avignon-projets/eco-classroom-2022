@@ -14,46 +14,74 @@
 /**
  * @class Salle
  * @brief Déclaration de la classe Salle
- * @details
  */
 class Salle
 {
   private:
-    QStringList salle;         //!< les données d'une salle
-    QString     nom;           //!< nom de la salle
-    QString     lieu;          //!< lieu de la salle
-    QString     description;   //!< la description d'une salle
-    int         surface;       //!< la surface d'une salle
-    int         indiceConfort; //!< l'indice de confort d'une salle
+    QStringList salle;       //!< les données d'une salle
+    QString     id;          //!< l'id de la salle dans la table
+    QString     nom;         //!< nom de la salle
+    QString     lieu;        //!< lieu de la salle
+    QString     description; //!< la description d'une salle
+    int         surface;     //!< la surface d'une salle
     QString     code; //!< le code administrateur pour paramétrer une salle
-    bool        etatFenetres; //!< l'état des fenêtres
-    bool        etatLumieres; //!< l'état des lumières
+    int         indiceConfort;    //!< l'indice de confort d'une salle
+    QString libelleIndiceConfort; //!< le libelle associé à l'indice de confort
+                                  //!< d'une salle
+    QString
+         libelleQualiteAir; //!< le libelle associé à l'indice de qualité d'air
+    bool etatFenetres;      //!< l'état des fenêtres
+    bool etatLumieres;      //!< l'état des lumières
+    bool etatOccupation;    //!< l'état d'occupation de la salle
 
   public:
     Salle();
+    Salle(QStringList salle);
     ~Salle();
 
-    QStringList getSalle();
-    QString     getNom();
-    QString     getLieu();
-    QString     getDesciption();
-    int         getSurface();
-    int         getIndiceConfort();
-    QString     getCode();
-    bool        getEtatFenetres();
-    bool        getEtatLumierres();
+    QStringList getSalle() const;
+    QString     getId() const;
+    QString     getNom() const;
+    QString     getLieu() const;
+    QString     getDesciption() const;
+    int         getSurface() const;
+    QString     getCode() const;
+    int         getIndiceConfort() const;
+    QString     getLibelleIndiceConfort() const;
+    QString     getLibelleQualiteAir() const;
+    bool        getEtatFenetres() const;
+    bool        getEtatLumierres() const;
+    bool        getEtatOccupation() const;
+
+    void setSalle(QStringList salle);
 
     /**
-     * @enum ChampsSalle
+     * @enum ChampsTableSalle
      * @brief Définit les différents champs de la table Salle
+     * @see Exemple de requête SQL : SELECT
+Salle.nom,Salle.lieu,Salle.description,Salle.superficie,Salle.code,IndiceConfort.indice
+AS indiceConfort,IndiceConfort.libelle AS
+libelleIndiceConfort,IndiceQualiteAir.libelle AS
+libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,Salle.estOccupe
+FROM Salle INNER JOIN IndiceConfort ON
+IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN IndiceQualiteAir
+ON IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir;
      */
-    enum ChampsSalle
+    enum ChampsTableSalle
     {
-        TABLE_SALLE_NOM,               //!< Emplacement du nom
-        TABLE_SALLE_DESCRIPTION,       //!< Emplacement de description
-        TABLE_SALLE_INDICE_DE_CONFORT, //!< Emplacement de l'indice de confort
-        TABLE_SALLE_ETAT_DES_FENETRES, //!< Emplacement d'état des fenêtres
-        TABLE_SALLE_ETAT_DES_LUMIERES, //!< Emplacement d'état des lumieres
+        ID,                        //!< Emplacement de l'id dans la table
+        NOM,                       //!< Emplacement du nom
+        LIEU,                      //!< Emplacement du lieu
+        DESCRIPTION,               //!< Emplacement de description
+        SUPERFICIE,                //!< Emplacement de la superficie
+        CODE,                      //!< Emplacement du code d'administration
+        INDICE_DE_CONFORT,         //!< Emplacement de l'indice de confort
+        LIBELLE_INDICE_DE_CONFORT, //!< Emplacement du libelle de l'indice de
+                                   //!< confort
+        LIBELLE_QUALITE_AIR, //!< Emplacement du libelle de la qualité d'air
+        ETAT_DES_FENETRES,   //!< Emplacement d'état des fenêtres
+        ETAT_DES_LUMIERES,   //!< Emplacement d'état des lumieres
+        ETAT_OCCUPATION,     //!< Emplacement d'état d'occupation de la salle
     };
 };
 
