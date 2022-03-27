@@ -46,9 +46,8 @@ class IHMEcoClassroom : public QMainWindow
     Ui::IHMEcoClassroom* ui; //!< la fenêtre graphique associée à cette classe
     QStringList          nomColonnes;   //!< Liste de nom des colonnes
     int                  nbLignesSalle; //!< nombre de lignes
-    QVector<QStringList> salle;         //!< Les salles
+    QVector<QStringList> salles;        //!< Les salles
     QStandardItemModel*  modeleSalle;   //!< Modèle pour le QTableView
-    QTableView*          tableViewSalles;
 
     /**
      * @enum Fenetre
@@ -77,8 +76,9 @@ class IHMEcoClassroom : public QMainWindow
     };
 
     void initialiserAffichage();
-
-    void afficherFenetre();
+    void chargerSalles();
+    void afficherSalleTable(QStringList salle);
+    void effacerTableSalles();
     void ajouterMenuAide();
 
   public slots:
