@@ -1,6 +1,6 @@
 #include "ihmecoclassroom.h"
 #include "ui_ihmecoclassroom.h"
-#include "communicationmqtt.h"
+#include "salle.h"
 #include <QDebug>
 
 /**
@@ -26,8 +26,7 @@ IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
     ui->statusbar->showMessage(QString::fromUtf8(NOM) + " " +
                                QString::fromUtf8(VERSION));
 
-    communicationMQTT = new CommunicationMQTT(this);
-    initialiser();
+    initialiserAffichage();
 }
 
 /**
@@ -42,11 +41,28 @@ IHMEcoClassroom::~IHMEcoClassroom()
     qDebug() << Q_FUNC_INFO;
 }
 
-void IHMEcoClassroom::initialiser()
+void IHMEcoClassroom::initialiserAffichage()
 {
     qDebug() << Q_FUNC_INFO;
     ui->statusbar->showMessage(QString::fromUtf8(NOM) + " " +
                                QString::fromUtf8(VERSION));
+    // Initialise le QTableView
+    nomColonnes << "Nom"
+                << "Description"
+                << "Indice de confort"
+                << "Fenétres"
+                << "Lumières";
+    modeleSalle = new QStandardItemModel(0, nomColonnes.size());
+    modeleSalle->setHorizontalHeaderLabels(nomColonnes);
+
+    tableViewSalles->setModel(modeleSalle);
+    tableViewSalles->setEditTriggers(QAbstractItemView::NoEditTriggers);
+
+    // Redimensionner automatiquement la colonne pour occuper l'espace
+    // disponible
+    tableViewSalles->horizontalHeader()->setSectionResizeMode(
+      QHeaderView::Stretch);
+    nbLignesSalle = modeleSalle->rowCount();
 }
 
 void IHMEcoClassroom::ajouterMenuAide()

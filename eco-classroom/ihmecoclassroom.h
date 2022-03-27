@@ -29,8 +29,6 @@ class IHMEcoClassroom;
 }
 QT_END_NAMESPACE
 
-class CommunicationMQTT;
-
 /**
  * @class IHMEcoClassroom
  * @brief Déclaration de la classe IHMEcoClassroom
@@ -46,12 +44,11 @@ class IHMEcoClassroom : public QMainWindow
 
   private:
     Ui::IHMEcoClassroom* ui; //!< la fenêtre graphique associée à cette classe
-    CommunicationMQTT*
-                         communicationMQTT; //!< association avec la classe CommunicationMQTT
     QStringList          nomColonnes;   //!< Liste de nom des colonnes
     int                  nbLignesSalle; //!< nombre de lignes
     QVector<QStringList> salle;         //!< Les salles
     QStandardItemModel*  modeleSalle;   //!< Modèle pour le QTableView
+    QTableView*          tableViewSalles;
 
     /**
      * @enum Fenetre
@@ -79,8 +76,9 @@ class IHMEcoClassroom : public QMainWindow
         NB_COLONNES
     };
 
-    void initialiser();
+    void initialiserAffichage();
 
+    void afficherFenetre();
     void ajouterMenuAide();
 
   public slots:

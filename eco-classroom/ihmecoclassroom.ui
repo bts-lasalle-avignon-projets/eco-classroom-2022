@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1058</width>
+    <width>691</width>
     <height>518</height>
    </rect>
   </property>
@@ -141,6 +141,9 @@
          </layout>
         </item>
         <item>
+         <widget class="QTableView" name="tableView"/>
+        </item>
+        <item>
          <layout class="QHBoxLayout" name="sallesLayout"/>
         </item>
        </layout>
@@ -180,8 +183,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1058</width>
-     <height>39</height>
+     <width>691</width>
+     <height>22</height>
     </rect>
    </property>
   </widget>
