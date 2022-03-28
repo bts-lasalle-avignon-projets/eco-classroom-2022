@@ -10,7 +10,16 @@
 
 #include <QtWidgets>
 
-#define NOM     "Eco-Classroom"
+/**
+ * @def NOM_APPLICATION
+ * @brief Le nom de l'application
+ */
+#define NOM "Eco-Classroom"
+
+/**
+ * @def VERSION_APPLICATION
+ * @brief La version de l'application
+ */
 #define VERSION "0.1"
 
 QT_BEGIN_NAMESPACE
@@ -19,8 +28,6 @@ namespace Ui
 class IHMEcoClassroom;
 }
 QT_END_NAMESPACE
-
-class CommunicationMQTT;
 
 /**
  * @class IHMEcoClassroom
@@ -37,9 +44,41 @@ class IHMEcoClassroom : public QMainWindow
 
   private:
     Ui::IHMEcoClassroom* ui; //!< la fenêtre graphique associée à cette classe
-    CommunicationMQTT*
-      communicationMQTT; //!< association avec la classe CommunicationMQTT
+    QStringList          nomColonnes;   //!< Liste de nom des colonnes
+    int                  nbLignesSalle; //!< nombre de lignes
+    QVector<QStringList> salles;        //!< Les salles
+    QStandardItemModel*  modeleSalle;   //!< Modèle pour le QTableView
 
+    /**
+     * @enum Fenetre
+     * @brief Définit les différentes fenêtres de l'IHM
+     *
+     */
+    enum Fenetre
+    {
+        Fenetre1 = 0,
+        Fenetre2,
+        NbFenetres
+    };
+
+    /**
+     * @enum ColonneSalle
+     * @brief Définit les différentes colonne du QTableView
+     */
+    enum ColonneSalle
+    {
+        COLONNE_SALLE_NOM,               //!< Emplacment de nom
+        COLONNE_SALLE_DESCRIPTION,       //!< Emplacment de description
+        COLONNE_SALLE_INDICE_DE_CONFORT, //!< Emplacment d'indice de confort
+        COLONNE_SALLE_FENETRES,          //!< Emplacment des fenétres
+        COLONNE_SALLE_LUMIERES,          //!< Emplacment des lumières
+        NB_COLONNES
+    };
+
+    void initialiserAffichage();
+    void chargerSalles();
+    void afficherSalleTable(QStringList salle);
+    void effacerTableSalles();
     void ajouterMenuAide();
 
   public slots:
