@@ -67,6 +67,7 @@ FROM Salle INNER JOIN IndiceConfort ON
 IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN IndiceQualiteAir
 ON IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir;
      */
+
     enum ChampsTableSalle
     {
         ID,                        //!< Emplacement de l'id dans la table
@@ -77,7 +78,6 @@ ON IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir;
         CODE,                      //!< Emplacement du code d'administration
         INDICE_DE_CONFORT,         //!< Emplacement de l'indice de confort
         LIBELLE_INDICE_DE_CONFORT, //!< Emplacement du libelle de l'indice de
-                                   //!< confort
         LIBELLE_QUALITE_AIR, //!< Emplacement du libelle de la qualité d'air
         ETAT_DES_FENETRES,   //!< Emplacement d'état des fenêtres
         ETAT_DES_LUMIERES,   //!< Emplacement d'état des lumieres

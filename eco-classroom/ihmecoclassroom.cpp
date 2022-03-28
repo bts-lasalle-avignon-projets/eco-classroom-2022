@@ -41,7 +41,7 @@ IHMEcoClassroom::~IHMEcoClassroom()
 void IHMEcoClassroom::initialiserAffichage()
 {
     qDebug() << Q_FUNC_INFO;
-    ui->statusbar->showMessage(QString::fromUtf8(NOM) + " " +
+    ui->statusbar->showMessage(QString::fromUtf8(NOM_APPLICATION) + " " +
                                QString::fromUtf8(VERSION));
 
     // Initialise le QTableView pour les salles
@@ -64,7 +64,7 @@ void IHMEcoClassroom::initialiserAffichage()
 /**
  * @brief Charge les données des salles dans le QTableView
  *
- * @fn IHM::chargerSalles
+ * @fn IHMEcoClassroom::chargerSalles
  */
 void IHMEcoClassroom::chargerSalles()
 {
@@ -72,11 +72,19 @@ void IHMEcoClassroom::chargerSalles()
 
     // Exemple simple (pour le test)
     QStringList uneSalle;
-    uneSalle << "B20"
+    uneSalle << "1"
+             << "B20"
+             << "Bat. BTS"
              << "Atelier BTS"
-             << "5 Tiède"
+             << "80"
+             << "1234"
+             << "5"
+             << "Tiède"
+             << "Bon"
              << "Fermées"
-             << "Eteintes";
+             << "Eteintes"
+             << "Libre";
+
     afficherSalleTable(uneSalle);
     // fin exemple
 }
@@ -84,31 +92,71 @@ void IHMEcoClassroom::chargerSalles()
 /**
  * @brief Affiche les données d'une salle dans le QTableView
  *
- * @fn IHM::afficherSalleTable
+ * @fn IHMEcoClassroom::afficherSalleTable
  * @param salle Les informations sur une salle
  */
 void IHMEcoClassroom::afficherSalleTable(QStringList salle)
 {
     qDebug() << Q_FUNC_INFO << salle;
 
-    /**
-     * @todo Implémenter la méthode en respectant les étapes ci-desssous
-     *
-     */
+    // Crée les items pour les cellules d'une ligne
+    QStandardItem* nom = new QStandardItem(salle.at(Salle::NOM));
+    QStandardItem* description =
+      new QStandardItem(salle.at(Salle::DESCRIPTION));
+    QStandardItem* indiceDeConfort =
+      new QStandardItem(salle.at(Salle::INDICE_DE_CONFORT));
+    QStandardItem* fenetres =
+      new QStandardItem(salle.at(Salle::ETAT_DES_FENETRES));
+    QStandardItem* lumieres =
+      new QStandardItem(salle.at(Salle::ETAT_DES_LUMIERES));
 
-    // Créer les items pour les cellules d'une ligne
+    // Ajoute les items dans le modèle de données
+    modeleSalle->setItem(nbLignesSalle,
+                         IHMEcoClassroom::COLONNE_SALLE_NOM,
+                         nom);
+    modeleSalle->setItem(nbLignesSalle,
+                         IHMEcoClassroom::COLONNE_SALLE_DESCRIPTION,
+                         description);
+    modeleSalle->setItem(nbLignesSalle,
+                         IHMEcoClassroom::COLONNE_SALLE_INDICE_DE_CONFORT,
+                         indiceDeConfort);
+    modeleSalle->setItem(nbLignesSalle,
+                         IHMEcoClassroom::COLONNE_SALLE_FENETRES,
+                         fenetres);
+    modeleSalle->setItem(nbLignesSalle,
+                         IHMEcoClassroom::COLONNE_SALLE_LUMIERES,
+                         lumieres);
 
-    // Ajouter les items dans le modèle de données
-
-    // Personnaliser l'affichage d'une ligne
+    // Personnalise l'affichage d'une ligne
+    QFont texte;
+    // texte.setPointSize(12);
+    texte.setBold(true);
+    for(int i = 0; i < nomColonnes.size(); ++i)
+    {
+        QStandardItem* item = modeleSalle->item(nbLignesSalle, i);
+        item->setBackground(QColor(255, 223, 0));
+        item->setFont(texte);
+    }
 
     // Incrémente le nombre de lignes
+    qDebug() << Q_FUNC_INFO << "nbLignesUtilisateurs" << nbLignesSalle;
+    nbLignesSalle += 1;
+
+    // Configure l'affichage du QTableView
+    ui->tableViewSalles->setSizePolicy(QSizePolicy::Minimum,
+                                       QSizePolicy::Minimum);
+    ui->tableViewSalles->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->tableViewSalles->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->tableViewSalles->setMinimumWidth(ui->centralwidget->width());
+    ui->tableViewSalles->setFixedHeight(
+      ui->tableViewSalles->verticalHeader()->length() +
+      ui->tableViewSalles->horizontalHeader()->height());
 }
 
 /**
  * @brief Efface les salles du QTableView
  *
- * @fn IHM::effacerTableSalles
+ * @fn IHMEcoClassroom::effacerTableSalles
  */
 void IHMEcoClassroom::effacerTableSalles()
 {
@@ -125,7 +173,8 @@ void IHMEcoClassroom::ajouterMenuAide()
     QMenu* menuAide = new QMenu(QString::fromUtf8("&Aide"), this);
     menuBar()->addMenu(menuAide);
 
-    menuAide->addAction(QString::fromUtf8("À propos ") + QString::fromUtf8(NOM),
+    menuAide->addAction(QString::fromUtf8("À propos ") +
+                          QString::fromUtf8(NOM_APPLICATION),
                         this,
                         SLOT(afficherAPropos()));
     menuAide->addAction(QString::fromUtf8("À propos de Qt"),
@@ -135,9 +184,9 @@ void IHMEcoClassroom::ajouterMenuAide()
 
 void IHMEcoClassroom::afficherAPropos()
 {
-    QMessageBox::about(this,
-                       QString::fromUtf8("À propos ..."),
-                       QString::fromUtf8("<p><b>") + QString::fromUtf8(NOM) +
-                         " " + QString::fromUtf8(VERSION) +
-                         QString::fromUtf8("</b><br/>...</p>"));
+    QMessageBox::about(
+      this,
+      QString::fromUtf8("À propos ..."),
+      QString::fromUtf8("<p><b>") + QString::fromUtf8(NOM_APPLICATION) + " " +
+        QString::fromUtf8(VERSION) + QString::fromUtf8("</b><br/>...</p>"));
 }
