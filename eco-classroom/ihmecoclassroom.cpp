@@ -64,7 +64,7 @@ void IHMEcoClassroom::initialiserAffichage()
 /**
  * @brief Charge les données des salles dans le QTableView
  *
- *  utilisateur@fn IHM::chargerSalles
+ * @fn IHMEcoClassroom::chargerSalles
  */
 void IHMEcoClassroom::chargerSalles()
 {
@@ -92,7 +92,7 @@ void IHMEcoClassroom::chargerSalles()
 /**
  * @brief Affiche les données d'une salle dans le QTableView
  *
- * @fn IHM::afficherSalleTable
+ * @fn IHMEcoClassroom::afficherSalleTable
  * @param salle Les informations sur une salle
  */
 void IHMEcoClassroom::afficherSalleTable(QStringList salle)
@@ -156,7 +156,7 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
 /**
  * @brief Efface les salles du QTableView
  *
- * @fn IHM::effacerTableSalles
+ * @fn IHMEcoClassroom::effacerTableSalles
  */
 void IHMEcoClassroom::effacerTableSalles()
 {
