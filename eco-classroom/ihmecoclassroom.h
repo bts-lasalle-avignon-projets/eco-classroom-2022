@@ -76,12 +76,14 @@ class IHMEcoClassroom : public QMainWindow
     };
 
     void initialiserAffichage();
-    void chargerSalles();
-    void afficherSalleTable(QStringList salle);
-    void effacerTableSalles();
     void ajouterMenuAide();
 
   public slots:
+    void chargerSalles();
+    void afficherSalleTable(QStringList salle);
+    void effacerTableSalles();
+    void afficherFenetre(IHMEcoClassroom::Fenetre fenetre);
+    void afficherFenetrePrincipale();
     void afficherAPropos();
 };
 

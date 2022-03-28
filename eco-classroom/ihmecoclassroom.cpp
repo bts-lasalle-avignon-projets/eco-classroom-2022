@@ -155,17 +155,6 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
 }
 
 /**
- * @brief Affiche la première fenêtre
- *
- * @fn IHMEcoClassroom:afficherFenetrePrincipale
- */
-void IHMEcoClassroom::afficherFenetrePrincipale()
-{
-    qDebug() << Q_FUNC_INFO;
-    afficherFenetre(IHMEcoClassroom::Fenetre1);
-}
-
-/**
  * @brief Efface les salles du QTableView
  *
  * @fn IHMEcoClassroom::effacerTableSalles
@@ -178,6 +167,30 @@ void IHMEcoClassroom::effacerTableSalles()
     modeleSalle->setHorizontalHeaderLabels(nomColonnes);
     ui->tableViewSalles->setModel(modeleSalle);
     nbLignesSalle = 0;
+}
+
+/**
+ * @brief Méthode qui permet d'afficher une fenêtre de la pile
+ * QStackedWidget
+ *
+ * @fn IHMEcoClassroom::afficherFenetre
+ * @param fenetre le numéro de fenêtre à afficher
+ */
+void IHMEcoClassroom::afficherFenetre(IHMEcoClassroom::Fenetre fenetre)
+{
+    qDebug() << Q_FUNC_INFO << "fenetre" << fenetre;
+    ui->fenetres->setCurrentIndex(fenetre);
+}
+
+/**
+ * @brief Affiche la première fenêtre
+ *
+ * @fn IHMEcoClassroom:afficherFenetrePrincipale
+ */
+void IHMEcoClassroom::afficherFenetrePrincipale()
+{
+    qDebug() << Q_FUNC_INFO;
+    afficherFenetre(IHMEcoClassroom::Fenetre1);
 }
 
 void IHMEcoClassroom::ajouterMenuAide()
