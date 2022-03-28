@@ -14,7 +14,7 @@
  * @def NOM_APPLICATION
  * @brief Le nom de l'application
  */
-#define NOM "Eco-Classroom"
+#define NOM_APPLICATION "Eco-Classroom"
 
 /**
  * @def VERSION_APPLICATION

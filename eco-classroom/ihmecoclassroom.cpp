@@ -72,11 +72,19 @@ void IHMEcoClassroom::chargerSalles()
 
     // Exemple simple (pour le test)
     QStringList uneSalle;
-    uneSalle << "B20"
+    uneSalle << "1"
+             << "B20"
+             << "Bat. BTS"
              << "Atelier BTS"
-             << "5 Tiède"
+             << "80"
+             << "1234"
+             << "5"
+             << "Tiède"
+             << "Bon"
              << "Fermées"
-             << "Eteintes";
+             << "Eteintes"
+             << "Libre";
+
     afficherSalleTable(uneSalle);
     // fin exemple
 }
@@ -91,12 +99,7 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
 {
     qDebug() << Q_FUNC_INFO << salle;
 
-    /**
-     * @todo Implémenter la méthode en respectant les étapes ci-desssous
-     *
-     */
-
-    // Créer les items pour les cellules d'une ligne
+    // Crée les items pour les cellules d'une ligne
     QStandardItem* nom = new QStandardItem(salle.at(Salle::NOM));
     QStandardItem* description =
       new QStandardItem(salle.at(Salle::DESCRIPTION));
@@ -107,7 +110,7 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
     QStandardItem* lumieres =
       new QStandardItem(salle.at(Salle::ETAT_DES_LUMIERES));
 
-    // Ajouter les items dans le modèle de données
+    // Ajoute les items dans le modèle de données
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_NOM,
                          nom);
@@ -124,7 +127,7 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
                          IHMEcoClassroom::COLONNE_SALLE_LUMIERES,
                          lumieres);
 
-    // Personnaliser l'affichage d'une ligne
+    // Personnalise l'affichage d'une ligne
     QFont texte;
     // texte.setPointSize(12);
     texte.setBold(true);
@@ -134,9 +137,9 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
         item->setBackground(QColor(255, 223, 0));
         item->setFont(texte);
     }
+
     // Incrémente le nombre de lignes
     qDebug() << Q_FUNC_INFO << "nbLignesUtilisateurs" << nbLignesSalle;
-
     nbLignesSalle += 1;
 
     // Configure l'affichage du QTableView
