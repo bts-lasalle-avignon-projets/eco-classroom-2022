@@ -19,25 +19,25 @@
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QVBoxLayout" name="principalLayout">
-      <item>
-       <spacer name="verticalSpacer2">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Minimum</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>40</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="hautLayout">
+     <widget class="QStackedWidget" name="fenetres">
+      <widget class="QWidget" name="fenetre1">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <spacer name="verticalSpacer2">
+          <property name="orientation">
+           <enum>Qt::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
         <item>
          <layout class="QHBoxLayout" name="enteteLayout">
           <property name="spacing">
@@ -97,52 +97,60 @@
           </item>
          </layout>
         </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="milieuLayout">
         <item>
-         <layout class="QHBoxLayout" name="titreLayout">
-          <property name="bottomMargin">
-           <number>20</number>
-          </property>
+         <layout class="QVBoxLayout" name="principalLayout">
+          <item>
+           <layout class="QVBoxLayout" name="hautLayout"/>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="milieuLayout">
+            <item>
+             <layout class="QHBoxLayout" name="titreLayout">
+              <property name="bottomMargin">
+               <number>20</number>
+              </property>
+             </layout>
+            </item>
+            <item>
+             <widget class="QTableView" name="tableViewSalles"/>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="sallesLayout"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <spacer name="verticalSpacer1">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Ignored</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QVBoxLayout" name="basLayout">
+            <property name="leftMargin">
+             <number>30</number>
+            </property>
+            <property name="topMargin">
+             <number>90</number>
+            </property>
+           </layout>
+          </item>
          </layout>
         </item>
-        <item>
-         <widget class="QTableView" name="tableViewSalles"/>
-        </item>
-        <item>
-         <layout class="QHBoxLayout" name="sallesLayout"/>
-        </item>
        </layout>
-      </item>
-      <item>
-       <spacer name="verticalSpacer1">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Ignored</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <layout class="QVBoxLayout" name="basLayout">
-        <property name="leftMargin">
-         <number>30</number>
-        </property>
-        <property name="topMargin">
-         <number>90</number>
-        </property>
-       </layout>
-      </item>
-     </layout>
+      </widget>
+      <widget class="QWidget" name="fenetre2"/>
+     </widget>
     </item>
    </layout>
   </widget>
