@@ -59,6 +59,7 @@ void IHMEcoClassroom::initialiserAffichage()
     nbLignesSalle = modeleSalle->rowCount();
 
     chargerSalles();
+    afficherFenetre(IHMEcoClassroom::Fenetre1);
 }
 
 /**
@@ -151,6 +152,17 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
     ui->tableViewSalles->setFixedHeight(
       ui->tableViewSalles->verticalHeader()->length() +
       ui->tableViewSalles->horizontalHeader()->height());
+}
+
+/**
+ * @brief Affiche la première fenêtre
+ *
+ * @fn IHMEcoClassroom:afficherFenetrePrincipale
+ */
+void IHMEcoClassroom::afficherFenetrePrincipale()
+{
+    qDebug() << Q_FUNC_INFO;
+    afficherFenetre(IHMEcoClassroom::Fenetre1);
 }
 
 /**
