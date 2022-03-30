@@ -2,6 +2,10 @@
 
 TODO
 
+## Kanban
+
+[eco-classroom-2022](https://github.com/btssn-lasalle-84/eco-classroom-2022/projects/1)
+
 ## Qt MQTT
 
 [Qt MQTT](https://doc.qt.io/QtMQTT/index.html) fournit une implémentation conforme à la norme MQTT.
