@@ -10,12 +10,14 @@ SOURCES += \
     communicationmqtt.cpp \
     main.cpp \
     ihmecoclassroom.cpp \
+    mesure.cpp \
     salle.cpp
 
 HEADERS += \
     basededonnees.h \
     communicationmqtt.h \
     ihmecoclassroom.h \
+    mesure.h \
     salle.h
 
 FORMS += \
