@@ -2,7 +2,7 @@
 #define MESURE_H
 
 /**
- * @file mesure
+ * @file mesure.h
  * @brief Déclaration de la classe  Mesure
  * @author Zeryouhi Mohamed Amine
  * @version 0.1
@@ -12,22 +12,28 @@
  * @class Mesure
  * @brief Déclaration de la classe Mesure
  */
-
 class Mesure
 {
   private:
-    int    temperature; //!< la temperature d'une salle
-    int    humidite;    //!< humidite du salle
-    int    co2;         //!< le taux de co2 dans une salle
-    double luminosite;  //!< la luminosite d'une salle
+    double temperature; //!< la température dans la salle
+    int    humidite;    //!< l'humidité dans la salle
+    int    co2;         //!< le taux de CO2 dans la salle
+    int    luminosite;  //!< la luminosite dans la salle
 
   public:
     Mesure();
+    Mesure(double temperature, int humidite, int co2, int luminosite);
     ~Mesure();
 
-    int    getTemperature() const;
+    double getTemperature() const;
     int    getHumidite() const;
     int    getCo2() const;
-    double getLuminosite() const;
+    int    getLuminosite() const;
+
+    void setTemperature(double temperature);
+    void setHumidite(int humidite);
+    void setCo2(int co2);
+    void setLuminosite(int luminosite);
+};
 
 #endif // MESURE_H

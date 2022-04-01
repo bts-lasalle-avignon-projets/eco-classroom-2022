@@ -186,6 +186,9 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
 void IHMEcoClassroom::effacerTableSalles()
 {
     qDebug() << Q_FUNC_INFO;
+    /**
+     * @bug Agrandit le TableView à chaque effaçage
+     */
     salles.clear();
     modeleSalle->clear();
     modeleSalle->setHorizontalHeaderLabels(nomColonnes);
