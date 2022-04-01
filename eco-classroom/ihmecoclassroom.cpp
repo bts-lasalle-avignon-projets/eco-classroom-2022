@@ -24,6 +24,8 @@ IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
     ui->setupUi(this);
     ajouterMenuAide();
     initialiserAffichage();
+
+    gererEvenements();
 }
 
 /**
@@ -60,6 +62,28 @@ void IHMEcoClassroom::initialiserAffichage()
 
     chargerSalles();
     afficherFenetre(IHMEcoClassroom::Fenetre1);
+}
+
+/**
+ * @brief assla connexion des signaux et slots
+ *
+ * @fn IHMEcoClassroom::gererEvenements()
+ */
+void IHMEcoClassroom::gererEvenements()
+{
+    qDebug() << Q_FUNC_INFO;
+    connect(ui->boutonCharger,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(chargerSalles()));
+    connect(ui->boutonEffacer,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(chargerSalles()));
+    connect(ui->boutonCharger,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(effacerTableSalles()));
 }
 
 /**
@@ -195,6 +219,7 @@ void IHMEcoClassroom::afficherFenetrePrincipale()
 
 void IHMEcoClassroom::ajouterMenuAide()
 {
+    qDebug() << Q_FUNC_INFO;
     QMenu* menuAide = new QMenu(QString::fromUtf8("&Aide"), this);
     menuBar()->addMenu(menuAide);
 

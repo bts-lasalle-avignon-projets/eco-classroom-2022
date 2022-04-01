@@ -77,6 +77,7 @@ class IHMEcoClassroom : public QMainWindow
 
     void initialiserAffichage();
     void ajouterMenuAide();
+    void gererEvenements();
 
   public slots:
     void chargerSalles();
