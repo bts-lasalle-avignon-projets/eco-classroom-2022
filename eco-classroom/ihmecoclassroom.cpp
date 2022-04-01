@@ -79,10 +79,6 @@ void IHMEcoClassroom::gererEvenements()
     connect(ui->boutonEffacer,
             SIGNAL(clicked(bool)),
             this,
-            SLOT(chargerSalles()));
-    connect(ui->boutonCharger,
-            SIGNAL(clicked(bool)),
-            this,
             SLOT(effacerTableSalles()));
 }
 
