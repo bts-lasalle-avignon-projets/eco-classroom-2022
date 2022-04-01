@@ -91,7 +91,7 @@ format 224
       end
 
       attribute 128143 "lieu"
-	private explicit_type "String"
+	private explicit_type "QString"
 	cpp_decl ""
 	java_decl ""
 	php_decl ""
@@ -283,7 +283,7 @@ ${members}};
       mysql_decl ""
       
       attribute 130063 "hostname"
-	private explicit_type "String"
+	private explicit_type "QString"
 	cpp_decl ""
 	java_decl ""
 	php_decl ""
@@ -352,7 +352,7 @@ ${members}};
       mysql_decl ""
       
       attribute 128023 "temperature"
-	private explicit_type "int"
+	private explicit_type "double"
 	cpp_decl ""
 	java_decl ""
 	php_decl ""
@@ -429,7 +429,7 @@ ${members}};
       end
 
       attribute 128663 "qualificatif"
-	private explicit_type "String"
+	private explicit_type "QString"
 	cpp_decl ""
 	java_decl ""
 	php_decl ""
@@ -455,7 +455,7 @@ ${members}};
       mysql_decl ""
       
       attribute 128791 "qualificatif"
-	private explicit_type "String"
+	private explicit_type "QString"
 	cpp_decl ""
 	java_decl ""
 	php_decl ""
