@@ -150,7 +150,7 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
 
     // Personnalise l'affichage d'une ligne
     QFont texte;
-    // texte.setPointSize(12);
+    texte.setPointSize(12);
     texte.setBold(true);
     for(int i = 0; i < nomColonnes.size(); ++i)
     {
@@ -168,10 +168,11 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
                                        QSizePolicy::Minimum);
     ui->tableViewSalles->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->tableViewSalles->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    ui->tableViewSalles->setMinimumWidth(ui->centralwidget->width());
     ui->tableViewSalles->setFixedHeight(
       ui->tableViewSalles->verticalHeader()->length() +
       ui->tableViewSalles->horizontalHeader()->height());
+
+
 }
 
 /**
