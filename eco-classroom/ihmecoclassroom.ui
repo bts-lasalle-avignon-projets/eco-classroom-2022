@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>901</width>
-    <height>556</height>
+    <width>645</width>
+    <height>379</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -189,7 +189,193 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="fenetre2"/>
+      <widget class="QWidget" name="fenetre2">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayoutPrincipale">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutNom">
+            <item>
+             <widget class="QLabel" name="labelNom">
+              <property name="text">
+               <string>Nom :</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutLieu">
+            <item>
+             <widget class="QLabel" name="labelLieu">
+              <property name="text">
+               <string>Lieu : </string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutDescription">
+            <item>
+             <widget class="QLabel" name="labelDescription">
+              <property name="text">
+               <string>Description  :</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutSurface">
+            <item>
+             <widget class="QLabel" name="labelSurface">
+              <property name="text">
+               <string>Surface :</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutTemperateur">
+            <item>
+             <widget class="QLabel" name="labelTemperateur">
+              <property name="text">
+               <string>Temperateur : </string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutConfort">
+            <item>
+             <widget class="QLabel" name="labelIndicDeConfort">
+              <property name="text">
+               <string>Indice de confort</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutAir">
+            <item>
+             <widget class="QLabel" name="labelAir">
+              <property name="text">
+               <string>Qaulité d'air</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutTaux">
+            <item>
+             <widget class="QLabel" name="labelCo2">
+              <property name="text">
+               <string>Taux de CO2 : </string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutEtat">
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelFenetres">
+              <property name="text">
+               <string>Fenêtres</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelLumieres">
+              <property name="text">
+               <string>Lumières</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer_6">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout"/>
+          </item>
+          <item>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutButton">
+            <item>
+             <widget class="QPushButton" name="buttonAccueil">
+              <property name="text">
+               <string>Accueil</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonEditer">
+              <property name="text">
+               <string>Éditer Salle</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -199,7 +385,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>901</width>
+     <width>645</width>
      <height>22</height>
     </rect>
    </property>

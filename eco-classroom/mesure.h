@@ -34,6 +34,14 @@ class Mesure
     void setHumidite(int humidite);
     void setCo2(int co2);
     void setLuminosite(int luminosite);
+
+    enum ChampsTableSalle
+    {
+        TEMPERATEUR, //!< Emplacement de températeur de la salle
+        HUMIDITE,    //!< Emplacement d'humidité de la salle
+        CO2,         //!< Emplacement de taux de co2 de la salle
+        LUMINOSITE,  //!< Emplacement de la luminosité de la salle
+    };
 };
 
 #endif // MESURE_H

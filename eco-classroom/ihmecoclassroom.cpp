@@ -1,6 +1,8 @@
 #include "ihmecoclassroom.h"
 #include "ui_ihmecoclassroom.h"
+#include "basededonnees.h"
 #include "salle.h"
+#include "mesure.h"
 #include <QDebug>
 
 /**
@@ -22,6 +24,8 @@ IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
 {
     qDebug() << Q_FUNC_INFO;
     ui->setupUi(this);
+    baseDeDonnees = BaseDeDonnees::getInstance();
+    baseDeDonnees->ouvrir("/home/zeryouhi/Téléchargements/eco-classroom.db");
     ajouterMenuAide();
     initialiserAffichage();
 
@@ -80,6 +84,14 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(bool)),
             this,
             SLOT(effacerTableSalles()));
+    connect(ui->tableViewSalles,
+            SIGNAL(clicked(QModelIndex)),
+            this,
+            SLOT(selectionner(QModelIndex)));
+    connect(ui->buttonAccueil,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(afficherFenetrePrincipale()));
 }
 
 /**
@@ -91,23 +103,14 @@ void IHMEcoClassroom::chargerSalles()
 {
     effacerTableSalles();
 
-    // Exemple simple (pour le test)
-    QStringList uneSalle;
-    uneSalle << "1"
-             << "B20"
-             << "Bat. BTS"
-             << "Atelier BTS"
-             << "80"
-             << "1234"
-             << "5"
-             << "Tiède"
-             << "Bon"
-             << "Fermées"
-             << "Eteintes"
-             << "Libre";
+    QString requete = "SELECT * FROM Salle";
+    bool    retour;
 
-    afficherSalleTable(uneSalle);
-    // fin exemple
+    retour = baseDeDonnees->recuperer(requete, salles);
+    qDebug() << Q_FUNC_INFO << retour;
+    qDebug() << Q_FUNC_INFO << salles;
+    for(int i = 0; i < salles.size(); ++i)
+        afficherSalleTable(salles.at(i));
 }
 
 /**
@@ -182,14 +185,37 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
 void IHMEcoClassroom::effacerTableSalles()
 {
     qDebug() << Q_FUNC_INFO;
-    /**
-     * @bug Agrandit le TableView à chaque effaçage
-     */
+
     salles.clear();
     modeleSalle->clear();
     modeleSalle->setHorizontalHeaderLabels(nomColonnes);
     ui->tableViewSalles->setModel(modeleSalle);
     nbLignesSalle = 0;
+}
+
+void IHMEcoClassroom::selectionner(QModelIndex index)
+{
+    qDebug() << Q_FUNC_INFO << index.row(); // le numéro de ligne
+    qDebug() << Q_FUNC_INFO
+             << index.data().toString(); // le contenu de la cellule
+    qDebug() << Q_FUNC_INFO << modeleSalle->item(index.row(), 0)->text(); //
+    qDebug() << Q_FUNC_INFO << salles.at(index.row());
+
+    ui->labelNom->setText(salles.at(index.row()).at(Salle::NOM));
+    ui->labelLieu->setText(salles.at(index.row()).at(Salle::LIEU));
+    ui->labelDescription->setText(
+      salles.at(index.row()).at(Salle::DESCRIPTION));
+    ui->labelSurface->setText(salles.at(index.row()).at(Salle::SUPERFICIE));
+    ui->labelAir->setText(
+      salles.at(index.row()).at(Salle::LIBELLE_QUALITE_AIR));
+    ui->labelIndicDeConfort->setText(
+      salles.at(index.row()).at(Salle::INDICE_DE_CONFORT));
+    ui->labelCo2->setText(salles.at(index.row()).at(Mesure::CO2));
+    ui->labelTemperateur->setText(
+      salles.at(index.row()).at(Mesure::TEMPERATEUR));
+
+    // Affiche la fenêtre associée
+    afficherFenetre(IHMEcoClassroom::Fenetre2);
 }
 
 /**

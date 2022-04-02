@@ -27,6 +27,8 @@ namespace Ui
 {
 class IHMEcoClassroom;
 }
+
+class BaseDeDonnees;
 QT_END_NAMESPACE
 
 /**
@@ -44,6 +46,7 @@ class IHMEcoClassroom : public QMainWindow
 
   private:
     Ui::IHMEcoClassroom* ui; //!< la fenêtre graphique associée à cette classe
+    BaseDeDonnees*       baseDeDonnees; //!< base de donnes
     QStringList          nomColonnes;   //!< Liste de nom des colonnes
     int                  nbLignesSalle; //!< nombre de lignes
     QVector<QStringList> salles;        //!< Les salles
@@ -83,6 +86,7 @@ class IHMEcoClassroom : public QMainWindow
     void chargerSalles();
     void afficherSalleTable(QStringList salle);
     void effacerTableSalles();
+    void selectionner(QModelIndex index);
     void afficherFenetre(IHMEcoClassroom::Fenetre fenetre);
     void afficherFenetrePrincipale();
     void afficherAPropos();
