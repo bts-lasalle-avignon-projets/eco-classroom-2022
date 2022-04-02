@@ -25,7 +25,7 @@ IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
     qDebug() << Q_FUNC_INFO;
     ui->setupUi(this);
     baseDeDonnees = BaseDeDonnees::getInstance();
-    baseDeDonnees->ouvrir("/home/zeryouhi/Téléchargements/eco-classroom.db");
+    baseDeDonnees->ouvrir("eco-classroom.db");
     ajouterMenuAide();
     initialiserAffichage();
 
