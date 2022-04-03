@@ -1,10 +1,176 @@
-# eco-classroom-2022
+# Le projet eco-classroom-2022
 
-TODO
+- [Le projet eco-classroom-2022](#le-projet-eco-classroom-2022)
+  - [Présentation](#présentation)
+  - [Fonctionnalités attendues](#fonctionnalités-attendues)
+  - [Ressources logicielles](#ressources-logicielles)
+  - [Historique des versions](#historique-des-versions)
+  - [Auteur](#auteur)
+  - [Kanban](#kanban)
+  - [Base de données](#base-de-données)
+  - [Qt MQTT](#qt-mqtt)
+
+## Présentation
+
+Assurer une supervision de salles dans un établissement scolaire.
+
+Chaque salle sera équipée de deux modules connectés afin de détecter et mesurer l’état de celle-ci :
+
+- température, humidité, luminosité et qualité de l’air
+- état ouverture/fermeture des fenêtres et l’état allumé/éteint des lumières
+
+Les informations seront accessibles à partir d’une application PC permettant aux personnels d’assurer un suivi et d’intervenir en conséquence.
+
+## Fonctionnalités attendues
+
+- [ ] détecter l’état ouverture/fermeture des fenêtres et l’état allumé/éteint des lumières, la présence dans une salle (en option)
+- [ ] de mesurer la luminosité, la température, l’humidité, le CO 2 , les composés organiques volatils et les particules fines (en option) pour évaluer un niveau de confort et de la qualité d’air
+- [ ] de paramétrer à distance certains seuils d’alerte
+- [ ] de superviser l’ensemble des salles afin d’intervenir directement dans les salles concernées (aérer ou fermer les fenêtres, éteindre les lumières)
+
+## Ressources logicielles
+
+| Désignation  | Caractéristiques |
+| ------------ |:----------------:|
+| Environnement de développement | Qt Creator |
+| Bibliothèque logicielle | Qt 5.12.8, QtMqtt |
+| Gestionnaire de versions | Git (Hébergement : Github) |
+| Générateur de diagrammes UML | BOUML 7.11 |
+| Planification | Beesbusy |
+| Gestion de projet logiciel | Jira |
+| OS du poste de développement | Ubuntu 20.04.1 |
+
+## Historique des versions
+
+- Version 0.1 : 03/04/2022
+  - affichage de la liste des salles à partir de la base de données
+  - affichage des informations d'une salle en la sélectionnant dans la liste
+  - mise en oeuvre de la communication MQTT
+
+## Auteur
+
+- Amine Zeryouhi <<aminzer2022@gmail.com>>
 
 ## Kanban
 
 [eco-classroom-2022](https://github.com/btssn-lasalle-84/eco-classroom-2022/projects/1)
+
+## Base de données
+
+L'application Qt embarque une base de données SQLite `eco-classroom.db`.
+
+Structure de la base de données :
+
+```sql
+-- Structure de la table IndiceConfort
+-- indice : facultatif (peut être calculé à partir de l'id)
+
+CREATE TABLE IF NOT EXISTS IndiceConfort(idIndiceConfort INTEGER PRIMARY KEY, indice INTEGER, libelle VARCHAR);
+
+-- Structure de la table IndiceQualiteAir
+
+CREATE TABLE IF NOT EXISTS IndiceQualiteAir(idIndiceQualiteAir INTEGER PRIMARY KEY, libelle VARCHAR);
+
+-- Structure de la table Salle
+
+CREATE TABLE IF NOT EXISTS Salle(
+    idSalle INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom VARCHAR,
+    lieu VARCHAR,
+    description VARCHAR,
+    superficie INTEGER DEFAULT 0,
+    code VARCHAR(4),
+    idIndiceConfort INTEGER DEFAULT -1,
+    idIndiceQualiteAir INTEGER DEFAULT 0,
+    etatFenetres INTEGER DEFAULT 0, -- Boolean values are stored as integers 0 (false) and 1 (true)
+    etatLumieres INTEGER DEFAULT 0,
+    estOccupe INTEGER DEFAULT 0,
+    estFavori INTEGER DEFAULT 0,
+    CONSTRAINT IndiceConfort_fk_1 FOREIGN KEY (idIndiceConfort) REFERENCES IndiceConfort(idIndiceConfort),
+    CONSTRAINT IndiceQualiteAir_fk_1 FOREIGN KEY (idIndiceQualiteAir) REFERENCES IndiceQualiteAir(idIndiceQualiteAir)
+);
+
+-- Structure de la table Mesure
+
+CREATE TABLE IF NOT EXISTS Mesure(
+    idMesure INTEGER PRIMARY KEY AUTOINCREMENT,
+    idSalle INTEGER NOT NULL,
+    temperature DECIMAL(3,1), -- de -99.9 à 99.9
+    luminosite SMALLINT UNSIGNED,
+    humidite TINYINT UNSIGNED,
+    co2 SMALLINT UNSIGNED,
+    horodatage DATETIME NOT NULL,
+    CONSTRAINT Salle_fk_1 FOREIGN KEY (idSalle) REFERENCES Salle(idSalle)
+);
+
+-- Structure de la table SeuilsAlerte
+
+CREATE TABLE IF NOT EXISTS SeuilsAlerte(
+    idSalle INTEGER NOT NULL,
+    temperatureMin DOUBLE NULL,
+    temperatureMax DOUBLE NULL,
+    luminositeMin INTEGER NULL,
+    luminositeMax INTEGER NULL,
+    humiditeMin INTEGER NULL,
+    humiditeMax INTEGER NULL,
+    co2Min INTEGER NULL,
+    co2Max INTEGER NULL,
+    PRIMARY KEY (idSalle),
+    CONSTRAINT Salle_fk_2 FOREIGN KEY (idSalle) REFERENCES Salle(idSalle)
+);
+
+-- Structure de la table BrokerMQTT
+-- mqtt(s)://[username[:password]@]host[:port]/topic
+
+CREATE TABLE IF NOT EXISTS BrokerMQTT(
+    idBrokerMQTT INTEGER PRIMARY KEY AUTOINCREMENT,
+    hostname VARCHAR NOT NULL,
+    port INTEGER NOT NULL DEFAULT 1883,
+    username VARCHAR DEFAULT NULL,
+    `password` VARCHAR DEFAULT NULL,
+    estActif INTEGER DEFAULT 1,
+);
+```
+
+Initialisation de la base de données :
+
+```sql
+--- Table IndiceConfort
+
+INSERT INTO IndiceConfort(idIndiceConfort,indice,libelle) VALUES
+(-1,0,'inconnu'),
+(0,-3,'froid'),
+(1,-2,'frais'),
+(2,-1,'légèrement frais'),
+(3,0,'neutre'),
+(4,1,'légèrement tiède'),
+(5,2,'tiède'),
+(6,3,'chaud');
+
+--- Table IndiceQualiteAir
+
+INSERT INTO IndiceQualiteAir(idIndiceQualiteAir,libelle) VALUES
+(0,'inconnu'),
+(1,'très bon'),
+(2,'bon'),
+(3,'moyen'),
+(4,'médiocre'),
+(5,'mauvais'),
+(6,'très mauvais');
+```
+
+Quelques données de test :
+
+```sql
+--- Table Salle
+
+INSERT INTO Salle(nom, lieu, description, superficie, code) VALUES ('B11','Bat. BTS','Cours','15','0000');
+INSERT INTO Salle(nom, lieu, description, superficie, code) VALUES ('B20','Bat. BTS','Atelier','60','1234');
+INSERT INTO Salle(nom, lieu, description, superficie, code) VALUES ('B21','Bat. BTS','Labo','40','1234');
+INSERT INTO Salle(nom, lieu, description, superficie, code) VALUES ('B22','Bat. BTS','Cours','50','6666');
+
+INSERT INTO BrokerMQTT(hostname,estActif) VALUES ('192.168.52.7',1);
+```
 
 ## Qt MQTT
 
@@ -35,7 +201,7 @@ $ cd qtmqtt/
 $ sudo git checkout 5.12.8
 ```
 
-4. Installer le paquet fournissant les fichiers d'en-tête de développement indépendants 
+4. Installer le paquet fournissant les fichiers d'en-tête de développement indépendants
 
 ```sh
 $ sudo apt install qtbase5-private-dev
