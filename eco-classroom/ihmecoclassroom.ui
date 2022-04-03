@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>645</width>
-    <height>379</height>
+    <height>660</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -202,6 +202,13 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QLabel" name="labelNomSalle">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
@@ -210,6 +217,13 @@
              <widget class="QLabel" name="labelLieu">
               <property name="text">
                <string>Lieu : </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelLieuSalle">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
@@ -224,6 +238,13 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QLabel" name="labelDescriptionSalle">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
@@ -235,14 +256,10 @@
               </property>
              </widget>
             </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayoutTemperateur">
             <item>
-             <widget class="QLabel" name="labelTemperateur">
+             <widget class="QLabel" name="labelSurfaceSalle">
               <property name="text">
-               <string>Temperateur : </string>
+               <string/>
               </property>
              </widget>
             </item>
@@ -251,9 +268,16 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayoutConfort">
             <item>
-             <widget class="QLabel" name="labelIndicDeConfort">
+             <widget class="QLabel" name="labelIndiceDeConfort">
               <property name="text">
-               <string>Indice de confort</string>
+               <string>Indice de confort :</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelIndiceDeConfortSalle">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
@@ -264,7 +288,14 @@
             <item>
              <widget class="QLabel" name="labelAir">
               <property name="text">
-               <string>Qaulité d'air</string>
+               <string>Qualité d'air :</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelAirSalle">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
@@ -279,27 +310,46 @@
               </property>
              </widget>
             </item>
+            <item>
+             <widget class="QLabel" name="labelCo2Salle">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayoutTemperateur">
+            <item>
+             <widget class="QLabel" name="labelTemperature">
+              <property name="text">
+               <string>Température : </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelTemperatureSalle">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
            </layout>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayoutEtat">
             <item>
-             <spacer name="horizontalSpacer_4">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
              <widget class="QLabel" name="labelFenetres">
               <property name="text">
-               <string>Fenêtres</string>
+               <string>Fenêtres :</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelFenetresSalle">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
@@ -319,7 +369,14 @@
             <item>
              <widget class="QLabel" name="labelLumieres">
               <property name="text">
-               <string>Lumières</string>
+               <string>Lumières :</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelLumieresSalle">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
@@ -386,7 +443,7 @@
      <x>0</x>
      <y>0</y>
      <width>645</width>
-     <height>22</height>
+     <height>39</height>
     </rect>
    </property>
   </widget>

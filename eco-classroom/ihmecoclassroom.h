@@ -70,11 +70,12 @@ class IHMEcoClassroom : public QMainWindow
      */
     enum ColonneSalle
     {
-        COLONNE_SALLE_NOM,               //!< Emplacment de nom
-        COLONNE_SALLE_DESCRIPTION,       //!< Emplacment de description
-        COLONNE_SALLE_INDICE_DE_CONFORT, //!< Emplacment d'indice de confort
-        COLONNE_SALLE_FENETRES,          //!< Emplacment des fenétres
-        COLONNE_SALLE_LUMIERES,          //!< Emplacment des lumières
+        COLONNE_SALLE_NOM,               //!< Emplacement de nom
+        COLONNE_SALLE_DESCRIPTION,       //!< Emplacement de description
+        COLONNE_SALLE_INDICE_DE_CONFORT, //!< Emplacement d'indice de confort
+        COLONNE_SALLE_QUALITE_AIR, //!< Emplacement d'indice de qualité d'air
+        COLONNE_SALLE_FENETRES,    //!< Emplacement des fenétres
+        COLONNE_SALLE_LUMIERES,    //!< Emplacement des lumières
         NB_COLONNES
     };
 

@@ -22,6 +22,23 @@ Mesure::Mesure() : temperature(0.), humidite(0), co2(0), luminosite(0)
  * @brief Mesure::Mesure
  *
  * @brief Constructeur d'initialisation de la classe Mesure
+ * @param mesure
+ */
+Mesure::Mesure(QStringList mesure)
+{
+    if(!mesure.isEmpty())
+    {
+        temperature = mesure.at(ChampsTableMesure::TEMPERATURE).toDouble();
+        humidite    = mesure.at(ChampsTableMesure::HUMIDITE).toInt();
+        co2         = mesure.at(ChampsTableMesure::CO2).toInt();
+        luminosite  = mesure.at(ChampsTableMesure::LUMINOSITE).toInt();
+    }
+}
+
+/**
+ * @brief Mesure::Mesure
+ *
+ * @brief Constructeur d'initialisation de la classe Mesure
  * @param temperature
  * @param humidite
  * @param co2

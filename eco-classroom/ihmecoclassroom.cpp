@@ -54,6 +54,7 @@ void IHMEcoClassroom::initialiserAffichage()
     nomColonnes << "Nom"
                 << "Description"
                 << "Indice de confort"
+                << "Qualité d'air"
                 << "Fenêtres"
                 << "Lumières";
     modeleSalle = new QStandardItemModel(0, nomColonnes.size());
@@ -103,14 +104,25 @@ void IHMEcoClassroom::chargerSalles()
 {
     effacerTableSalles();
 
-    QString requete = "SELECT * FROM Salle";
-    bool    retour;
+    QString requete =
+      "SELECT Salle.idSalle,"
+      "Salle.nom,Salle.lieu,Salle.description,Salle.superficie,Salle.code,"
+      "IndiceConfort.indice AS indiceConfort,IndiceConfort.libelle AS "
+      "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
+      "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,Salle."
+      "estOccupe FROM Salle INNER JOIN IndiceConfort ON "
+      "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
+      "IndiceQualiteAir ON "
+      "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir";
+    bool retour;
 
     retour = baseDeDonnees->recuperer(requete, salles);
-    qDebug() << Q_FUNC_INFO << retour;
     qDebug() << Q_FUNC_INFO << salles;
-    for(int i = 0; i < salles.size(); ++i)
-        afficherSalleTable(salles.at(i));
+    if(retour)
+    {
+        for(int i = 0; i < salles.size(); ++i)
+            afficherSalleTable(salles.at(i));
+    }
 }
 
 /**
@@ -127,12 +139,20 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
     QStandardItem* nom = new QStandardItem(salle.at(Salle::NOM));
     QStandardItem* description =
       new QStandardItem(salle.at(Salle::DESCRIPTION));
-    QStandardItem* indiceDeConfort =
-      new QStandardItem(salle.at(Salle::INDICE_DE_CONFORT));
-    QStandardItem* fenetres =
-      new QStandardItem(salle.at(Salle::ETAT_DES_FENETRES));
-    QStandardItem* lumieres =
-      new QStandardItem(salle.at(Salle::ETAT_DES_LUMIERES));
+    QString libelleIndiceConfort = salle.at(Salle::LIBELLE_INDICE_DE_CONFORT);
+    libelleIndiceConfort.replace(0, 1, libelleIndiceConfort.at(0).toUpper());
+    QStandardItem* indiceDeConfort   = new QStandardItem(libelleIndiceConfort);
+    QString        libelleQualiteAir = salle.at(Salle::LIBELLE_QUALITE_AIR);
+    libelleQualiteAir.replace(0, 1, libelleQualiteAir.at(0).toUpper());
+    QStandardItem* qualiteAir   = new QStandardItem(libelleQualiteAir);
+    QString        etatFenetres = "Fermées";
+    if(salle.at(Salle::ETAT_DES_FENETRES).toInt())
+        etatFenetres = "Ouvertes";
+    QStandardItem* fenetres     = new QStandardItem(etatFenetres);
+    QString        etatLumieres = "Éteintes";
+    if(salle.at(Salle::ETAT_DES_LUMIERES).toInt())
+        etatLumieres = "Allumées";
+    QStandardItem* lumieres = new QStandardItem(etatLumieres);
 
     // Ajoute les items dans le modèle de données
     modeleSalle->setItem(nbLignesSalle,
@@ -144,6 +164,9 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_INDICE_DE_CONFORT,
                          indiceDeConfort);
+    modeleSalle->setItem(nbLignesSalle,
+                         IHMEcoClassroom::COLONNE_SALLE_QUALITE_AIR,
+                         qualiteAir);
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_FENETRES,
                          fenetres);
@@ -163,7 +186,7 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
     }
 
     // Incrémente le nombre de lignes
-    qDebug() << Q_FUNC_INFO << "nbLignesUtilisateurs" << nbLignesSalle;
+    qDebug() << Q_FUNC_INFO << "nbLignesSalle" << nbLignesSalle;
     nbLignesSalle += 1;
 
     // Configure l'affichage du QTableView
@@ -184,7 +207,7 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
 void IHMEcoClassroom::effacerTableSalles()
 {
     qDebug() << Q_FUNC_INFO;
-  
+
     salles.clear();
     modeleSalle->clear();
     modeleSalle->setHorizontalHeaderLabels(nomColonnes);
@@ -194,26 +217,58 @@ void IHMEcoClassroom::effacerTableSalles()
 
 void IHMEcoClassroom::selectionner(QModelIndex index)
 {
-    qDebug() << Q_FUNC_INFO << index.row(); // le numéro de ligne
-    qDebug() << Q_FUNC_INFO
-             << index.data().toString(); // le contenu de la cellule
-    qDebug() << Q_FUNC_INFO << modeleSalle->item(index.row(), 0)->text(); //
+    qDebug() << Q_FUNC_INFO << "numéro de ligne"
+             << index.row(); // le numéro de ligne
     qDebug() << Q_FUNC_INFO << salles.at(index.row());
 
-    ui->labelNom->setText(salles.at(index.row()).at(Salle::NOM));
-    ui->labelLieu->setText(salles.at(index.row()).at(Salle::LIEU));
-    ui->labelDescription->setText(
-      salles.at(index.row()).at(Salle::DESCRIPTION));
-    ui->labelSurface->setText(salles.at(index.row()).at(Salle::SUPERFICIE));
-    ui->labelAir->setText(
-      salles.at(index.row()).at(Salle::LIBELLE_QUALITE_AIR));
-    ui->labelIndicDeConfort->setText(
-      salles.at(index.row()).at(Salle::INDICE_DE_CONFORT));
-    ui->labelCo2->setText(salles.at(index.row()).at(Mesure::CO2));
-    ui->labelTemperateur->setText(
-      salles.at(index.row()).at(Mesure::TEMPERATEUR));
+    // Récupère la dernière mesure effectuée dans cette salle
+    QString     idSalle = salles.at(index.row()).at(Salle::ID);
+    QStringList mesureSalle;
+    QString requete = "SELECT * FROM Mesure WHERE Mesure.idSalle=" + idSalle +
+                      " AND horodatage IN (SELECT max(horodatage) FROM Mesure)";
+    bool retour;
+    retour = baseDeDonnees->recuperer(requete, mesureSalle);
+    qDebug() << Q_FUNC_INFO << mesureSalle;
+    /**
+     * @todo Afficher toutes les mesures ainsi que l'horodatage
+     */
+    if(retour)
+    {
+        ui->labelCo2Salle->setText(mesureSalle.at(Mesure::CO2) + " ppm");
+        ui->labelTemperatureSalle->setText(mesureSalle.at(Mesure::TEMPERATURE) +
+                                           " °C");
+    }
+    else
+    {
+        ui->labelCo2Salle->setText("");
+        ui->labelTemperatureSalle->setText("");
+    }
 
-    // Affiche la fenêtre associée
+    // Affiche les informations d'une salle
+    ui->labelNomSalle->setText(salles.at(index.row()).at(Salle::NOM));
+    ui->labelLieuSalle->setText(salles.at(index.row()).at(Salle::LIEU));
+    ui->labelDescriptionSalle->setText(
+      salles.at(index.row()).at(Salle::DESCRIPTION));
+    ui->labelSurfaceSalle->setText(
+      salles.at(index.row()).at(Salle::SUPERFICIE) + " m2");
+    QString libelleQualiteAir =
+      salles.at(index.row()).at(Salle::LIBELLE_QUALITE_AIR);
+    libelleQualiteAir.replace(0, 1, libelleQualiteAir.at(0).toUpper());
+    ui->labelAirSalle->setText(libelleQualiteAir);
+    QString libelleIndiceConfort =
+      salles.at(index.row()).at(Salle::LIBELLE_INDICE_DE_CONFORT);
+    libelleIndiceConfort.replace(0, 1, libelleIndiceConfort.at(0).toUpper());
+    ui->labelIndiceDeConfortSalle->setText(libelleIndiceConfort);
+    QString etatFenetres = "Fermées";
+    if(salles.at(index.row()).at(Salle::ETAT_DES_FENETRES).toInt())
+        etatFenetres = "Ouvertes";
+    ui->labelFenetresSalle->setText(etatFenetres);
+    QString etatLumieres = "Éteintes";
+    if(salles.at(index.row()).at(Salle::ETAT_DES_LUMIERES).toInt())
+        etatLumieres = "Allumées";
+    ui->labelLumieresSalle->setText(etatLumieres);
+
+    // Affiche la fenêtre de la salle
     afficherFenetre(IHMEcoClassroom::Fenetre2);
 }
 

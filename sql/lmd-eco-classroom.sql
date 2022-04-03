@@ -38,4 +38,4 @@ INSERT INTO Salle(nom, lieu, description, superficie, code) VALUES ('B22','Bat. 
 
 --- Table BrokerMQTT
 
-INSERT INTO BrokerMQTT(hostname,estActif) VALUES ('192.168.52.1',1);
+INSERT INTO BrokerMQTT(hostname,estActif) VALUES ('192.168.52.7',1);
