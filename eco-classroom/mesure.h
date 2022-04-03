@@ -8,6 +8,8 @@
  * @version 0.1
  */
 
+#include <QStringList>
+
 /**
  * @class Mesure
  * @brief Déclaration de la classe Mesure
@@ -22,6 +24,7 @@ class Mesure
 
   public:
     Mesure();
+    Mesure(QStringList mesure);
     Mesure(double temperature, int humidite, int co2, int luminosite);
     ~Mesure();
 
@@ -34,6 +37,17 @@ class Mesure
     void setHumidite(int humidite);
     void setCo2(int co2);
     void setLuminosite(int luminosite);
+
+    enum ChampsTableMesure
+    {
+        ID,          //!< Emplacement de l'id de la mesure
+        ID_SALLE,    //!< Emplacement de l'id de la salle
+        TEMPERATURE, //!< Emplacement de la température dans la salle
+        LUMINOSITE,  //!< Emplacement de la luminosité dans la salle
+        HUMIDITE,    //!< Emplacement de l'humidité dans la salle
+        CO2,         //!< Emplacement du taux de CO2 dans la salle
+        HORODATAGE   //!< Emplacement de l'horodatage de la mesure
+    };
 };
 
 #endif // MESURE_H

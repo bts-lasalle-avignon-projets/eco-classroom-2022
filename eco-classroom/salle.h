@@ -58,16 +58,7 @@ class Salle
     /**
      * @enum ChampsTableSalle
      * @brief Définit les différents champs de la table Salle
-     * @see Exemple de requête SQL : SELECT
-Salle.nom,Salle.lieu,Salle.description,Salle.superficie,Salle.code,IndiceConfort.indice
-AS indiceConfort,IndiceConfort.libelle AS
-libelleIndiceConfort,IndiceQualiteAir.libelle AS
-libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,Salle.estOccupe
-FROM Salle INNER JOIN IndiceConfort ON
-IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN IndiceQualiteAir
-ON IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir;
      */
-
     enum ChampsTableSalle
     {
         ID,                        //!< Emplacement de l'id dans la table

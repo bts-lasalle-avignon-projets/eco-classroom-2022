@@ -27,7 +27,7 @@ RESOURCES += \
         ressources.qrc
 
 COPIES += bd
-bd.files = eco-classroom.sqlite
+bd.files = eco-classroom.db
 bd.path = $$OUT_PWD/
 bd.base = $$PWD/
 
