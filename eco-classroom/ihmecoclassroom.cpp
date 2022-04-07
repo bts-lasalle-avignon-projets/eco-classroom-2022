@@ -9,7 +9,7 @@
  * @file ihmecoclassroom.cpp
  * @brief Définition de la classe IHMEcoClassroom
  * @author Zeryouhi Mohamed Amine
- * @version 0.1
+ * @version 0.2
  */
 
 /**
@@ -20,7 +20,8 @@
  * fenêtre principale de l'application
  */
 IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
-    QMainWindow(parent), ui(new Ui::IHMEcoClassroom), nbLignesSalle(0)
+    QMainWindow(parent), ui(new Ui::IHMEcoClassroom), nbLignesSalle(0),
+    salleSelectionnee(-1)
 {
     qDebug() << Q_FUNC_INFO;
     ui->setupUi(this);
@@ -65,8 +66,9 @@ void IHMEcoClassroom::initialiserAffichage()
       QHeaderView::Stretch);
     nbLignesSalle = modeleSalle->rowCount();
 
+    // afficherFenetre(IHMEcoClassroom::Fenetre3);
     chargerSalles();
-    afficherFenetre(IHMEcoClassroom::Fenetre1);
+    afficherFenetre(IHMEcoClassroom::Fenetre::Accueil);
 }
 
 /**
@@ -77,6 +79,7 @@ void IHMEcoClassroom::initialiserAffichage()
 void IHMEcoClassroom::gererEvenements()
 {
     qDebug() << Q_FUNC_INFO;
+    // Fenêtre Accueil
     connect(ui->boutonCharger,
             SIGNAL(clicked(bool)),
             this,
@@ -89,7 +92,18 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(QModelIndex)),
             this,
             SLOT(selectionner(QModelIndex)));
+    // Fenêtre InformationsSalle
     connect(ui->buttonAccueil,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(afficherFenetrePrincipale()));
+    connect(ui->buttonEditerSalle, SIGNAL(clicked(bool)), this, SLOT(editer()));
+    // Fenêtre SaisieCode
+    connect(ui->buttonValiderCode,
+            SIGNAL(clicked()),
+            this,
+            SLOT(verifierCode()));
+    connect(ui->buttonAnnulerCode,
             SIGNAL(clicked(bool)),
             this,
             SLOT(afficherFenetrePrincipale()));
@@ -222,7 +236,8 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     qDebug() << Q_FUNC_INFO << salles.at(index.row());
 
     // Récupère la dernière mesure effectuée dans cette salle
-    QString     idSalle = salles.at(index.row()).at(Salle::ID);
+    QString idSalle   = salles.at(index.row()).at(Salle::ID);
+    salleSelectionnee = index.row();
     QStringList mesureSalle;
     QString requete = "SELECT * FROM Mesure WHERE Mesure.idSalle=" + idSalle +
                       " AND horodatage IN (SELECT max(horodatage) FROM Mesure)";
@@ -230,7 +245,7 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     retour = baseDeDonnees->recuperer(requete, mesureSalle);
     qDebug() << Q_FUNC_INFO << mesureSalle;
     /**
-     * @todo Afficher toutes les mesures ainsi que l'horodatage
+     * @todo Afficher l'horodatage
      */
     if(retour)
     {
@@ -269,7 +284,42 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     ui->labelLumieresSalle->setText(etatLumieres);
 
     // Affiche la fenêtre de la salle
-    afficherFenetre(IHMEcoClassroom::Fenetre2);
+    afficherFenetre(IHMEcoClassroom::Fenetre::InformationsSalle);
+}
+
+void IHMEcoClassroom::editer()
+{
+    ui->lineEditCode->setText("");
+    ui->labelEtatSaisie->setText("");
+    afficherFenetre(IHMEcoClassroom::Fenetre::SaisieCode);
+}
+
+/**
+ * @brief verifier le code d'administrateur pour paramétrer une salle
+ *
+ * @fn IHMEcoClassroom::verifierCode
+ */
+
+void IHMEcoClassroom::verifierCode()
+{
+    QString code = ui->lineEditCode->text();
+    qDebug() << Q_FUNC_INFO << "code" << code;
+
+    if(code.isEmpty())
+    {
+        QMessageBox::information(this,
+                                 "Attention",
+                                 "Vous devez saisir un code !");
+    }
+    else if(code == salles.at(salleSelectionnee).at(Salle::CODE))
+    {
+        // Affiche la fenêtre pour éditer les informations de la salle
+        afficherFenetre(IHMEcoClassroom::Fenetre::EditionSalle);
+    }
+    else
+    {
+        ui->labelEtatSaisie->setText("Code invalide !");
+    }
 }
 
 /**
@@ -293,7 +343,7 @@ void IHMEcoClassroom::afficherFenetre(IHMEcoClassroom::Fenetre fenetre)
 void IHMEcoClassroom::afficherFenetrePrincipale()
 {
     qDebug() << Q_FUNC_INFO;
-    afficherFenetre(IHMEcoClassroom::Fenetre1);
+    afficherFenetre(IHMEcoClassroom::Fenetre::Accueil);
 }
 
 void IHMEcoClassroom::ajouterMenuAide()

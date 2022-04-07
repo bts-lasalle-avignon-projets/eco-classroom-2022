@@ -5,7 +5,7 @@
  * @file ihmecoclassroom.h
  * @brief Déclaration de la classe IHMEcoClassroom
  * @author Zeryouhi Mohamed Amine
- * @version 0.1
+ * @version 0.2
  */
 
 #include <QtWidgets>
@@ -20,7 +20,7 @@
  * @def VERSION_APPLICATION
  * @brief La version de l'application
  */
-#define VERSION "0.1"
+#define VERSION "0.2"
 
 QT_BEGIN_NAMESPACE
 namespace Ui
@@ -45,12 +45,14 @@ class IHMEcoClassroom : public QMainWindow
     ~IHMEcoClassroom();
 
   private:
-    Ui::IHMEcoClassroom* ui; //!< la fenêtre graphique associée à cette classe
-    BaseDeDonnees*       baseDeDonnees; //!< base de donnes
+    Ui::IHMEcoClassroom* ui; //!< La fenêtre graphique associée à cette classe
+    BaseDeDonnees*       baseDeDonnees; //!< Base de donnes
     QStringList          nomColonnes;   //!< Liste de nom des colonnes
-    int                  nbLignesSalle; //!< nombre de lignes
+    int                  nbLignesSalle; //!< Nombre de lignes
     QVector<QStringList> salles;        //!< Les salles
     QStandardItemModel*  modeleSalle;   //!< Modèle pour le QTableView
+    int
+      salleSelectionnee; //!< Indice de la salle sélectionnée à éditer sinon -1
 
     /**
      * @enum Fenetre
@@ -59,8 +61,10 @@ class IHMEcoClassroom : public QMainWindow
      */
     enum Fenetre
     {
-        Fenetre1 = 0,
-        Fenetre2,
+        Accueil = 0,
+        InformationsSalle,
+        SaisieCode,
+        EditionSalle,
         NbFenetres
     };
 
@@ -88,6 +92,8 @@ class IHMEcoClassroom : public QMainWindow
     void afficherSalleTable(QStringList salle);
     void effacerTableSalles();
     void selectionner(QModelIndex index);
+    void editer();
+    void verifierCode();
     void afficherFenetre(IHMEcoClassroom::Fenetre fenetre);
     void afficherFenetrePrincipale();
     void afficherAPropos();

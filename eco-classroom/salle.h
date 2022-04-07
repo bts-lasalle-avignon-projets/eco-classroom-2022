@@ -5,7 +5,7 @@
  * @file salle.h
  * @brief Déclaration de la classe Salle
  * @author Zeryouhi Mohamed Amine
- * @version 0.1
+ * @version 0.2
  */
 
 #include <QString>
@@ -18,21 +18,21 @@
 class Salle
 {
   private:
-    QStringList salle;       //!< les données d'une salle
-    QString     id;          //!< l'id de la salle dans la table
-    QString     nom;         //!< nom de la salle
-    QString     lieu;        //!< lieu de la salle
-    QString     description; //!< la description d'une salle
-    int         surface;     //!< la surface d'une salle
-    QString     code; //!< le code administrateur pour paramétrer une salle
-    int         indiceConfort;    //!< l'indice de confort d'une salle
-    QString libelleIndiceConfort; //!< le libelle associé à l'indice de confort
-                                  //!< d'une salle
+    QStringList salle;       //!< Les données d'une salle
+    QString     id;          //!< L'id de la salle dans la table
+    QString     nom;         //!< Nom de la salle
+    QString     lieu;        //!< Lieu de la salle
+    QString     description; //!< La description d'une salle
+    int         surface;     //!< La surface d'une salle
+    QString     code; //!< Le code administrateur pour paramétrer une salle
+    int         indiceConfort;    //!< L'indice de confort d'une salle
+    QString libelleIndiceConfort; //!< Le libelle associé à l'indice de confort
+                                  //!< D'une salle
     QString
-         libelleQualiteAir; //!< le libelle associé à l'indice de qualité d'air
-    bool etatFenetres;      //!< l'état des fenêtres
-    bool etatLumieres;      //!< l'état des lumières
-    bool etatOccupation;    //!< l'état d'occupation de la salle
+         libelleQualiteAir; //!< Le libelle associé à l'indice de qualité d'air
+    bool etatFenetres;      //!< L'état des fenêtres
+    bool etatLumieres;      //!< L'état des lumières
+    bool etatOccupation;    //!< L'état d'occupation de la salle
 
   public:
     Salle();
