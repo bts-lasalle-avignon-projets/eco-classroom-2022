@@ -66,9 +66,9 @@ void IHMEcoClassroom::initialiserAffichage()
       QHeaderView::Stretch);
     nbLignesSalle = modeleSalle->rowCount();
 
-    afficherFenetre(IHMEcoClassroom::Fenetre3);
+    // afficherFenetre(IHMEcoClassroom::Fenetre3);
     chargerSalles();
-    afficherFenetre(IHMEcoClassroom::Fenetre1);
+    afficherFenetre(IHMEcoClassroom::Fenetre::Accueil);
 }
 
 /**
@@ -79,6 +79,7 @@ void IHMEcoClassroom::initialiserAffichage()
 void IHMEcoClassroom::gererEvenements()
 {
     qDebug() << Q_FUNC_INFO;
+    // Fenêtre Accueil
     connect(ui->boutonCharger,
             SIGNAL(clicked(bool)),
             this,
@@ -91,18 +92,21 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(QModelIndex)),
             this,
             SLOT(selectionner(QModelIndex)));
+    // Fenêtre InformationsSalle
     connect(ui->buttonAccueil,
             SIGNAL(clicked(bool)),
             this,
             SLOT(afficherFenetrePrincipale()));
-    connect(ui->buttonEditer,
-            SIGNAL(clicked(bool)),
+    connect(ui->buttonEditerSalle, SIGNAL(clicked(bool)), this, SLOT(editer()));
+    // Fenêtre SaisieCode
+    connect(ui->buttonValiderCode,
+            SIGNAL(clicked()),
             this,
             SLOT(verifierCode()));
-    connect(ui->ButtonAnnuler,
+    connect(ui->buttonAnnulerCode,
             SIGNAL(clicked(bool)),
             this,
-            SLOT(afficherFenetrePrecedent()));
+            SLOT(afficherFenetrePrincipale()));
 }
 
 /**
@@ -280,7 +284,14 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     ui->labelLumieresSalle->setText(etatLumieres);
 
     // Affiche la fenêtre de la salle
-    afficherFenetre(IHMEcoClassroom::Fenetre2);
+    afficherFenetre(IHMEcoClassroom::Fenetre::InformationsSalle);
+}
+
+void IHMEcoClassroom::editer()
+{
+    ui->lineEditCode->setText("");
+    ui->labelEtatSaisie->setText("");
+    afficherFenetre(IHMEcoClassroom::Fenetre::SaisieCode);
 }
 
 /**
@@ -291,10 +302,8 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
 
 void IHMEcoClassroom::verifierCode()
 {
-    qDebug() << Q_FUNC_INFO;
-
-    ui->lineEditCode->setText(salles.at(salleSelectionnee).at(Salle::CODE));
     QString code = ui->lineEditCode->text();
+    qDebug() << Q_FUNC_INFO << "code" << code;
 
     if(code.isEmpty())
     {
@@ -302,8 +311,15 @@ void IHMEcoClassroom::verifierCode()
                                  "Attention",
                                  "Vous devez saisir un code !");
     }
-    // Affiche la fenêtre pour saisir le code
-    afficherFenetre(IHMEcoClassroom::Fenetre3);
+    else if(code == salles.at(salleSelectionnee).at(Salle::CODE))
+    {
+        // Affiche la fenêtre pour éditer les informations de la salle
+        afficherFenetre(IHMEcoClassroom::Fenetre::EditionSalle);
+    }
+    else
+    {
+        ui->labelEtatSaisie->setText("Code invalide !");
+    }
 }
 
 /**
@@ -327,18 +343,7 @@ void IHMEcoClassroom::afficherFenetre(IHMEcoClassroom::Fenetre fenetre)
 void IHMEcoClassroom::afficherFenetrePrincipale()
 {
     qDebug() << Q_FUNC_INFO;
-    afficherFenetre(IHMEcoClassroom::Fenetre1);
-}
-
-/**
- * @brief afficherFenetrePrécédent
- *
- * @fn IHMEcoClassroom:afficherFenetrePrecedent
- */
-void IHMEcoClassroom::afficherFenetrePrecedent()
-{
-    qDebug() << Q_FUNC_INFO;
-    afficherFenetre(IHMEcoClassroom::Fenetre2);
+    afficherFenetre(IHMEcoClassroom::Fenetre::Accueil);
 }
 
 void IHMEcoClassroom::ajouterMenuAide()

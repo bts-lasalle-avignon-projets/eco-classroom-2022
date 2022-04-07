@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>826</width>
-    <height>379</height>
+    <width>974</width>
+    <height>660</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
       <property name="currentIndex">
        <number>2</number>
       </property>
-      <widget class="QWidget" name="fenetre1">
+      <widget class="QWidget" name="accueil">
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <spacer name="verticalSpacer2">
@@ -192,7 +192,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="fenetre2">
+      <widget class="QWidget" name="informationsSalle">
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
          <layout class="QVBoxLayout" name="verticalLayoutPrincipale">
@@ -424,7 +424,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="buttonEditer">
+             <widget class="QPushButton" name="buttonEditerSalle">
               <property name="text">
                <string>Éditer Salle</string>
               </property>
@@ -436,7 +436,7 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="fenetre3">
+      <widget class="QWidget" name="saisieCode">
        <layout class="QVBoxLayout" name="verticalLayout_5">
         <item>
          <layout class="QVBoxLayout" name="verticalLayoutPrincipale3">
@@ -524,16 +524,26 @@
            </spacer>
           </item>
           <item>
+           <widget class="QLabel" name="labelEtatSaisie">
+            <property name="styleSheet">
+             <string notr="true">color: rgb(204, 0, 0);</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
            <layout class="QHBoxLayout" name="horizontalLayoutValider">
             <item>
-             <widget class="QPushButton" name="ButtonValider">
+             <widget class="QPushButton" name="buttonValiderCode">
               <property name="text">
                <string>Valider</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="ButtonAnnuler">
+             <widget class="QPushButton" name="buttonAnnulerCode">
               <property name="text">
                <string>Annuler</string>
               </property>
@@ -558,6 +568,7 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="editionSalle"/>
      </widget>
     </item>
    </layout>
@@ -567,8 +578,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>826</width>
-     <height>22</height>
+     <width>974</width>
+     <height>39</height>
     </rect>
    </property>
   </widget>

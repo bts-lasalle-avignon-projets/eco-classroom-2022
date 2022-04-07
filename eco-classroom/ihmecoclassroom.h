@@ -51,8 +51,8 @@ class IHMEcoClassroom : public QMainWindow
     int                  nbLignesSalle; //!< Nombre de lignes
     QVector<QStringList> salles;        //!< Les salles
     QStandardItemModel*  modeleSalle;   //!< Modèle pour le QTableView
-    int salleSelectionnee; //!< L'indice de la salle sélectionnée à éditer sinon
-                           // -1
+    int
+      salleSelectionnee; //!< Indice de la salle sélectionnée à éditer sinon -1
 
     /**
      * @enum Fenetre
@@ -61,9 +61,10 @@ class IHMEcoClassroom : public QMainWindow
      */
     enum Fenetre
     {
-        Fenetre1 = 0,
-        Fenetre2,
-        Fenetre3,
+        Accueil = 0,
+        InformationsSalle,
+        SaisieCode,
+        EditionSalle,
         NbFenetres
     };
 
@@ -91,10 +92,10 @@ class IHMEcoClassroom : public QMainWindow
     void afficherSalleTable(QStringList salle);
     void effacerTableSalles();
     void selectionner(QModelIndex index);
+    void editer();
     void verifierCode();
     void afficherFenetre(IHMEcoClassroom::Fenetre fenetre);
     void afficherFenetrePrincipale();
-    void afficherFenetrePrecedent();
     void afficherAPropos();
 };
 
