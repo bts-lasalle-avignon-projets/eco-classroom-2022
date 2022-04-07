@@ -94,6 +94,7 @@ class IHMEcoClassroom : public QMainWindow
     void selectionner(QModelIndex index);
     void editer();
     void verifierCode();
+    void editerSalle();
     void afficherFenetre(IHMEcoClassroom::Fenetre fenetre);
     void afficherFenetrePrincipale();
     void afficherAPropos();

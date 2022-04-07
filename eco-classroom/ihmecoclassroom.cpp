@@ -107,6 +107,11 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(bool)),
             this,
             SLOT(afficherFenetrePrincipale()));
+    // Fenêtre EditionSalle
+    connect(ui->buttonAccueilEdite,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(afficherFenetrePrincipale()));
 }
 
 /**
@@ -287,6 +292,10 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     afficherFenetre(IHMEcoClassroom::Fenetre::InformationsSalle);
 }
 
+/**
+ * @brief saisir le code de modification
+ * @fn  IHMEcoClassroom::editer
+ */
 void IHMEcoClassroom::editer()
 {
     ui->lineEditCode->setText("");
@@ -315,11 +324,27 @@ void IHMEcoClassroom::verifierCode()
     {
         // Affiche la fenêtre pour éditer les informations de la salle
         afficherFenetre(IHMEcoClassroom::Fenetre::EditionSalle);
+        editerSalle();
     }
     else
     {
         ui->labelEtatSaisie->setText("Code invalide !");
     }
+}
+
+/**
+ * @brief Éditer les déférentes informations d'une salle
+ * @fn  IHMEcoClassroom::editerSalle
+ */
+void IHMEcoClassroom::editerSalle()
+{
+    qDebug() << Q_FUNC_INFO;
+
+    ui->lineEditNom->setText("");
+    ui->lineEditLieu->setText("");
+    ui->lineEditDescription->setText("");
+    ui->lineEditSurface->setText("");
+    afficherFenetre(IHMEcoClassroom::Fenetre::EditionSalle);
 }
 
 /**
