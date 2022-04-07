@@ -9,7 +9,7 @@
  * @file communicationmqtt.h
  * @brief Déclaration de la classe CommunicationMQTT
  * @author Zeryouhi Mohamed Amine
- * @version 0.1
+ * @version 0.2
  */
 
 #define BROKER_MQTT_HOSTNAME "192.168.52.7"

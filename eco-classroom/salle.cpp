@@ -5,7 +5,7 @@
  * @file salle.cpp
  * @brief Définition de la classe Salle
  * @author Zeryouhi Mohamed Amine
- * @version 0.1
+ * @version 0.2
  */
 
 /**

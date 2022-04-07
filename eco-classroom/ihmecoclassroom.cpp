@@ -9,7 +9,7 @@
  * @file ihmecoclassroom.cpp
  * @brief Définition de la classe IHMEcoClassroom
  * @author Zeryouhi Mohamed Amine
- * @version 0.1
+ * @version 0.2
  */
 
 /**
@@ -20,7 +20,8 @@
  * fenêtre principale de l'application
  */
 IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
-    QMainWindow(parent), ui(new Ui::IHMEcoClassroom), nbLignesSalle(0)
+    QMainWindow(parent), ui(new Ui::IHMEcoClassroom), nbLignesSalle(0),
+    salleSelectionnee(-1)
 {
     qDebug() << Q_FUNC_INFO;
     ui->setupUi(this);
@@ -65,6 +66,7 @@ void IHMEcoClassroom::initialiserAffichage()
       QHeaderView::Stretch);
     nbLignesSalle = modeleSalle->rowCount();
 
+    afficherFenetre(IHMEcoClassroom::Fenetre3);
     chargerSalles();
     afficherFenetre(IHMEcoClassroom::Fenetre1);
 }
@@ -93,6 +95,14 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(bool)),
             this,
             SLOT(afficherFenetrePrincipale()));
+    connect(ui->buttonEditer,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(verifierCode()));
+    connect(ui->ButtonAnnuler,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(afficherFenetrePrecedent()));
 }
 
 /**
@@ -222,7 +232,8 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     qDebug() << Q_FUNC_INFO << salles.at(index.row());
 
     // Récupère la dernière mesure effectuée dans cette salle
-    QString     idSalle = salles.at(index.row()).at(Salle::ID);
+    QString idSalle   = salles.at(index.row()).at(Salle::ID);
+    salleSelectionnee = index.row();
     QStringList mesureSalle;
     QString requete = "SELECT * FROM Mesure WHERE Mesure.idSalle=" + idSalle +
                       " AND horodatage IN (SELECT max(horodatage) FROM Mesure)";
@@ -230,7 +241,7 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     retour = baseDeDonnees->recuperer(requete, mesureSalle);
     qDebug() << Q_FUNC_INFO << mesureSalle;
     /**
-     * @todo Afficher toutes les mesures ainsi que l'horodatage
+     * @todo Afficher l'horodatage
      */
     if(retour)
     {
@@ -273,6 +284,29 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
 }
 
 /**
+ * @brief verifier le code d'administrateur pour paramétrer une salle
+ *
+ * @fn IHMEcoClassroom::verifierCode
+ */
+
+void IHMEcoClassroom::verifierCode()
+{
+    qDebug() << Q_FUNC_INFO;
+
+    ui->lineEditCode->setText(salles.at(salleSelectionnee).at(Salle::CODE));
+    QString code = ui->lineEditCode->text();
+
+    if(code.isEmpty())
+    {
+        QMessageBox::information(this,
+                                 "Attention",
+                                 "Vous devez saisir un code !");
+    }
+    // Affiche la fenêtre pour saisir le code
+    afficherFenetre(IHMEcoClassroom::Fenetre3);
+}
+
+/**
  * @brief Méthode qui permet d'afficher une fenêtre de la pile
  * QStackedWidget
  *
@@ -294,6 +328,17 @@ void IHMEcoClassroom::afficherFenetrePrincipale()
 {
     qDebug() << Q_FUNC_INFO;
     afficherFenetre(IHMEcoClassroom::Fenetre1);
+}
+
+/**
+ * @brief afficherFenetrePrécédent
+ *
+ * @fn IHMEcoClassroom:afficherFenetrePrecedent
+ */
+void IHMEcoClassroom::afficherFenetrePrecedent()
+{
+    qDebug() << Q_FUNC_INFO;
+    afficherFenetre(IHMEcoClassroom::Fenetre2);
 }
 
 void IHMEcoClassroom::ajouterMenuAide()
