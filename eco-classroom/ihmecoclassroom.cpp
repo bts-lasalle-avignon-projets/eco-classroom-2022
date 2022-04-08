@@ -253,9 +253,9 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     bool retour;
     retour = baseDeDonnees->recuperer(requete, mesureSalle);
     qDebug() << Q_FUNC_INFO << mesureSalle;
-    /**
-     * @todo Afficher l'horodatage
-     */
+
+    ui->labelHorodatage->setText(mesureSalle.at(Mesure::HORODATAGE));
+
     if(retour)
     {
         ui->labelCo2Salle->setText(mesureSalle.at(Mesure::CO2) + " ppm");
