@@ -351,6 +351,7 @@ void IHMEcoClassroom::editerSalle()
     ui->lineEditSurface->setText(
       salles.at(salleSelectionnee).at(Salle::SUPERFICIE));
     afficherFenetre(IHMEcoClassroom::Fenetre::EditionSalle);
+    ui->labelLieuEdite->setText("");
 }
 
 /**
@@ -362,9 +363,26 @@ void IHMEcoClassroom::validerEditionSalle()
     qDebug() << Q_FUNC_INFO << ui->lineEditNom->text()
              << ui->lineEditLieu->text() << ui->lineEditDescription->text()
              << ui->lineEditSurface->text();
-    /**
-     * @todo vérifier puis mettre à jour la base de données
-     */
+
+    if(ui->lineEditNom->text().isEmpty())
+    {
+        QMessageBox::information(this,
+                                 "Attention",
+                                 "Vous devez saisir le nom de la salle !");
+    }
+    else
+    {
+        /**
+         * @todo mettre à jour la base de données (requête UPDATE)
+         */
+        // QString requete = "UPDATE Salle SET description='Laboratoire',
+        // superficie='45' WHERE idSalle=3;";
+        QString requete = "UPDATE Salle SET nom='" + ui->lineEditNom->text() +
+                          "', lieu='" + ui->lineEditLieu->text() +
+                          "', description='" + ui->lineEditDescription->text() +
+                          "', superficie='" + ui->lineEditSurface->text() +
+                          "' WHERE idSalle=3;";
+    }
 }
 
 /**

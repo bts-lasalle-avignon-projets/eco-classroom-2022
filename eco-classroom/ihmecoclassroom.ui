@@ -746,6 +746,26 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayoutEnvoyer">
             <item>
+             <spacer name="horizontalSpacer_17">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelEtat">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
              <spacer name="horizontalSpacer_10">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
@@ -801,7 +821,7 @@
      <x>0</x>
      <y>0</y>
      <width>974</width>
-     <height>39</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
