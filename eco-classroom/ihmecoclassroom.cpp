@@ -108,7 +108,11 @@ void IHMEcoClassroom::gererEvenements()
             this,
             SLOT(afficherFenetrePrincipale()));
     // Fenêtre EditionSalle
-    connect(ui->buttonAccueilEdite,
+    connect(ui->buttonValiderEdition,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(validerEditionSalle()));
+    connect(ui->buttonAnnulerEdition,
             SIGNAL(clicked(bool)),
             this,
             SLOT(afficherFenetrePrincipale()));
@@ -333,18 +337,34 @@ void IHMEcoClassroom::verifierCode()
 }
 
 /**
- * @brief Éditer les déférentes informations d'une salle
+ * @brief Éditer les différentes informations d'une salle
  * @fn  IHMEcoClassroom::editerSalle
  */
 void IHMEcoClassroom::editerSalle()
 {
     qDebug() << Q_FUNC_INFO;
 
-    ui->lineEditNom->setText("");
-    ui->lineEditLieu->setText("");
-    ui->lineEditDescription->setText("");
-    ui->lineEditSurface->setText("");
+    ui->lineEditNom->setText(salles.at(salleSelectionnee).at(Salle::NOM));
+    ui->lineEditLieu->setText(salles.at(salleSelectionnee).at(Salle::LIEU));
+    ui->lineEditDescription->setText(
+      salles.at(salleSelectionnee).at(Salle::DESCRIPTION));
+    ui->lineEditSurface->setText(
+      salles.at(salleSelectionnee).at(Salle::SUPERFICIE));
     afficherFenetre(IHMEcoClassroom::Fenetre::EditionSalle);
+}
+
+/**
+ * @brief Valide et enregistre les nouvelles informations d'une salle
+ * @fn  IHMEcoClassroom::editerSalle
+ */
+void IHMEcoClassroom::validerEditionSalle()
+{
+    qDebug() << Q_FUNC_INFO << ui->lineEditNom->text()
+             << ui->lineEditLieu->text() << ui->lineEditDescription->text()
+             << ui->lineEditSurface->text();
+    /**
+     * @todo vérifier puis mettre à jour la base de données
+     */
 }
 
 /**
@@ -368,6 +388,7 @@ void IHMEcoClassroom::afficherFenetre(IHMEcoClassroom::Fenetre fenetre)
 void IHMEcoClassroom::afficherFenetrePrincipale()
 {
     qDebug() << Q_FUNC_INFO;
+    salleSelectionnee = -1;
     afficherFenetre(IHMEcoClassroom::Fenetre::Accueil);
 }
 

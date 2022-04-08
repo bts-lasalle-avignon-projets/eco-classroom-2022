@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>504</width>
-    <height>379</height>
+    <width>974</width>
+    <height>660</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -759,16 +759,16 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="buttonAccueilEdite">
+             <widget class="QPushButton" name="buttonValiderEdition">
               <property name="text">
-               <string>Accueil</string>
+               <string>Valider</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="buttonEnvoyer">
+             <widget class="QPushButton" name="buttonAnnulerEdition">
               <property name="text">
-               <string>Envoyer</string>
+               <string>Annuler</string>
               </property>
              </widget>
             </item>
@@ -800,8 +800,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>504</width>
-     <height>22</height>
+     <width>974</width>
+     <height>39</height>
     </rect>
    </property>
   </widget>
