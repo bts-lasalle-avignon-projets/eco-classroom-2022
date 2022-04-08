@@ -9,6 +9,9 @@
   - [Kanban](#kanban)
   - [Base de données](#base-de-données)
   - [Qt MQTT](#qt-mqtt)
+    - [Installation](#installation)
+    - [Glossaire MQTT](#glossaire-mqtt)
+    - [Structure des topics](#structure-des-topics)
 
 ## Présentation
 
@@ -178,6 +181,8 @@ INSERT INTO BrokerMQTT(hostname,estActif) VALUES ('192.168.52.7',1);
 
 Qt MQTT fait parti de [Qt For Automation](http://doc.qt.io/QtForAutomation/qtautomation-overview.html) et pas directement de Qt. Il faut donc l'installer.
 
+### Installation
+
 1. Identifier la version de Qt :
 
 ```sh
@@ -222,3 +227,48 @@ Pour accèder aux classes du module Qt MQTT, il faudra ajouter le module `mqtt` 
 ```
 QT += mqtt
 ```
+
+### Glossaire MQTT
+
+Les messages sont envoyés par des « _publishers_ » sur un « _topic_ » (canal de communication) à un « _broker_ » (serveur).
+
+Ces messages peuvent être lus par des « _subscribers_ » (abonnés).
+
+Les « _topics_ » peuvent avoir une hiérarchie qui permettra de sélectionner les informations.
+
+Les « _publishers_ » et « _subscribers_ » sont considérés comme des « clients » MQTT. Le « _broker_ » est vu comme un serveur MQTT.
+
+Dans le projet eco-classroom :
+
+- les « publishers » sont les modules sonde et détection réparties dans les différentes salles
+- les « subscribers » sont les applications de supervision (Mobile ou Desktop)
+
+### Structure des topics
+
+Racine de la hiérarchie des topics : `salles`
+
+Les données des modules sonde et détection sont publiées sur le topic : `salles/nom/type`
+
+- Le champ `nom` indique le nome de la salle, par exemple : `B20`, `B11`, ...
+- Le champ `type` peut prendre les valeurs suivantes : `temperature|humidite|confort|luminosite|co2|air|fenetres|lumieres|occupation`
+
+Exemple : La donnée `20.5` associé au topic `salles/B20/temperature` sera une température en Celsius.
+
+Les topics pour une salle, ici **B20** :
+
+```
+salles/B20/temperature
+salles/B20/humidite
+salles/B20/confort
+salles/B20/luminosite
+salles/B20/co2
+salles/B20/air
+salles/B20/fenetres
+salles/B20/lumieres
+salles/B20/occupation
+```
+
+Deux « _wild-cards_ » (jokers) sont utilisables dans les topics : `+` et `#` :
+
+- `+` : sujet unique. Par exemple : `salles/+/temperature` sera abonné pour recevoir la température de toutes les salles (`salles/B20/temperature`, `salles/B11/temperature`, ...
+- `#` : multi-sujets. Par exemple : `salles/#` sera abonné à toutes les données de toutes les salles (`salles/B20`, `salles/B11`, ...)

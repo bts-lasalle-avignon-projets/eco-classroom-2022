@@ -48,6 +48,7 @@
 #define NB_SALLES 4
 
 Preferences preferences; //!< pour le stockage interne
+String racineTopic = "salles";
 String salles[NB_SALLES] = { String("B11"), String("B20"), String("B21"), String("B22") }; //!< les noms des salles
 String salle; //!< le nom d'une salle
 String message; //!< le message LoRa
@@ -133,7 +134,7 @@ void loop()
     salle = salles[random(0, NB_SALLES)];
     ui.drawString(0, LIGNE_STATUS_WIFI, salle.c_str());
 
-    message = salle + String("/") + String("temperature") + String("/") + getTemperature();
+    message = racineTopic + String("/") + salle + String("/") + String("temperature") + String("/") + getTemperature();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -143,7 +144,7 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = salle + String("/") + String("humidite") + String("/") + getHumidite();
+    message = racineTopic + String("/") + salle + String("/") + String("humidite") + String("/") + getHumidite();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -153,7 +154,7 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = salle + String("/") + String("confort") + String("/") + getIndiceNiveauConfort();
+    message = racineTopic + String("/") + salle + String("/") + String("confort") + String("/") + getIndiceNiveauConfort();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -163,7 +164,7 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = salle + String("/") + String("luminosite") + String("/") + getLuminosite();
+    message = racineTopic + String("/") + salle + String("/") + String("luminosite") + String("/") + getLuminosite();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -173,7 +174,7 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = salle + String("/") + String("co2") + String("/") + getCO2();
+    message = racineTopic + String("/") + salle + String("/") + String("co2") + String("/") + getCO2();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -183,7 +184,7 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = salle + String("/") + String("air") + String("/") + getIndiceQualiteAir();
+    message = racineTopic + String("/") + salle + String("/") + String("air") + String("/") + getIndiceQualiteAir();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -193,7 +194,7 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = salle + String("/") + String("fenetres") + String("/") + getEtatFenetres();
+    message = racineTopic + String("/") + salle + String("/") + String("fenetres") + String("/") + getEtatFenetres();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -203,7 +204,7 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = salle + String("/") + String("lumieres") + String("/") + getEtatLumieres();
+    message = racineTopic + String("/") + salle + String("/") + String("lumieres") + String("/") + getEtatLumieres();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -213,7 +214,7 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = salle + String("/") + String("occupation") + String("/") + getEtatOccupation();
+    message = racineTopic + String("/") + salle + String("/") + String("occupation") + String("/") + getEtatOccupation();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
