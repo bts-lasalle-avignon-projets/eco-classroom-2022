@@ -107,6 +107,15 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(bool)),
             this,
             SLOT(afficherFenetrePrincipale()));
+    // Fenêtre EditionSalle
+    connect(ui->buttonValiderEdition,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(validerEditionSalle()));
+    connect(ui->buttonAnnulerEdition,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(afficherFenetrePrincipale()));
 }
 
 /**
@@ -287,6 +296,10 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     afficherFenetre(IHMEcoClassroom::Fenetre::InformationsSalle);
 }
 
+/**
+ * @brief saisir le code de modification
+ * @fn  IHMEcoClassroom::editer
+ */
 void IHMEcoClassroom::editer()
 {
     ui->lineEditCode->setText("");
@@ -315,10 +328,69 @@ void IHMEcoClassroom::verifierCode()
     {
         // Affiche la fenêtre pour éditer les informations de la salle
         afficherFenetre(IHMEcoClassroom::Fenetre::EditionSalle);
+        editerSalle();
     }
     else
     {
         ui->labelEtatSaisie->setText("Code invalide !");
+    }
+}
+
+/**
+ * @brief Éditer les différentes informations d'une salle
+ * @fn  IHMEcoClassroom::editerSalle
+ */
+void IHMEcoClassroom::editerSalle()
+{
+    qDebug() << Q_FUNC_INFO;
+
+    ui->lineEditNom->setText(salles.at(salleSelectionnee).at(Salle::NOM));
+    ui->lineEditLieu->setText(salles.at(salleSelectionnee).at(Salle::LIEU));
+    ui->lineEditDescription->setText(
+      salles.at(salleSelectionnee).at(Salle::DESCRIPTION));
+    ui->lineEditSurface->setText(
+      salles.at(salleSelectionnee).at(Salle::SUPERFICIE));
+    afficherFenetre(IHMEcoClassroom::Fenetre::EditionSalle);
+    ui->labelLieuEdite->setText("");
+}
+
+/**
+ * @brief Valide et enregistre les nouvelles informations d'une salle
+ * @fn  IHMEcoClassroom::editerSalle
+ */
+void IHMEcoClassroom::validerEditionSalle()
+{
+    qDebug() << Q_FUNC_INFO << ui->lineEditNom->text()
+             << ui->lineEditLieu->text() << ui->lineEditDescription->text()
+             << ui->lineEditSurface->text();
+
+    if(ui->lineEditNom->text().isEmpty())
+    {
+        QMessageBox::information(this,
+                                 "Attention",
+                                 "Vous devez saisir le nom de la salle !");
+    }
+    else
+    {
+        QString requete =
+          "UPDATE Salle SET nom='" + ui->lineEditNom->text() + "', lieu='" +
+          ui->lineEditLieu->text() + "', description='" +
+          ui->lineEditDescription->text() + "', superficie='" +
+          ui->lineEditSurface->text() +
+          "' WHERE idSalle=" + salles.at(salleSelectionnee).at(Salle::ID) + ";";
+        bool retour = baseDeDonnees->executer(requete);
+        if(!retour)
+        {
+            QMessageBox::critical(
+              this,
+              "Erreur",
+              "Les modifications n'ont pas été effectuées !");
+        }
+        else
+        {
+            chargerSalles();
+            afficherFenetrePrincipale();
+        }
     }
 }
 
@@ -343,6 +415,7 @@ void IHMEcoClassroom::afficherFenetre(IHMEcoClassroom::Fenetre fenetre)
 void IHMEcoClassroom::afficherFenetrePrincipale()
 {
     qDebug() << Q_FUNC_INFO;
+    salleSelectionnee = -1;
     afficherFenetre(IHMEcoClassroom::Fenetre::Accueil);
 }
 
