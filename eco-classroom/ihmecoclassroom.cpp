@@ -372,16 +372,25 @@ void IHMEcoClassroom::validerEditionSalle()
     }
     else
     {
-        /**
-         * @todo mettre à jour la base de données (requête UPDATE)
-         */
-        // QString requete = "UPDATE Salle SET description='Laboratoire',
-        // superficie='45' WHERE idSalle=3;";
-        QString requete = "UPDATE Salle SET nom='" + ui->lineEditNom->text() +
-                          "', lieu='" + ui->lineEditLieu->text() +
-                          "', description='" + ui->lineEditDescription->text() +
-                          "', superficie='" + ui->lineEditSurface->text() +
-                          "' WHERE idSalle=3;";
+        QString requete =
+          "UPDATE Salle SET nom='" + ui->lineEditNom->text() + "', lieu='" +
+          ui->lineEditLieu->text() + "', description='" +
+          ui->lineEditDescription->text() + "', superficie='" +
+          ui->lineEditSurface->text() +
+          "' WHERE idSalle=" + salles.at(salleSelectionnee).at(Salle::ID) + ";";
+        bool retour = baseDeDonnees->executer(requete);
+        if(!retour)
+        {
+            QMessageBox::critical(
+              this,
+              "Erreur",
+              "Les modifications n'ont pas été effectuées !");
+        }
+        else
+        {
+            chargerSalles();
+            afficherFenetrePrincipale();
+        }
     }
 }
 
