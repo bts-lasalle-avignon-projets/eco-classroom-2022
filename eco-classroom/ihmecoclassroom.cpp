@@ -254,18 +254,33 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     retour = baseDeDonnees->recuperer(requete, mesureSalle);
     qDebug() << Q_FUNC_INFO << mesureSalle;
 
-    ui->labelHorodatage->setText(mesureSalle.at(Mesure::HORODATAGE));
-
+    // Affiche la dernière mesure effectuée dans cette salle
     if(retour)
     {
         ui->labelCo2Salle->setText(mesureSalle.at(Mesure::CO2) + " ppm");
+        ui->labelCo2->setVisible(true);
+        ui->labelCo2Salle->setVisible(true);
         ui->labelTemperatureSalle->setText(mesureSalle.at(Mesure::TEMPERATURE) +
                                            " °C");
+        ui->labelTemperature->setVisible(true);
+        ui->labelTemperatureSalle->setVisible(true);
+        QDateTime horodatage =
+          QDateTime::fromString(mesureSalle.at(Mesure::HORODATAGE),
+                                "yyyy-MM-dd HH:mm:ss");
+        ui->labelHorodatage->setText(
+          horodatage.toString("Le dd/MM/yyyy à HH:mm:ss"));
+        ui->labelHorodatage->setVisible(true);
     }
     else
     {
         ui->labelCo2Salle->setText("");
+        ui->labelCo2->setVisible(false);
+        ui->labelCo2Salle->setVisible(false);
         ui->labelTemperatureSalle->setText("");
+        ui->labelTemperature->setVisible(false);
+        ui->labelTemperatureSalle->setVisible(false);
+        ui->labelHorodatage->setText("");
+        ui->labelHorodatage->setVisible(false);
     }
 
     // Affiche les informations d'une salle
