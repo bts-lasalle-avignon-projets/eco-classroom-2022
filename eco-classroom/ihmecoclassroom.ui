@@ -21,7 +21,7 @@
     <item>
      <widget class="QStackedWidget" name="fenetres">
       <property name="currentIndex">
-       <number>1</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="accueil">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -479,7 +479,14 @@
             <item>
              <widget class="QLabel" name="labelSaisieCode">
               <property name="text">
-               <string>Saisissez un code pour effectuer des modifications dans cette salle</string>
+               <string>Saisissez un code pour effectuer des modifications das la salle</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelNomSalleEdite">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
@@ -612,6 +619,13 @@
              <widget class="QLabel" name="labelEdite">
               <property name="text">
                <string>Éditer les informations de la salle</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelSalleNomEdite">
+              <property name="text">
+               <string/>
               </property>
              </widget>
             </item>
@@ -842,7 +856,7 @@
      <x>0</x>
      <y>0</y>
      <width>974</width>
-     <height>39</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

@@ -319,6 +319,8 @@ void IHMEcoClassroom::editer()
 {
     ui->lineEditCode->setText("");
     ui->labelEtatSaisie->setText("");
+    ui->labelNomSalleEdite->setText(
+      salles.at(salleSelectionnee).at(Salle::NOM));
     afficherFenetre(IHMEcoClassroom::Fenetre::SaisieCode);
 }
 
@@ -360,6 +362,8 @@ void IHMEcoClassroom::editerSalle()
     qDebug() << Q_FUNC_INFO;
 
     ui->lineEditNom->setText(salles.at(salleSelectionnee).at(Salle::NOM));
+    ui->labelSalleNomEdite->setText(
+      salles.at(salleSelectionnee).at(Salle::NOM));
     ui->lineEditLieu->setText(salles.at(salleSelectionnee).at(Salle::LIEU));
     ui->lineEditDescription->setText(
       salles.at(salleSelectionnee).at(Salle::DESCRIPTION));
