@@ -21,30 +21,14 @@
     <item>
      <widget class="QStackedWidget" name="fenetres">
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="accueil">
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <spacer name="verticalSpacer2">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeType">
-           <enum>QSizePolicy::Minimum</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
          <layout class="QHBoxLayout" name="enteteLayout">
           <property name="spacing">
-           <number>0</number>
+           <number>10</number>
           </property>
           <property name="leftMargin">
            <number>0</number>
@@ -106,37 +90,11 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
            <widget class="QPushButton" name="boutonEffacer">
             <property name="text">
              <string>Effacer</string>
             </property>
            </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
           </item>
          </layout>
         </item>
@@ -399,19 +357,6 @@
            </layout>
           </item>
           <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
              <widget class="QLabel" name="labelHorodatage">
@@ -438,6 +383,19 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayoutButton">
             <item>
+             <spacer name="horizontalSpacer_19">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
              <widget class="QPushButton" name="buttonAccueil">
               <property name="text">
                <string>Accueil</string>
@@ -447,7 +405,7 @@
             <item>
              <widget class="QPushButton" name="buttonEditerSalle">
               <property name="text">
-               <string>Éditer Salle</string>
+               <string>Éditer</string>
               </property>
              </widget>
             </item>
@@ -479,7 +437,7 @@
             <item>
              <widget class="QLabel" name="labelSaisieCode">
               <property name="text">
-               <string>Saisissez un code pour effectuer des modifications das la salle</string>
+               <string>Saisissez un code pour effectuer des modifications dans la salle</string>
               </property>
              </widget>
             </item>
@@ -564,6 +522,19 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayoutValider">
             <item>
+             <spacer name="horizontalSpacer_18">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
              <widget class="QPushButton" name="buttonValiderCode">
               <property name="text">
                <string>Valider</string>
@@ -580,19 +551,6 @@
            </layout>
           </item>
          </layout>
-        </item>
-        <item>
-         <spacer name="verticalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
         </item>
        </layout>
       </widget>
@@ -643,19 +601,6 @@
              </spacer>
             </item>
            </layout>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayoutNomEdite">
@@ -831,19 +776,6 @@
           </item>
          </layout>
         </item>
-        <item>
-         <spacer name="verticalSpacer_5">
-          <property name="orientation">
-           <enum>Qt::Vertical</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>20</width>
-            <height>40</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
        </layout>
       </widget>
      </widget>
@@ -856,7 +788,7 @@
      <x>0</x>
      <y>0</y>
      <width>974</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

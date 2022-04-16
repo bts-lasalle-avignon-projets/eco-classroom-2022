@@ -103,6 +103,10 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked()),
             this,
             SLOT(verifierCode()));
+    connect(ui->lineEditCode,
+            SIGNAL(returnPressed()),
+            this,
+            SLOT(verifierCode()));
     connect(ui->buttonAnnulerCode,
             SIGNAL(clicked(bool)),
             this,
@@ -370,7 +374,6 @@ void IHMEcoClassroom::editerSalle()
     ui->lineEditSurface->setText(
       salles.at(salleSelectionnee).at(Salle::SUPERFICIE));
     afficherFenetre(IHMEcoClassroom::Fenetre::EditionSalle);
-    ui->labelLieuEdite->setText("");
 }
 
 /**
