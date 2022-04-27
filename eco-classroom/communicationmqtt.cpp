@@ -1,6 +1,8 @@
 #include "communicationmqtt.h"
 #include <QDateTime>
 #include <QMessageBox>
+#include "salle.h"
+#include "mesure.h"
 #include <QDebug>
 
 /**
@@ -86,6 +88,27 @@ void CommunicationMQTT::recevoir(const QByteArray&     message,
     for(int i = 0; i < champs.size(); ++i)
     {
         qDebug() << Q_FUNC_INFO << champs.at(i);
+        double temperature, indiceConfort, qualiteAir;
+        int    humidite, co2, luminosite;
+        bool   etatFenetres, etatLumieres;
+
+        temperature   = champs[Mesure::TEMPERATURE];
+        indiceConfort = champs[Salle::INDICE_DE_CONFORT];
+        qualiteAir    = champs[Salle::LIBELLE_QUALITE_AIR];
+        humidite      = champs[Mesure::HUMIDITE];
+        co2           = champs[Mesure::CO2];
+        luminosite    = champs[Mesure::LUMINOSITE];
+        etatFenetres  = champs[Salle::ETAT_DES_FENETRES];
+        etatLumieres  = champs[Salle::ETAT_DES_LUMIERES];
+
+        emit champs(temperature,
+                    indiceConfort,
+                    qualiteAir,
+                    humidite,
+                    co2,
+                    luminosite,
+                    etatFenetres,
+                    etatLumieres);
     }
 }
 
