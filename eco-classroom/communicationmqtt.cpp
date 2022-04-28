@@ -84,11 +84,31 @@ void CommunicationMQTT::recevoir(const QByteArray&     message,
              << topic.name() << message;
     qDebug() << Q_FUNC_INFO << message.toInt() << message.toDouble();
 
+    double temperature;
+    int    humidite, co2, luminosite, indiceConfort, qualiteAir;
+
+    QString nom = "";
+
     QStringList champs = topic.name().split("/");
     for(int i = 0; i < champs.size(); ++i)
     {
         qDebug() << Q_FUNC_INFO << champs.at(i);
+
+        nom = champs.at(i);
+
+        if(!champs.isEmpty())
+        {
+            nom           = topic.name();
+            temperature   = message.toDouble();
+            co2           = message.toInt();
+            humidite      = message.toInt();
+            indiceConfort = message.toInt();
+            luminosite    = message.toInt();
+            qualiteAir    = message.toInt();
+        }
     }
+
+    emit(temperature, humidite, co2, luminosite, indiceConfort, qualiteAir);
 
     /**
      * @brief La donnée brute reçue est dans la variable message
