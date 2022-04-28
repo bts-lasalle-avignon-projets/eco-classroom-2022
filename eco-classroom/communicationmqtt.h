@@ -32,6 +32,13 @@ class CommunicationMQTT : public QObject
     CommunicationMQTT(QObject* parent = nullptr);
     virtual ~CommunicationMQTT();
 
+    enum ChampsTopic
+    {
+        RACINE,     //!< La racine du topic (égal à salles)
+        NOM_SALLE,  //!< Le nom de la salle dont provient la donnée
+        TYPE_DONNEE //!< Le type de données (température, co2, etc...)
+    };
+
   public slots:
     void connecter();
     void deconnecter();
@@ -42,6 +49,7 @@ class CommunicationMQTT : public QObject
     void deconnecte();
 
   signals:
+    void nouvelleDonnee(QString nomSalle, QString typeDonnee, QString donnee);
 };
 
 #endif // COMMUNICATIONMQTT_H

@@ -83,39 +83,20 @@ void CommunicationMQTT::recevoir(const QByteArray&     message,
     qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime().toString()
              << topic.name() << message;
     qDebug() << Q_FUNC_INFO << message.toInt() << message.toDouble();
-
-    double temperature;
-    int    humidite, co2, luminosite, indiceConfort, qualiteAir;
-
-    QString nom = "";
-
     QStringList champs = topic.name().split("/");
     for(int i = 0; i < champs.size(); ++i)
     {
         qDebug() << Q_FUNC_INFO << champs.at(i);
-
-        nom = champs.at(i);
-
-        if(!champs.isEmpty())
-        {
-            nom           = topic.name();
-            temperature   = message.toDouble();
-            co2           = message.toInt();
-            humidite      = message.toInt();
-            indiceConfort = message.toInt();
-            luminosite    = message.toInt();
-            qualiteAir    = message.toInt();
-        }
     }
 
-    emit(temperature, humidite, co2, luminosite, indiceConfort, qualiteAir);
-
-    /**
-     * @brief La donnée brute reçue est dans la variable message
-     */
-    /**
-     * @todo Extraire du topic le nom de la salle et le type de donnée reçue
-     */
+    // Exemple topic : salles/B20/temperature
+    // Exemple message : 20.5
+    if(champs.at(ChampsTopic::RACINE) == TOPIC_RACINE)
+    {
+        emit nouvelleDonnee(champs.at(ChampsTopic::NOM_SALLE),
+                            champs.at(ChampsTopic::TYPE_DONNEE),
+                            QString(message));
+    }
 }
 
 void CommunicationMQTT::connecte()
