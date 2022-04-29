@@ -12,11 +12,10 @@
  * @version 0.2
  */
 
-#define BROKER_MQTT_HOSTNAME "192.168.52.7"
+#define BROKER_MQTT_HOSTNAME "192.168.52.101"
 #define BROKER_MQTT_PORT     1883
 
 #define TOPIC_RACINE "salles"
-
 /**
  * @class CommunicationMQTT
  * @brief Déclaration de la classe CommunicationMQTT

@@ -22,14 +22,15 @@
  */
 #define VERSION "0.2"
 
-QT_BEGIN_NAMESPACE
+// QT_BEGIN_NAMESPACE
 namespace Ui
 {
 class IHMEcoClassroom;
 }
+// QT_END_NAMESPACE
 
 class BaseDeDonnees;
-QT_END_NAMESPACE
+class CommunicationMQTT;
 
 /**
  * @class IHMEcoClassroom
@@ -47,6 +48,7 @@ class IHMEcoClassroom : public QMainWindow
   private:
     Ui::IHMEcoClassroom* ui; //!< La fenêtre graphique associée à cette classe
     BaseDeDonnees*       baseDeDonnees; //!< Base de donnes
+    CommunicationMQTT*   communicationMQTT;
     QStringList          nomColonnes;   //!< Liste de nom des colonnes
     int                  nbLignesSalle; //!< Nombre de lignes
     QVector<QStringList> salles;        //!< Les salles
@@ -96,6 +98,9 @@ class IHMEcoClassroom : public QMainWindow
     void verifierCode();
     void editerSalle();
     void validerEditionSalle();
+    void traiterNouvelleDonnee(QString nomSalle,
+                               QString typeDonnee,
+                               QString donnee);
     void afficherFenetre(IHMEcoClassroom::Fenetre fenetre);
     void afficherFenetrePrincipale();
     void afficherAPropos();

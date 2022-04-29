@@ -1,6 +1,7 @@
 #include "ihmecoclassroom.h"
 #include "ui_ihmecoclassroom.h"
 #include "basededonnees.h"
+#include "communicationmqtt.h"
 #include "salle.h"
 #include "mesure.h"
 #include <QDebug>
@@ -20,13 +21,16 @@
  * fenêtre principale de l'application
  */
 IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
-    QMainWindow(parent), ui(new Ui::IHMEcoClassroom), nbLignesSalle(0),
-    salleSelectionnee(-1)
+    QMainWindow(parent), ui(new Ui::IHMEcoClassroom), baseDeDonnees(nullptr),
+    communicationMQTT(nullptr), nbLignesSalle(0), salleSelectionnee(-1)
 {
     qDebug() << Q_FUNC_INFO;
     ui->setupUi(this);
     baseDeDonnees = BaseDeDonnees::getInstance();
     baseDeDonnees->ouvrir("eco-classroom.db");
+
+    communicationMQTT = new CommunicationMQTT(this);
+
     ajouterMenuAide();
     initialiserAffichage();
 
@@ -120,6 +124,11 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(bool)),
             this,
             SLOT(afficherFenetrePrincipale()));
+    // Communication
+    connect(communicationMQTT,
+            SIGNAL(nouvelleDonnee(QString, QString, QString)),
+            this,
+            SLOT(traiterNouvelleDonnee(QString, QString, QString)));
 }
 
 /**
@@ -413,6 +422,32 @@ void IHMEcoClassroom::validerEditionSalle()
             chargerSalles();
             afficherFenetrePrincipale();
         }
+    }
+}
+
+void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
+                                            QString typeDonnee,
+                                            QString donnee)
+{
+    qDebug() << Q_FUNC_INFO << nomSalle << typeDonnee << donnee;
+    /**
+     * @todo Enregistrer la nouvelle donnée dans la base de données
+     */
+    QString requete = "UPDATE Salle SET nom='" + nomSalle + "' WHERE idSalle=" +
+                      salles.at(salleSelectionnee).at(Salle::ID) + ";";
+    bool retour = baseDeDonnees->executer(requete);
+    if(!retour)
+    {
+        qDebug() << QString::fromUtf8("erreur modification !");
+    }
+
+    /**
+     * @todo Mettre à jour l'affichage
+     */
+    else
+    {
+        chargerSalles();
+        afficherFenetrePrincipale();
     }
 }
 
