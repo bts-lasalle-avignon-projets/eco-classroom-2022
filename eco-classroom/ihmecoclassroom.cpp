@@ -35,6 +35,12 @@ IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
     initialiserAffichage();
 
     gererEvenements();
+
+#ifdef TEST_SANS_BROKER_MQTT
+    // Exemple pour simuler une réception
+    communicationMQTT->recevoir("20.5",
+                                QMqttTopicName("salles/B20/temperature"));
+#endif
 }
 
 /**
@@ -431,24 +437,30 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
 {
     qDebug() << Q_FUNC_INFO << nomSalle << typeDonnee << donnee;
     /**
-     * @todo Enregistrer la nouvelle donnée dans la base de données
+     * @todo Il faut récupérer l'idSalle à partir du nomSalle
      */
-    QString requete = "UPDATE Salle SET nom='" + nomSalle + "' WHERE idSalle=" +
-                      salles.at(salleSelectionnee).at(Salle::ID) + ";";
+    /**
+     * @todo Il faut identifier le type de donnée pour mettre à jour la base de
+     * données :
+     * - temperature, luminosite, humidite ou co2 dans la table Mesure
+     * - idIndiceConfort, idIndiceQualiteAir, etatFenetres, etatLumieres ou
+     * estOccupe dans la table Salle
+     */
+    // Enregistrer la nouvelle donnée dans la base de données
+    /*
+    QString requete = "UPDATE Salle SET XXX='" + donnee + "' WHERE idSalle=" +
+                      idSalle + ";";
     bool retour = baseDeDonnees->executer(requete);
     if(!retour)
     {
         qDebug() << QString::fromUtf8("erreur modification !");
     }
-
-    /**
-     * @todo Mettre à jour l'affichage
-     */
     else
     {
         chargerSalles();
         afficherFenetrePrincipale();
     }
+    */
 }
 
 /**
