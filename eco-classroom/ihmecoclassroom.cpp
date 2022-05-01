@@ -439,17 +439,50 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
     /**
      * @todo Il faut récupérer l'idSalle à partir du nomSalle
      */
+
+    QString idSalle = nomSalle.at(Salle::ID);
+
     /**
-     * @todo Il faut identifier le type de donnée pour mettre à jour la base de
-     * données :
+     * @todo Il faut identifier le type de donnée pour mettre à jour la base
+     * de données :
      * - temperature, luminosite, humidite ou co2 dans la table Mesure
      * - idIndiceConfort, idIndiceQualiteAir, etatFenetres, etatLumieres ou
      * estOccupe dans la table Salle
      */
+
+    if(typeDonnee == ("temperature"))
+    {
+        donnee = salles.at(salleSelectionnee).at(Mesure::TEMPERATURE);
+    }
+    if(typeDonnee == ("humidite"))
+    {
+        donnee = salles.at(salleSelectionnee).at(Mesure::HUMIDITE);
+    }
+    if(typeDonnee == ("co2"))
+    {
+        donnee = salles.at(salleSelectionnee).at(Mesure::CO2);
+    }
+    if(typeDonnee == ("idIndiceConfort"))
+    {
+        donnee = salles.at(salleSelectionnee).at(Salle::INDICE_DE_CONFORT);
+    }
+    if(typeDonnee == ("idIndiceQualiteAir"))
+    {
+        donnee = salles.at(salleSelectionnee).at(Salle::LIBELLE_QUALITE_AIR);
+    }
+    if(typeDonnee == ("etatFenetres"))
+    {
+        donnee = salles.at(salleSelectionnee).at(Salle::ETAT_DES_FENETRES);
+    }
+    if(typeDonnee == ("etatLumieres"))
+    {
+        donnee = salles.at(salleSelectionnee).at(Salle::ETAT_DES_LUMIERES);
+    }
+
     // Enregistrer la nouvelle donnée dans la base de données
-    /*
-    QString requete = "UPDATE Salle SET XXX='" + donnee + "' WHERE idSalle=" +
-                      idSalle + ";";
+
+    QString requete = "UPDATE Salle SET typeDonnee='" + donnee +
+                      "',  WHERE idSalle=" + idSalle + ";";
     bool retour = baseDeDonnees->executer(requete);
     if(!retour)
     {
@@ -460,7 +493,6 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
         chargerSalles();
         afficherFenetrePrincipale();
     }
-    */
 }
 
 /**
