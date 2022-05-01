@@ -149,6 +149,8 @@ QString IHMEcoClassroom::recupererIdSalle(QString nomSalle)
      * de salle et donc retourner son id contenu dans le QVector<QStringList>
      * salles
      */
+    qDebug() << Q_FUNC_INFO << nomSalle;
+    qDebug() << Q_FUNC_INFO << salles;
     return QString();
 }
 
@@ -457,15 +459,6 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
     QString idSalle = recupererIdSalle(nomSalle);
     qDebug() << Q_FUNC_INFO << idSalle;
 
-    /**
-     * @todo Créer la requête à partir du type de donnée :
-     * - temperature, luminosite, humidite ou co2 dans la table Mesure
-     * - idIndiceConfort, idIndiceQualiteAir, etatFenetres, etatLumieres ou
-     * estOccupe dans la table Salle
-     * La donnée a enregistré dans la base de données se trouve dans la variable
-     * donnee
-     */
-
     QString requete;
     if(typeDonnee == ("temperature"))
     {
@@ -503,16 +496,23 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
                   "' WHERE idSalle=" + idSalle + ";";
     }
 
-    // Enregistrer la nouvelle donnée dans la base de données
-    bool retour = baseDeDonnees->executer(requete);
-    if(!retour)
+    if(!idSalle.isEmpty())
     {
-        qDebug() << QString::fromUtf8("erreur modification !");
+        // Enregistrer la nouvelle donnée dans la base de données
+        bool retour = baseDeDonnees->executer(requete);
+        if(!retour)
+        {
+            qDebug() << "erreur modification !";
+        }
+        else
+        {
+            chargerSalles();
+            afficherFenetrePrincipale();
+        }
     }
     else
     {
-        chargerSalles();
-        afficherFenetrePrincipale();
+        qDebug() << "idSalle manquant !";
     }
 }
 
