@@ -469,25 +469,38 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
     QString requete;
     if(typeDonnee == ("temperature"))
     {
-        requete = "...";
+        requete = "UPDATE Salle SET temperature='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
     }
     else if(typeDonnee == ("humidite"))
     {
+        requete = "UPDATE Salle SET humidite='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
     }
     else if(typeDonnee == ("co2"))
     {
+        requete = "UPDATE Salle SET co2='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
     }
     else if(typeDonnee == ("idIndiceConfort"))
     {
+        requete = "UPDATE Salle SET idIndiceConfort='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
     }
     else if(typeDonnee == ("idIndiceQualiteAir"))
     {
+        requete = "UPDATE Salle SET idIndiceQualiteAir='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
     }
     else if(typeDonnee == ("etatFenetres"))
     {
+        requete = "UPDATE Salle SET etatFenetres='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
     }
     else if(typeDonnee == ("etatLumieres"))
     {
+        requete = "UPDATE Salle SET etatLumieres='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
     }
 
     // Enregistrer la nouvelle donnée dans la base de données
