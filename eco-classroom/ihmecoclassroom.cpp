@@ -138,6 +138,21 @@ void IHMEcoClassroom::gererEvenements()
 }
 
 /**
+ * @brief Retourne l'idSalle à partir de son nom
+ *
+ * @fn IHMEcoClassroom::recupererIdSalle
+ */
+QString IHMEcoClassroom::recupererIdSalle(QString nomSalle)
+{
+    /**
+     * @todo Parcourir le QVector<QStringList> salles afin de trouver le bon nom
+     * de salle et donc retourner son id contenu dans le QVector<QStringList>
+     * salles
+     */
+    return QString();
+}
+
+/**
  * @brief Charge les données des salles dans le QTableView
  *
  * @fn IHMEcoClassroom::chargerSalles
@@ -439,50 +454,43 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
     /**
      * @todo Il faut récupérer l'idSalle à partir du nomSalle
      */
-
-    QString idSalle = nomSalle.at(Salle::ID);
+    QString idSalle = recupererIdSalle(nomSalle);
+    qDebug() << Q_FUNC_INFO << idSalle;
 
     /**
-     * @todo Il faut identifier le type de donnée pour mettre à jour la base
-     * de données :
+     * @todo Créer la requête à partir du type de donnée :
      * - temperature, luminosite, humidite ou co2 dans la table Mesure
      * - idIndiceConfort, idIndiceQualiteAir, etatFenetres, etatLumieres ou
      * estOccupe dans la table Salle
+     * La donnée a enregistré dans la base de données se trouve dans la variable
+     * donnee
      */
 
+    QString requete;
     if(typeDonnee == ("temperature"))
     {
-        donnee = salles.at(salleSelectionnee).at(Mesure::TEMPERATURE);
+        requete = "...";
     }
-    if(typeDonnee == ("humidite"))
+    else if(typeDonnee == ("humidite"))
     {
-        donnee = salles.at(salleSelectionnee).at(Mesure::HUMIDITE);
     }
-    if(typeDonnee == ("co2"))
+    else if(typeDonnee == ("co2"))
     {
-        donnee = salles.at(salleSelectionnee).at(Mesure::CO2);
     }
-    if(typeDonnee == ("idIndiceConfort"))
+    else if(typeDonnee == ("idIndiceConfort"))
     {
-        donnee = salles.at(salleSelectionnee).at(Salle::INDICE_DE_CONFORT);
     }
-    if(typeDonnee == ("idIndiceQualiteAir"))
+    else if(typeDonnee == ("idIndiceQualiteAir"))
     {
-        donnee = salles.at(salleSelectionnee).at(Salle::LIBELLE_QUALITE_AIR);
     }
-    if(typeDonnee == ("etatFenetres"))
+    else if(typeDonnee == ("etatFenetres"))
     {
-        donnee = salles.at(salleSelectionnee).at(Salle::ETAT_DES_FENETRES);
     }
-    if(typeDonnee == ("etatLumieres"))
+    else if(typeDonnee == ("etatLumieres"))
     {
-        donnee = salles.at(salleSelectionnee).at(Salle::ETAT_DES_LUMIERES);
     }
 
     // Enregistrer la nouvelle donnée dans la base de données
-
-    QString requete = "UPDATE Salle SET typeDonnee='" + donnee +
-                      "',  WHERE idSalle=" + idSalle + ";";
     bool retour = baseDeDonnees->executer(requete);
     if(!retour)
     {

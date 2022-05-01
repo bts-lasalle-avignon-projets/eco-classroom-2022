@@ -87,9 +87,10 @@ class IHMEcoClassroom : public QMainWindow
         NB_COLONNES
     };
 
-    void initialiserAffichage();
-    void ajouterMenuAide();
-    void gererEvenements();
+    void    initialiserAffichage();
+    void    ajouterMenuAide();
+    void    gererEvenements();
+    QString recupererIdSalle(QString nomSalle);
 
   public slots:
     void chargerSalles();
