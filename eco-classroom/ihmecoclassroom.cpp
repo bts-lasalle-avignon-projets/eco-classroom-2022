@@ -38,7 +38,7 @@ IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
 
 #ifdef TEST_SANS_BROKER_MQTT
     // Exemple pour simuler une réception
-    communicationMQTT->recevoir("20.5",
+    communicationMQTT->recevoir("80.5",
                                 QMqttTopicName("salles/B20/temperature"));
 #endif
 }
@@ -149,8 +149,21 @@ QString IHMEcoClassroom::recupererIdSalle(QString nomSalle)
      * de salle et donc retourner son id contenu dans le QVector<QStringList>
      * salles
      */
+    for(int i = 0; i < salles.size(); ++i)
+    {
+        if(nomSalle == salles.at(i).at(Salle::NOM))
+        {
+            return salles.at(i).at(Salle::ID);
+        }
+        else
+        {
+            qDebug() << "idSalle n'est pas trouvée!";
+        }
+    }
+
     qDebug() << Q_FUNC_INFO << nomSalle;
     qDebug() << Q_FUNC_INFO << salles;
+    qDebug() << Q_FUNC_INFO << Salle::ID;
     return QString();
 }
 
@@ -462,17 +475,17 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
     QString requete;
     if(typeDonnee == ("temperature"))
     {
-        requete = "UPDATE Salle SET temperature='" + donnee +
+        requete = "UPDATE Mesure SET temperature='" + donnee +
                   "' WHERE idSalle=" + idSalle + ";";
     }
     else if(typeDonnee == ("humidite"))
     {
-        requete = "UPDATE Salle SET humidite='" + donnee +
+        requete = "UPDATE Mesure SET humidite='" + donnee +
                   "' WHERE idSalle=" + idSalle + ";";
     }
     else if(typeDonnee == ("co2"))
     {
-        requete = "UPDATE Salle SET co2='" + donnee +
+        requete = "UPDATE Mesure SET co2='" + donnee +
                   "' WHERE idSalle=" + idSalle + ";";
     }
     else if(typeDonnee == ("idIndiceConfort"))
