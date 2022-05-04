@@ -21,7 +21,7 @@
     <item>
      <widget class="QStackedWidget" name="fenetres">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="accueil">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -384,6 +384,26 @@
            <layout class="QHBoxLayout" name="horizontalLayoutButton">
             <item>
              <spacer name="horizontalSpacer_19">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonSupprimer">
+              <property name="text">
+               <string>Supprimer</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="horizontalSpacer">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -788,7 +808,7 @@
      <x>0</x>
      <y>0</y>
      <width>974</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

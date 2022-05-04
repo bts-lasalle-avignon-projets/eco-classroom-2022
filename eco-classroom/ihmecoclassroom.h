@@ -96,6 +96,7 @@ class IHMEcoClassroom : public QMainWindow
     void verifierCode();
     void editerSalle();
     void validerEditionSalle();
+    void supprimerSalle();
     void afficherFenetre(IHMEcoClassroom::Fenetre fenetre);
     void afficherFenetrePrincipale();
     void afficherAPropos();

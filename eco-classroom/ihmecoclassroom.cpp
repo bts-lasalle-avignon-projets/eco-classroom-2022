@@ -120,6 +120,11 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(bool)),
             this,
             SLOT(afficherFenetrePrincipale()));
+    // Supprimer salle
+    connect(ui->buttonSupprimer,
+            SIGNAL(clicked()),
+            this,
+            SLOT(supprimerSalle()));
 }
 
 /**
@@ -414,6 +419,14 @@ void IHMEcoClassroom::validerEditionSalle()
             afficherFenetrePrincipale();
         }
     }
+}
+
+/**
+ * @brief IHMEcoClassroom::supprimerSalle
+ */
+void IHMEcoClassroom::supprimerSalle()
+{
+    qDebug() << Q_FUNC_INFO;
 }
 
 /**
