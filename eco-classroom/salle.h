@@ -18,13 +18,12 @@
 class Salle
 {
   private:
-    QStringList salle;       //!< Les données d'une salle
-    QString     id;          //!< L'id de la salle dans la table
-    QString     nom;         //!< Nom de la salle
-    QString     lieu;        //!< Lieu de la salle
-    QString     description; //!< La description d'une salle
-    int         surface;     //!< La surface d'une salle
-    QString     code; //!< Le code administrateur pour paramétrer une salle
+    QStringList salle;            //!< Les données d'une salle
+    QString     id;               //!< L'id de la salle dans la table
+    QString     nom;              //!< Nom de la salle
+    QString     lieu;             //!< Lieu de la salle
+    QString     description;      //!< La description d'une salle
+    int         surface;          //!< La surface d'une salle
     int         indiceConfort;    //!< L'indice de confort d'une salle
     QString libelleIndiceConfort; //!< Le libelle associé à l'indice de confort
                                   //!< D'une salle
@@ -45,7 +44,6 @@ class Salle
     QString     getLieu() const;
     QString     getDesciption() const;
     int         getSurface() const;
-    QString     getCode() const;
     int         getIndiceConfort() const;
     QString     getLibelleIndiceConfort() const;
     QString     getLibelleQualiteAir() const;
@@ -66,7 +64,6 @@ class Salle
         LIEU,                      //!< Emplacement du lieu
         DESCRIPTION,               //!< Emplacement de description
         SUPERFICIE,                //!< Emplacement de la superficie
-        CODE,                      //!< Emplacement du code d'administration
         INDICE_DE_CONFORT,         //!< Emplacement de l'indice de confort
         LIBELLE_INDICE_DE_CONFORT, //!< Emplacement du libelle de l'indice de
         LIBELLE_QUALITE_AIR, //!< Emplacement du libelle de la qualité d'air

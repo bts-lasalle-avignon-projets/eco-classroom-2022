@@ -27,10 +27,20 @@ INSERT INTO IndiceQualiteAir(idIndiceQualiteAir,libelle) VALUES
 
 --- Table Salle
 
-INSERT INTO Salle(nom, lieu, description, superficie, code) VALUES ('B11','Bat. BTS','Cours','15','0000');
-INSERT INTO Salle(nom, lieu, description, superficie, code) VALUES ('B20','Bat. BTS','Atelier','60','1234');
-INSERT INTO Salle(nom, lieu, description, superficie, code) VALUES ('B21','Bat. BTS','Labo','40','1234');
-INSERT INTO Salle(nom, lieu, description, superficie, code) VALUES ('B22','Bat. BTS','Cours','50','6666');
+INSERT INTO Salle(nom, lieu, description, superficie) VALUES ('B11','Bat. BTS','Cours','15');
+INSERT INTO Salle(nom, lieu, description, superficie) VALUES ('B20','Bat. BTS','Atelier','60');
+INSERT INTO Salle(nom, lieu, description, superficie) VALUES ('B21','Bat. BTS','Labo','40');
+INSERT INTO Salle(nom, lieu, description, superficie) VALUES ('B22','Bat. BTS','Cours','50');
+
+--- Table Mesure
+
+-- temperature,luminosite,humidite,co2
+
+INSERT INTO Mesure(idSalle,horodatage) VALUES ('1', '1970-01-01 00:00:00');
+INSERT INTO Mesure(idSalle,horodatage) VALUES ('2', '1970-01-01 00:00:00');
+INSERT INTO Mesure(idSalle,horodatage) VALUES ('3', '1970-01-01 00:00:00');
+INSERT INTO Mesure(idSalle,horodatage) VALUES ('4', '1970-01-01 00:00:00');
+
 
 --- Table SeuilsAlerte
 

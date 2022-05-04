@@ -72,6 +72,9 @@ class IHMEcoClassroom : public QMainWindow
     {
         Accueil = 0,
         InformationsSalle,
+        /**
+         * @todo Effacer la fenêtre de saisie du code
+         */
         SaisieCode,
         EditionSalle,
         NbFenetres
@@ -96,17 +99,18 @@ class IHMEcoClassroom : public QMainWindow
     void    ajouterMenuAide();
     void    gererEvenements();
     QString recupererIdSalle(QString nomSalle);
+    int     recupererIndexSalle(QString idSalle);
     void    reinitialiserAffichageMesureSalle();
     void    afficherMesureSalle(QStringList mesureSalle);
-    void    afficheInformationsSalle(QModelIndex index);
+    void    afficheInformationsSalle(int index);
+    bool mettreAJourDonnee(QString donnee, QString typeDonnee, QString idSalle);
+    QString insererNouvelleSalle(QString nomSalle);
 
   public slots:
     void chargerSalles();
     void afficherSalleTable(QStringList salle);
     void effacerTableSalles();
     void selectionner(QModelIndex index);
-    void editer();
-    void verifierCode();
     void editerSalle();
     void validerEditionSalle();
     void traiterNouvelleDonnee(QString nomSalle,
