@@ -57,6 +57,11 @@ class IHMEcoClassroom : public QMainWindow
     QStandardItemModel*  modeleSalle;   //!< Modèle pour le QTableView
     int
       salleSelectionnee; //!< Indice de la salle sélectionnée à éditer sinon -1
+#ifdef TEST_SANS_BROKER_MQTT
+    QTimer* timerSimulation;
+    int     simulerDonnee(QString typeDonnee);
+    int     randInt(int min, int max);
+#endif
 
     /**
      * @enum Fenetre
@@ -107,6 +112,9 @@ class IHMEcoClassroom : public QMainWindow
     void afficherFenetre(IHMEcoClassroom::Fenetre fenetre);
     void afficherFenetrePrincipale();
     void afficherAPropos();
+#ifdef TEST_SANS_BROKER_MQTT
+    void simuler();
+#endif
 };
 
 #endif // IHMECOCLASSROOM_H

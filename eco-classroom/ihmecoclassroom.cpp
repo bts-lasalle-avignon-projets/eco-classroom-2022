@@ -38,8 +38,11 @@ IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
 
 #ifdef TEST_SANS_BROKER_MQTT
     // Exemple pour simuler une réception
-    communicationMQTT->recevoir("80.5",
-                                QMqttTopicName("salles/B20/temperature"));
+    QTime time = QTime::currentTime();
+    qsrand((uint)time.msec());
+    timerSimulation = new QTimer(this);
+    connect(timerSimulation, SIGNAL(timeout()), this, SLOT(simuler()));
+    timerSimulation->start(5000); // toutes les secondes
 #endif
 }
 
@@ -76,7 +79,8 @@ void IHMEcoClassroom::initialiserAffichage()
       QHeaderView::Stretch);
     nbLignesSalle = modeleSalle->rowCount();
 
-    // afficherFenetre(IHMEcoClassroom::Fenetre3);
+    ui->boutonCharger->hide();
+    ui->boutonEffacer->hide();
     chargerSalles();
     afficherFenetre(IHMEcoClassroom::Fenetre::Accueil);
 }
@@ -144,26 +148,16 @@ void IHMEcoClassroom::gererEvenements()
  */
 QString IHMEcoClassroom::recupererIdSalle(QString nomSalle)
 {
-    /**
-     * @todo Parcourir le QVector<QStringList> salles afin de trouver le bon nom
-     * de salle et donc retourner son id contenu dans le QVector<QStringList>
-     * salles
-     */
     for(int i = 0; i < salles.size(); ++i)
     {
         if(nomSalle == salles.at(i).at(Salle::NOM))
         {
+            // qDebug() << Q_FUNC_INFO << salles.at(i).at(Salle::ID);
             return salles.at(i).at(Salle::ID);
-        }
-        else
-        {
-            qDebug() << "idSalle n'est pas trouvée!";
         }
     }
 
-    qDebug() << Q_FUNC_INFO << nomSalle;
-    qDebug() << Q_FUNC_INFO << salles;
-    qDebug() << Q_FUNC_INFO << Salle::ID;
+    qDebug() << "idSalle n'est pas trouvée!";
     return QString();
 }
 
@@ -465,12 +459,12 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
                                             QString typeDonnee,
                                             QString donnee)
 {
-    qDebug() << Q_FUNC_INFO << nomSalle << typeDonnee << donnee;
-    /**
-     * @todo Il faut récupérer l'idSalle à partir du nomSalle
-     */
     QString idSalle = recupererIdSalle(nomSalle);
-    qDebug() << Q_FUNC_INFO << idSalle;
+    /**
+     * @todo si idSalle est vide alors une nouvelle salle a été détectée et il
+     * faut l'ajouter dans la base de données
+     */
+    qDebug() << Q_FUNC_INFO << nomSalle << typeDonnee << donnee << idSalle;
 
     QString requete;
     if(typeDonnee == ("temperature"))
@@ -513,14 +507,18 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
     {
         // Enregistrer la nouvelle donnée dans la base de données
         bool retour = baseDeDonnees->executer(requete);
-        if(!retour)
+        if(retour)
         {
-            qDebug() << "erreur modification !";
+            chargerSalles();
+            /**
+             * @todo Il faut modifier l'affichage de toutes les fenêtres qui
+             * dépendent des données sans changer l'affichage de la fenêtre en
+             * cours
+             */
         }
         else
         {
-            chargerSalles();
-            afficherFenetrePrincipale();
+            qDebug() << "erreur modification !";
         }
     }
     else
@@ -577,3 +575,70 @@ void IHMEcoClassroom::afficherAPropos()
       QString::fromUtf8("<p><b>") + QString::fromUtf8(NOM_APPLICATION) + " " +
         QString::fromUtf8(VERSION) + QString::fromUtf8("</b><br/>...</p>"));
 }
+
+#ifdef TEST_SANS_BROKER_MQTT
+void IHMEcoClassroom::simuler()
+{
+    // simule une réception de donnée sans MQTT
+    QStringList nomsDeSalle;
+    nomsDeSalle << "B11"
+                << "B20"
+                << "B21"
+                << "B22";
+    QStringList nomsDeTopic;
+    nomsDeTopic << "temperature"
+                << "humidite"
+                << "co2"
+                << "idIndiceConfort"
+                << "idIndiceQualiteAir"
+                << "etatFenetres"
+                << "etatLumieres";
+    QString    salle      = nomsDeSalle.at(randInt(0, nomsDeSalle.size() - 1));
+    QString    typeDonnee = nomsDeTopic.at(randInt(0, nomsDeTopic.size() - 1));
+    QByteArray donnee =
+      QString::number(simulerDonnee(typeDonnee)).toLocal8Bit();
+    qDebug() << Q_FUNC_INFO << salle << typeDonnee << donnee;
+    communicationMQTT->recevoir(
+      donnee,
+      QMqttTopicName(QString("salles/") + salle + QString("/") + typeDonnee));
+}
+
+int IHMEcoClassroom::simulerDonnee(QString typeDonnee)
+{
+    if(typeDonnee == ("temperature"))
+    {
+        return randInt(15, 35);
+    }
+    else if(typeDonnee == ("humidite"))
+    {
+        return randInt(0, 100);
+    }
+    else if(typeDonnee == ("co2"))
+    {
+        return randInt(400, 1500);
+    }
+    else if(typeDonnee == ("idIndiceConfort"))
+    {
+        return randInt(0, 6);
+    }
+    else if(typeDonnee == ("idIndiceQualiteAir"))
+    {
+        return randInt(1, 6);
+    }
+    else if(typeDonnee == ("etatFenetres"))
+    {
+        return randInt(0, 1);
+    }
+    else if(typeDonnee == ("etatLumieres"))
+    {
+        return randInt(0, 1);
+    }
+    return -1;
+}
+
+int IHMEcoClassroom::randInt(int min, int max)
+{
+    return qrand() % ((max + 1) - min) + min;
+}
+
+#endif
