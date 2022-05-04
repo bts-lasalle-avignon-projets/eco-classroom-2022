@@ -96,6 +96,9 @@ class IHMEcoClassroom : public QMainWindow
     void    ajouterMenuAide();
     void    gererEvenements();
     QString recupererIdSalle(QString nomSalle);
+    void    reinitialiserAffichageMesureSalle();
+    void    afficherMesureSalle(QStringList mesureSalle);
+    void    afficheInformationsSalle(QModelIndex index);
 
   public slots:
     void chargerSalles();
