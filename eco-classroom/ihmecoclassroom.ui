@@ -396,26 +396,6 @@
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="buttonSupprimer">
-              <property name="text">
-               <string>Supprimer</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="horizontalSpacer">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
              <widget class="QPushButton" name="buttonAccueil">
               <property name="text">
                <string>Accueil</string>
@@ -426,6 +406,13 @@
              <widget class="QPushButton" name="buttonEditerSalle">
               <property name="text">
                <string>Éditer</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonSupprimer">
+              <property name="text">
+               <string>Supprimer</string>
               </property>
              </widget>
             </item>
@@ -808,7 +795,7 @@
      <x>0</x>
      <y>0</y>
      <width>974</width>
-     <height>22</height>
+     <height>39</height>
     </rect>
    </property>
   </widget>

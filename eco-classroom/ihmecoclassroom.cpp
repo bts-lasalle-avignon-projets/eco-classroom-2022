@@ -98,6 +98,10 @@ void IHMEcoClassroom::gererEvenements()
             this,
             SLOT(afficherFenetrePrincipale()));
     connect(ui->buttonEditerSalle, SIGNAL(clicked(bool)), this, SLOT(editer()));
+    connect(ui->buttonSupprimer,
+            SIGNAL(clicked()),
+            this,
+            SLOT(supprimerSalle()));
     // Fenêtre SaisieCode
     connect(ui->buttonValiderCode,
             SIGNAL(clicked()),
@@ -120,11 +124,6 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(bool)),
             this,
             SLOT(afficherFenetrePrincipale()));
-    // Supprimer salle
-    connect(ui->buttonSupprimer,
-            SIGNAL(clicked()),
-            this,
-            SLOT(supprimerSalle()));
 }
 
 /**
