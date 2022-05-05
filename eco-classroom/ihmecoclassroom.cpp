@@ -1,6 +1,7 @@
 #include "ihmecoclassroom.h"
 #include "ui_ihmecoclassroom.h"
 #include "basededonnees.h"
+#include "communicationmqtt.h"
 #include "salle.h"
 #include "mesure.h"
 #include <QDebug>
@@ -20,17 +21,28 @@
  * fenêtre principale de l'application
  */
 IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
-    QMainWindow(parent), ui(new Ui::IHMEcoClassroom), nbLignesSalle(0),
-    salleSelectionnee(-1)
+    QMainWindow(parent), ui(new Ui::IHMEcoClassroom), baseDeDonnees(nullptr),
+    communicationMQTT(nullptr), nbLignesSalle(0), salleSelectionnee(-1)
 {
     qDebug() << Q_FUNC_INFO;
     ui->setupUi(this);
     baseDeDonnees = BaseDeDonnees::getInstance();
     baseDeDonnees->ouvrir("eco-classroom.db");
+
+    communicationMQTT = new CommunicationMQTT(this);
+
     ajouterMenuAide();
     initialiserAffichage();
-
     gererEvenements();
+
+#ifdef TEST_SANS_BROKER_MQTT
+    // Exemple pour simuler une réception
+    QTime time = QTime::currentTime();
+    qsrand((uint)time.msec());
+    timerSimulation = new QTimer(this);
+    connect(timerSimulation, SIGNAL(timeout()), this, SLOT(simuler()));
+    timerSimulation->start(5000); // toutes les secondes
+#endif
 }
 
 /**
@@ -66,7 +78,9 @@ void IHMEcoClassroom::initialiserAffichage()
       QHeaderView::Stretch);
     nbLignesSalle = modeleSalle->rowCount();
 
-    // afficherFenetre(IHMEcoClassroom::Fenetre3);
+    // Pour les tests : appeler show()
+    ui->boutonCharger->hide();
+    ui->boutonEffacer->hide();
     chargerSalles();
     afficherFenetre(IHMEcoClassroom::Fenetre::Accueil);
 }
@@ -97,20 +111,10 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(bool)),
             this,
             SLOT(afficherFenetrePrincipale()));
-    connect(ui->buttonEditerSalle, SIGNAL(clicked(bool)), this, SLOT(editer()));
-    // Fenêtre SaisieCode
-    connect(ui->buttonValiderCode,
-            SIGNAL(clicked()),
-            this,
-            SLOT(verifierCode()));
-    connect(ui->lineEditCode,
-            SIGNAL(returnPressed()),
-            this,
-            SLOT(verifierCode()));
-    connect(ui->buttonAnnulerCode,
+    connect(ui->buttonEditerSalle,
             SIGNAL(clicked(bool)),
             this,
-            SLOT(afficherFenetrePrincipale()));
+            SLOT(editerSalle()));
     // Fenêtre EditionSalle
     connect(ui->buttonValiderEdition,
             SIGNAL(clicked(bool)),
@@ -120,6 +124,199 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(bool)),
             this,
             SLOT(afficherFenetrePrincipale()));
+    // Communication
+    connect(communicationMQTT,
+            SIGNAL(nouvelleDonnee(QString, QString, QString)),
+            this,
+            SLOT(traiterNouvelleDonnee(QString, QString, QString)));
+}
+
+/**
+ * @brief Retourne l'idSalle à partir de son nom
+ *
+ * @fn IHMEcoClassroom::recupererIdSalle
+ */
+QString IHMEcoClassroom::recupererIdSalle(QString nomSalle)
+{
+    for(int i = 0; i < salles.size(); ++i)
+    {
+        if(nomSalle == salles.at(i).at(Salle::NOM))
+        {
+            // qDebug() << Q_FUNC_INFO << salles.at(i).at(Salle::ID);
+            return salles.at(i).at(Salle::ID);
+        }
+    }
+
+    qDebug() << "idSalle introuvable !";
+    return QString();
+}
+
+/**
+ * @brief Retourne l'index à partir de son idSalle
+ *
+ * @fn IHMEcoClassroom::recupererIndexSalle
+ */
+int IHMEcoClassroom::recupererIndexSalle(QString idSalle)
+{
+    for(int i = 0; i < salles.size(); ++i)
+    {
+        if(idSalle == salles.at(i).at(Salle::ID))
+        {
+            return i;
+        }
+    }
+
+    qDebug() << "index introuvable !";
+    return -1;
+}
+
+/**
+ * @brief IHMEcoClassroom::reinitialiserAffichageMesureSalle
+ */
+void IHMEcoClassroom::reinitialiserAffichageMesureSalle()
+{
+    ui->labelCo2Salle->setText("");
+    ui->labelCo2->setVisible(false);
+    ui->labelCo2Salle->setVisible(false);
+    ui->labelTemperatureSalle->setText("");
+    ui->labelTemperature->setVisible(false);
+    ui->labelTemperatureSalle->setVisible(false);
+    ui->labelHorodatage->setText("");
+    ui->labelHorodatage->setVisible(false);
+}
+
+/**
+ * @brief IHMEcoClassroom::afficherMesureSalle
+ * @param mesureSalle
+ */
+void IHMEcoClassroom::afficherMesureSalle(QStringList mesureSalle)
+{
+    ui->labelCo2Salle->setText(mesureSalle.at(Mesure::CO2) + " ppm");
+    ui->labelCo2->setVisible(true);
+    ui->labelCo2Salle->setVisible(true);
+    ui->labelTemperatureSalle->setText(mesureSalle.at(Mesure::TEMPERATURE) +
+                                       " °C");
+    ui->labelTemperature->setVisible(true);
+    ui->labelTemperatureSalle->setVisible(true);
+    QDateTime horodatage =
+      QDateTime::fromString(mesureSalle.at(Mesure::HORODATAGE),
+                            "yyyy-MM-dd HH:mm:ss");
+    ui->labelHorodatage->setText(
+      horodatage.toString("Le dd/MM/yyyy à HH:mm:ss"));
+    ui->labelHorodatage->setVisible(true);
+}
+
+/**
+ * @brief IHMEcoClassroom::afficheInformationsSalle
+ * @param index
+ */
+void IHMEcoClassroom::afficheInformationsSalle(int index)
+{
+    ui->labelNomSalle->setText(salles.at(index).at(Salle::NOM));
+    ui->labelLieuSalle->setText(salles.at(index).at(Salle::LIEU));
+    ui->labelDescriptionSalle->setText(salles.at(index).at(Salle::DESCRIPTION));
+    ui->labelSurfaceSalle->setText(salles.at(index).at(Salle::SUPERFICIE) +
+                                   " m2");
+    QString libelleQualiteAir = salles.at(index).at(Salle::LIBELLE_QUALITE_AIR);
+    libelleQualiteAir.replace(0, 1, libelleQualiteAir.at(0).toUpper());
+    ui->labelAirSalle->setText(libelleQualiteAir);
+    QString libelleIndiceConfort =
+      salles.at(index).at(Salle::LIBELLE_INDICE_DE_CONFORT);
+    libelleIndiceConfort.replace(0, 1, libelleIndiceConfort.at(0).toUpper());
+    ui->labelIndiceDeConfortSalle->setText(libelleIndiceConfort);
+    QString etatFenetres = "Fermées";
+    if(salles.at(index).at(Salle::ETAT_DES_FENETRES).toInt())
+        etatFenetres = "Ouvertes";
+    ui->labelFenetresSalle->setText(etatFenetres);
+    QString etatLumieres = "Éteintes";
+    if(salles.at(index).at(Salle::ETAT_DES_LUMIERES).toInt())
+        etatLumieres = "Allumées";
+    ui->labelLumieresSalle->setText(etatLumieres);
+}
+
+bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
+                                        QString typeDonnee,
+                                        QString idSalle)
+{
+    QString   requete;
+    QDateTime horodatage = QDateTime::currentDateTime();
+
+    qDebug() << Q_FUNC_INFO << typeDonnee << donnee << idSalle;
+    if(typeDonnee == ("temperature"))
+    {
+        requete = "UPDATE Mesure SET temperature='" + donnee +
+                  "', horodatage='" +
+                  horodatage.toString("yyyy-MM-dd HH:mm:ss") +
+                  "' WHERE idSalle=" + idSalle + ";";
+    }
+    else if(typeDonnee == ("humidite"))
+    {
+        requete = "UPDATE Mesure SET humidite='" + donnee + "', horodatage='" +
+                  horodatage.toString("yyyy-MM-dd HH:mm:ss") +
+                  "' WHERE idSalle=" + idSalle + ";";
+    }
+    else if(typeDonnee == ("co2"))
+    {
+        requete = "UPDATE Mesure SET co2='" + donnee + "', horodatage='" +
+                  horodatage.toString("yyyy-MM-dd HH:mm:ss") +
+                  "' WHERE idSalle=" + idSalle + ";";
+    }
+    else if(typeDonnee == ("confort"))
+    {
+        requete = "UPDATE Salle SET idIndiceConfort='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
+    }
+    else if(typeDonnee == ("air"))
+    {
+        requete = "UPDATE Salle SET idIndiceQualiteAir='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
+    }
+    else if(typeDonnee == ("fenetres"))
+    {
+        requete = "UPDATE Salle SET etatFenetres='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
+    }
+    else if(typeDonnee == ("lumieres"))
+    {
+        requete = "UPDATE Salle SET etatLumieres='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
+    }
+    else
+    {
+        return false;
+    }
+
+    // Enregistrer la nouvelle donnée dans la base de données
+    bool retour = baseDeDonnees->executer(requete);
+
+    return retour;
+}
+
+QString IHMEcoClassroom::insererNouvelleSalle(QString nomSalle)
+{
+    qDebug() << Q_FUNC_INFO << nomSalle << "nouvelle salle détectée !";
+    QString requete = "INSERT INTO Salle(nom) VALUES ('" + nomSalle + "');";
+    QString idSalle;
+    bool    retour = baseDeDonnees->executer(requete);
+    if(retour)
+    {
+        requete = "SELECT last_insert_rowid();";
+        // Voir aussi : SELECT seq FROM sqlite_sequence WHERE name="Salle"
+        retour = baseDeDonnees->recuperer(requete, idSalle);
+        if(retour)
+        {
+            qDebug() << Q_FUNC_INFO << nomSalle << idSalle;
+            QDateTime horodatage = QDateTime::currentDateTime();
+            requete = "INSERT INTO Mesure(idSalle, horodatage) VALUES ('" +
+                      idSalle + "', '" +
+                      horodatage.toString("yyyy-MM-dd HH:mm:ss") + "');";
+            retour = baseDeDonnees->executer(requete);
+            if(retour)
+                return idSalle;
+        }
+    }
+
+    return QString();
 }
 
 /**
@@ -133,8 +330,8 @@ void IHMEcoClassroom::chargerSalles()
 
     QString requete =
       "SELECT Salle.idSalle,"
-      "Salle.nom,Salle.lieu,Salle.description,Salle.superficie,Salle.code,"
-      "IndiceConfort.indice AS indiceConfort,IndiceConfort.libelle AS "
+      "Salle.nom,Salle.lieu,Salle.description,Salle.superficie,"
+      "IndiceConfort.idIndiceConfort AS indiceConfort,IndiceConfort.libelle AS "
       "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
       "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,Salle."
       "estOccupe FROM Salle INNER JOIN IndiceConfort ON "
@@ -248,113 +445,31 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
              << index.row(); // le numéro de ligne
     qDebug() << Q_FUNC_INFO << salles.at(index.row());
 
-    // Récupère la dernière mesure effectuée dans cette salle
+    // Récupère la mesure effectuée dans cette salle
     QString idSalle   = salles.at(index.row()).at(Salle::ID);
     salleSelectionnee = index.row();
     QStringList mesureSalle;
-    QString requete = "SELECT * FROM Mesure WHERE Mesure.idSalle=" + idSalle +
-                      " AND horodatage IN (SELECT max(horodatage) FROM Mesure)";
+    QString     requete =
+      "SELECT * FROM Mesure WHERE Mesure.idSalle=" + idSalle + "";
     bool retour;
     retour = baseDeDonnees->recuperer(requete, mesureSalle);
     qDebug() << Q_FUNC_INFO << mesureSalle;
 
-    // Affiche la dernière mesure effectuée dans cette salle
+    // Affiche la mesure effectuée dans cette salle
     if(retour)
     {
-        ui->labelCo2Salle->setText(mesureSalle.at(Mesure::CO2) + " ppm");
-        ui->labelCo2->setVisible(true);
-        ui->labelCo2Salle->setVisible(true);
-        ui->labelTemperatureSalle->setText(mesureSalle.at(Mesure::TEMPERATURE) +
-                                           " °C");
-        ui->labelTemperature->setVisible(true);
-        ui->labelTemperatureSalle->setVisible(true);
-        QDateTime horodatage =
-          QDateTime::fromString(mesureSalle.at(Mesure::HORODATAGE),
-                                "yyyy-MM-dd HH:mm:ss");
-        ui->labelHorodatage->setText(
-          horodatage.toString("Le dd/MM/yyyy à HH:mm:ss"));
-        ui->labelHorodatage->setVisible(true);
+        afficherMesureSalle(mesureSalle);
     }
     else
     {
-        ui->labelCo2Salle->setText("");
-        ui->labelCo2->setVisible(false);
-        ui->labelCo2Salle->setVisible(false);
-        ui->labelTemperatureSalle->setText("");
-        ui->labelTemperature->setVisible(false);
-        ui->labelTemperatureSalle->setVisible(false);
-        ui->labelHorodatage->setText("");
-        ui->labelHorodatage->setVisible(false);
+        reinitialiserAffichageMesureSalle();
     }
 
-    // Affiche les informations d'une salle
-    ui->labelNomSalle->setText(salles.at(index.row()).at(Salle::NOM));
-    ui->labelLieuSalle->setText(salles.at(index.row()).at(Salle::LIEU));
-    ui->labelDescriptionSalle->setText(
-      salles.at(index.row()).at(Salle::DESCRIPTION));
-    ui->labelSurfaceSalle->setText(
-      salles.at(index.row()).at(Salle::SUPERFICIE) + " m2");
-    QString libelleQualiteAir =
-      salles.at(index.row()).at(Salle::LIBELLE_QUALITE_AIR);
-    libelleQualiteAir.replace(0, 1, libelleQualiteAir.at(0).toUpper());
-    ui->labelAirSalle->setText(libelleQualiteAir);
-    QString libelleIndiceConfort =
-      salles.at(index.row()).at(Salle::LIBELLE_INDICE_DE_CONFORT);
-    libelleIndiceConfort.replace(0, 1, libelleIndiceConfort.at(0).toUpper());
-    ui->labelIndiceDeConfortSalle->setText(libelleIndiceConfort);
-    QString etatFenetres = "Fermées";
-    if(salles.at(index.row()).at(Salle::ETAT_DES_FENETRES).toInt())
-        etatFenetres = "Ouvertes";
-    ui->labelFenetresSalle->setText(etatFenetres);
-    QString etatLumieres = "Éteintes";
-    if(salles.at(index.row()).at(Salle::ETAT_DES_LUMIERES).toInt())
-        etatLumieres = "Allumées";
-    ui->labelLumieresSalle->setText(etatLumieres);
+    // Affiche les informations de la salle
+    afficheInformationsSalle(index.row());
 
     // Affiche la fenêtre de la salle
     afficherFenetre(IHMEcoClassroom::Fenetre::InformationsSalle);
-}
-
-/**
- * @brief saisir le code de modification
- * @fn  IHMEcoClassroom::editer
- */
-void IHMEcoClassroom::editer()
-{
-    ui->lineEditCode->setText("");
-    ui->labelEtatSaisie->setText("");
-    ui->labelNomSalleEdite->setText(
-      salles.at(salleSelectionnee).at(Salle::NOM));
-    afficherFenetre(IHMEcoClassroom::Fenetre::SaisieCode);
-}
-
-/**
- * @brief verifier le code d'administrateur pour paramétrer une salle
- *
- * @fn IHMEcoClassroom::verifierCode
- */
-
-void IHMEcoClassroom::verifierCode()
-{
-    QString code = ui->lineEditCode->text();
-    qDebug() << Q_FUNC_INFO << "code" << code;
-
-    if(code.isEmpty())
-    {
-        QMessageBox::information(this,
-                                 "Attention",
-                                 "Vous devez saisir un code !");
-    }
-    else if(code == salles.at(salleSelectionnee).at(Salle::CODE))
-    {
-        // Affiche la fenêtre pour éditer les informations de la salle
-        afficherFenetre(IHMEcoClassroom::Fenetre::EditionSalle);
-        editerSalle();
-    }
-    else
-    {
-        ui->labelEtatSaisie->setText("Code invalide !");
-    }
 }
 
 /**
@@ -416,6 +531,45 @@ void IHMEcoClassroom::validerEditionSalle()
     }
 }
 
+void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
+                                            QString typeDonnee,
+                                            QString donnee)
+{
+    QString idSalle = recupererIdSalle(nomSalle);
+
+    if(idSalle.isEmpty())
+    {
+        idSalle = insererNouvelleSalle(nomSalle);
+    }
+
+    if(!idSalle.isEmpty())
+    {
+        bool retour = mettreAJourDonnee(donnee, typeDonnee, idSalle);
+        if(retour)
+        {
+            chargerSalles();
+            idSalle   = recupererIdSalle(nomSalle);
+            int index = recupererIndexSalle(idSalle);
+            if(index == salleSelectionnee)
+            {
+                QStringList mesureSalle;
+                QString     requete =
+                  "SELECT * FROM Mesure WHERE Mesure.idSalle=" + idSalle + "";
+                retour = baseDeDonnees->recuperer(requete, mesureSalle);
+                if(retour)
+                {
+                    afficherMesureSalle(mesureSalle);
+                }
+                afficheInformationsSalle(index);
+            }
+        }
+        else
+        {
+            qDebug() << "erreur modification !";
+        }
+    }
+}
+
 /**
  * @brief Méthode qui permet d'afficher une fenêtre de la pile
  * QStackedWidget
@@ -464,3 +618,70 @@ void IHMEcoClassroom::afficherAPropos()
       QString::fromUtf8("<p><b>") + QString::fromUtf8(NOM_APPLICATION) + " " +
         QString::fromUtf8(VERSION) + QString::fromUtf8("</b><br/>...</p>"));
 }
+
+#ifdef TEST_SANS_BROKER_MQTT
+void IHMEcoClassroom::simuler()
+{
+    // simule une réception de donnée sans MQTT
+    QStringList nomsDeSalle;
+    nomsDeSalle << "B11"
+                << "B20"
+                << "G21"
+                << "B22";
+    QStringList nomsDeTopic;
+    nomsDeTopic << "temperature"
+                << "humidite"
+                << "co2"
+                << "confort"
+                << "air"
+                << "fenetres"
+                << "lumieres";
+    QString    salle      = nomsDeSalle.at(randInt(0, nomsDeSalle.size() - 1));
+    QString    typeDonnee = nomsDeTopic.at(randInt(0, nomsDeTopic.size() - 1));
+    QByteArray donnee =
+      QString::number(simulerDonnee(typeDonnee)).toLocal8Bit();
+    qDebug() << Q_FUNC_INFO << salle << typeDonnee << donnee;
+    communicationMQTT->recevoir(
+      donnee,
+      QMqttTopicName(QString("salles/") + salle + QString("/") + typeDonnee));
+}
+
+int IHMEcoClassroom::simulerDonnee(QString typeDonnee)
+{
+    if(typeDonnee == ("temperature"))
+    {
+        return randInt(15, 35);
+    }
+    else if(typeDonnee == ("humidite"))
+    {
+        return randInt(0, 100);
+    }
+    else if(typeDonnee == ("co2"))
+    {
+        return randInt(400, 1500);
+    }
+    else if(typeDonnee == ("confort"))
+    {
+        return randInt(0, 6);
+    }
+    else if(typeDonnee == ("air"))
+    {
+        return randInt(1, 6);
+    }
+    else if(typeDonnee == ("fenetres"))
+    {
+        return randInt(0, 1);
+    }
+    else if(typeDonnee == ("lumieres"))
+    {
+        return randInt(0, 1);
+    }
+    return -1;
+}
+
+int IHMEcoClassroom::randInt(int min, int max)
+{
+    return qrand() % ((max + 1) - min) + min;
+}
+
+#endif

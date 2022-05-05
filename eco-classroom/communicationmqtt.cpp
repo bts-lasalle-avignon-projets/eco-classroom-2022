@@ -1,6 +1,8 @@
 #include "communicationmqtt.h"
 #include <QDateTime>
 #include <QMessageBox>
+#include "salle.h"
+#include "mesure.h"
 #include <QDebug>
 
 /**
@@ -81,11 +83,19 @@ void CommunicationMQTT::recevoir(const QByteArray&     message,
     qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime().toString()
              << topic.name() << message;
     qDebug() << Q_FUNC_INFO << message.toInt() << message.toDouble();
-
     QStringList champs = topic.name().split("/");
     for(int i = 0; i < champs.size(); ++i)
     {
         qDebug() << Q_FUNC_INFO << champs.at(i);
+    }
+
+    // Exemple topic : salles/B20/temperature
+    // Exemple message : 20.5
+    if(champs.at(ChampsTopic::RACINE) == TOPIC_RACINE)
+    {
+        emit nouvelleDonnee(champs.at(ChampsTopic::NOM_SALLE),
+                            champs.at(ChampsTopic::TYPE_DONNEE),
+                            QString(message));
     }
 }
 

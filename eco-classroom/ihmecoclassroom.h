@@ -22,14 +22,17 @@
  */
 #define VERSION "0.2"
 
-QT_BEGIN_NAMESPACE
+//#define TEST_SANS_BROKER_MQTT
+
+// QT_BEGIN_NAMESPACE
 namespace Ui
 {
 class IHMEcoClassroom;
 }
+// QT_END_NAMESPACE
 
 class BaseDeDonnees;
-QT_END_NAMESPACE
+class CommunicationMQTT;
 
 /**
  * @class IHMEcoClassroom
@@ -47,12 +50,18 @@ class IHMEcoClassroom : public QMainWindow
   private:
     Ui::IHMEcoClassroom* ui; //!< La fenêtre graphique associée à cette classe
     BaseDeDonnees*       baseDeDonnees; //!< Base de donnes
+    CommunicationMQTT*   communicationMQTT;
     QStringList          nomColonnes;   //!< Liste de nom des colonnes
     int                  nbLignesSalle; //!< Nombre de lignes
     QVector<QStringList> salles;        //!< Les salles
     QStandardItemModel*  modeleSalle;   //!< Modèle pour le QTableView
     int
       salleSelectionnee; //!< Indice de la salle sélectionnée à éditer sinon -1
+#ifdef TEST_SANS_BROKER_MQTT
+    QTimer* timerSimulation;
+    int     simulerDonnee(QString typeDonnee);
+    int     randInt(int min, int max);
+#endif
 
     /**
      * @enum Fenetre
@@ -63,7 +72,6 @@ class IHMEcoClassroom : public QMainWindow
     {
         Accueil = 0,
         InformationsSalle,
-        SaisieCode,
         EditionSalle,
         NbFenetres
     };
@@ -83,22 +91,33 @@ class IHMEcoClassroom : public QMainWindow
         NB_COLONNES
     };
 
-    void initialiserAffichage();
-    void ajouterMenuAide();
-    void gererEvenements();
+    void    initialiserAffichage();
+    void    ajouterMenuAide();
+    void    gererEvenements();
+    QString recupererIdSalle(QString nomSalle);
+    int     recupererIndexSalle(QString idSalle);
+    void    reinitialiserAffichageMesureSalle();
+    void    afficherMesureSalle(QStringList mesureSalle);
+    void    afficheInformationsSalle(int index);
+    bool mettreAJourDonnee(QString donnee, QString typeDonnee, QString idSalle);
+    QString insererNouvelleSalle(QString nomSalle);
 
   public slots:
     void chargerSalles();
     void afficherSalleTable(QStringList salle);
     void effacerTableSalles();
     void selectionner(QModelIndex index);
-    void editer();
-    void verifierCode();
     void editerSalle();
     void validerEditionSalle();
+    void traiterNouvelleDonnee(QString nomSalle,
+                               QString typeDonnee,
+                               QString donnee);
     void afficherFenetre(IHMEcoClassroom::Fenetre fenetre);
     void afficherFenetrePrincipale();
     void afficherAPropos();
+#ifdef TEST_SANS_BROKER_MQTT
+    void simuler();
+#endif
 };
 
 #endif // IHMECOCLASSROOM_H

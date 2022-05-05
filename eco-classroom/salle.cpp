@@ -14,9 +14,9 @@
  * @fn Salle::Salle
  */
 Salle::Salle() :
-    id(""), nom(""), lieu(""), description(""), surface(0), code(""),
-    indiceConfort(0), libelleIndiceConfort(""), libelleQualiteAir(""),
-    etatFenetres(false), etatLumieres(false), etatOccupation(false)
+    id(""), nom(""), lieu(""), description(""), surface(0), indiceConfort(0),
+    libelleIndiceConfort(""), libelleQualiteAir(""), etatFenetres(false),
+    etatLumieres(false), etatOccupation(false)
 {
     qDebug() << Q_FUNC_INFO;
 }
@@ -35,7 +35,6 @@ Salle::Salle(QStringList salle) : salle(salle)
     lieu          = salle.at(ChampsTableSalle::LIEU);
     description   = salle.at(ChampsTableSalle::DESCRIPTION);
     surface       = salle.at(ChampsTableSalle::SUPERFICIE).toInt();
-    code          = salle.at(ChampsTableSalle::CODE);
     indiceConfort = salle.at(ChampsTableSalle::INDICE_DE_CONFORT).toInt();
     libelleIndiceConfort =
       salle.at(ChampsTableSalle::LIBELLE_INDICE_DE_CONFORT);
@@ -111,15 +110,6 @@ int Salle::getSurface() const
 }
 
 /**
- * @brief Salle::getCode
- * @return
- */
-QString Salle::getCode() const
-{
-    return code;
-}
-
-/**
  * @fn Salle::getIndiceConfort
  * @return int
  */
@@ -188,7 +178,6 @@ void Salle::setSalle(QStringList salle)
     lieu          = salle.at(ChampsTableSalle::LIEU);
     description   = salle.at(ChampsTableSalle::DESCRIPTION);
     surface       = salle.at(ChampsTableSalle::SUPERFICIE).toInt();
-    code          = salle.at(ChampsTableSalle::CODE);
     indiceConfort = salle.at(ChampsTableSalle::INDICE_DE_CONFORT).toInt();
     libelleIndiceConfort =
       salle.at(ChampsTableSalle::LIBELLE_INDICE_DE_CONFORT);
