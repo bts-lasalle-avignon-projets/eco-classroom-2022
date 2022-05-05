@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS IndiceConfort;
 -- Structure de la table IndiceConfort
 -- indice : facultatif (peut être calculé à partir de l'id)
 
-CREATE TABLE IF NOT EXISTS IndiceConfort(idIndiceConfort INTEGER PRIMARY KEY, indice INTEGER, libelle VARCHAR);
+CREATE TABLE IF NOT EXISTS IndiceConfort(idIndiceConfort INTEGER PRIMARY KEY, libelle VARCHAR);
 
 -- Structure de la table IndiceQualiteAir
 
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Salle(
     lieu VARCHAR,
     description VARCHAR,
     superficie INTEGER DEFAULT 0,
-    idIndiceConfort INTEGER DEFAULT -1,
+    idIndiceConfort INTEGER DEFAULT -4,
     idIndiceQualiteAir INTEGER DEFAULT 0,
     etatFenetres INTEGER DEFAULT 0, -- Boolean values are stored as integers 0 (false) and 1 (true)
     etatLumieres INTEGER DEFAULT 0,

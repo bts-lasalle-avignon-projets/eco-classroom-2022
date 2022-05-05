@@ -4,15 +4,15 @@
 
 --- Table IndiceConfort
 
-INSERT INTO IndiceConfort(idIndiceConfort,indice,libelle) VALUES
-(-1,0,'inconnu'),
-(0,-3,'froid'),
-(1,-2,'frais'),
-(2,-1,'légèrement frais'),
-(3,0,'neutre'),
-(4,1,'légèrement tiède'),
-(5,2,'tiède'),
-(6,3,'chaud');
+INSERT INTO IndiceConfort(idIndiceConfort,libelle) VALUES
+(-4,'inconnu'),
+(-3,'froid'),
+(-2,'frais'),
+(-1,'légèrement frais'),
+(0,'neutre'),
+(1,'légèrement tiède'),
+(2,'tiède'),
+(3,'chaud');
 
 --- Table IndiceQualiteAir
 
