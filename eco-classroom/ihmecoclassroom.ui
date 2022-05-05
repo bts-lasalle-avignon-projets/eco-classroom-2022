@@ -21,7 +21,7 @@
     <item>
      <widget class="QStackedWidget" name="fenetres">
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="accueil">
        <layout class="QVBoxLayout" name="verticalLayout_2">

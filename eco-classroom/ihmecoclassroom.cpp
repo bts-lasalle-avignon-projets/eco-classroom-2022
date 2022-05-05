@@ -261,22 +261,22 @@ bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
                   horodatage.toString("yyyy-MM-dd HH:mm:ss") +
                   "' WHERE idSalle=" + idSalle + ";";
     }
-    else if(typeDonnee == ("idIndiceConfort"))
+    else if(typeDonnee == ("confort"))
     {
         requete = "UPDATE Salle SET idIndiceConfort='" + donnee +
                   "' WHERE idSalle=" + idSalle + ";";
     }
-    else if(typeDonnee == ("idIndiceQualiteAir"))
+    else if(typeDonnee == ("air"))
     {
         requete = "UPDATE Salle SET idIndiceQualiteAir='" + donnee +
                   "' WHERE idSalle=" + idSalle + ";";
     }
-    else if(typeDonnee == ("etatFenetres"))
+    else if(typeDonnee == ("fenetres"))
     {
         requete = "UPDATE Salle SET etatFenetres='" + donnee +
                   "' WHERE idSalle=" + idSalle + ";";
     }
-    else if(typeDonnee == ("etatLumieres"))
+    else if(typeDonnee == ("lumieres"))
     {
         requete = "UPDATE Salle SET etatLumieres='" + donnee +
                   "' WHERE idSalle=" + idSalle + ";";
@@ -331,7 +331,7 @@ void IHMEcoClassroom::chargerSalles()
     QString requete =
       "SELECT Salle.idSalle,"
       "Salle.nom,Salle.lieu,Salle.description,Salle.superficie,"
-      "IndiceConfort.indice AS indiceConfort,IndiceConfort.libelle AS "
+      "IndiceConfort.idIndiceConfort AS indiceConfort,IndiceConfort.libelle AS "
       "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
       "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,Salle."
       "estOccupe FROM Salle INNER JOIN IndiceConfort ON "
@@ -632,10 +632,10 @@ void IHMEcoClassroom::simuler()
     nomsDeTopic << "temperature"
                 << "humidite"
                 << "co2"
-                << "idIndiceConfort"
-                << "idIndiceQualiteAir"
-                << "etatFenetres"
-                << "etatLumieres";
+                << "confort"
+                << "air"
+                << "fenetres"
+                << "lumieres";
     QString    salle      = nomsDeSalle.at(randInt(0, nomsDeSalle.size() - 1));
     QString    typeDonnee = nomsDeTopic.at(randInt(0, nomsDeTopic.size() - 1));
     QByteArray donnee =
@@ -660,19 +660,19 @@ int IHMEcoClassroom::simulerDonnee(QString typeDonnee)
     {
         return randInt(400, 1500);
     }
-    else if(typeDonnee == ("idIndiceConfort"))
+    else if(typeDonnee == ("confort"))
     {
         return randInt(0, 6);
     }
-    else if(typeDonnee == ("idIndiceQualiteAir"))
+    else if(typeDonnee == ("air"))
     {
         return randInt(1, 6);
     }
-    else if(typeDonnee == ("etatFenetres"))
+    else if(typeDonnee == ("fenetres"))
     {
         return randInt(0, 1);
     }
-    else if(typeDonnee == ("etatLumieres"))
+    else if(typeDonnee == ("lumieres"))
     {
         return randInt(0, 1);
     }
