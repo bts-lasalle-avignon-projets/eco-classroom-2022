@@ -115,15 +115,6 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(bool)),
             this,
             SLOT(editerSalle()));
-
-    /**
-     * @todo Effacer la fenêtre de saisie du code
-     */
-    connect(ui->buttonAnnulerCode,
-            SIGNAL(clicked(bool)),
-            this,
-            SLOT(afficherFenetrePrincipale()));
-
     // Fenêtre EditionSalle
     connect(ui->buttonValiderEdition,
             SIGNAL(clicked(bool)),

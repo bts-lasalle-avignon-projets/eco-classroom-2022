@@ -72,10 +72,6 @@ class IHMEcoClassroom : public QMainWindow
     {
         Accueil = 0,
         InformationsSalle,
-        /**
-         * @todo Effacer la fenêtre de saisie du code
-         */
-        SaisieCode,
         EditionSalle,
         NbFenetres
     };
