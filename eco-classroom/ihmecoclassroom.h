@@ -107,6 +107,7 @@ class IHMEcoClassroom : public QMainWindow
     void afficherSalleTable(QStringList salle);
     void effacerTableSalles();
     void selectionner(QModelIndex index);
+    void supprimerSalle();
     void editerSalle();
     void validerEditionSalle();
     void traiterNouvelleDonnee(QString nomSalle,

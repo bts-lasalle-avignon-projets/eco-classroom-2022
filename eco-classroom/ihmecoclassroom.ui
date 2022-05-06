@@ -383,7 +383,7 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayoutButton">
             <item>
-             <spacer name="horizontalSpacer_19">
+             <spacer name="horizontalSpacer">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
@@ -394,6 +394,13 @@
                </size>
               </property>
              </spacer>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonSupprimer">
+              <property name="text">
+               <string>Supprimer</string>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QPushButton" name="buttonAccueil">

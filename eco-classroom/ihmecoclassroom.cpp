@@ -106,6 +106,11 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(QModelIndex)),
             this,
             SLOT(selectionner(QModelIndex)));
+    // Supprimer une salle
+    connect(ui->buttonSupprimer,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(supprimerSalle()));
     // Fenêtre InformationsSalle
     connect(ui->buttonAccueil,
             SIGNAL(clicked(bool)),
@@ -470,6 +475,24 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
 
     // Affiche la fenêtre de la salle
     afficherFenetre(IHMEcoClassroom::Fenetre::InformationsSalle);
+}
+/**
+ * @brief IHMEcoClassroom::supprimerSalle
+ */
+void IHMEcoClassroom::supprimerSalle()
+{
+    qDebug() << Q_FUNC_INFO;
+    QString                     requete = "";
+    QMessageBox::StandardButton reponse;
+    reponse = QMessageBox::question(this,
+                                    "Supprimer une salle",
+                                    "Vous vouliez supprimer cette ?",
+                                    QMessageBox::Yes | QMessageBox::No);
+    if(reponse == QMessageBox::Yes)
+    {
+    }
+
+    afficherFenetrePrincipale();
 }
 
 /**
