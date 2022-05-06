@@ -10,6 +10,7 @@ DROP TABLE IF EXISTS IndiceConfort;
 
 --- Création des tables
 
+
 -- Structure de la table IndiceConfort
 -- indice : facultatif (peut être calculé à partir de l'id)
 
@@ -52,6 +53,8 @@ CREATE TABLE IF NOT EXISTS Mesure(
 
 --- Voir aussi :
 --- ON DELETE CASCADE
+
+PRAGMA foreign_keys=ON;
 
 -- Structure de la table SeuilsAlerte
 
