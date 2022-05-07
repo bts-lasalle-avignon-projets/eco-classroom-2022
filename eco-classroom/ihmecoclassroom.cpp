@@ -106,11 +106,6 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(QModelIndex)),
             this,
             SLOT(selectionner(QModelIndex)));
-    // Supprimer une salle
-    connect(ui->buttonSupprimer,
-            SIGNAL(clicked(bool)),
-            this,
-            SLOT(supprimerSalle()));
     // Fenêtre InformationsSalle
     connect(ui->buttonAccueil,
             SIGNAL(clicked(bool)),
@@ -129,6 +124,11 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(clicked(bool)),
             this,
             SLOT(afficherFenetrePrincipale()));
+    // Supprimer une salle
+    connect(ui->buttonSupprimer,
+            SIGNAL(clicked(bool)),
+            this,
+            SLOT(supprimerSalle()));
     // Communication
     connect(communicationMQTT,
             SIGNAL(nouvelleDonnee(QString, QString, QString)),
@@ -152,7 +152,7 @@ QString IHMEcoClassroom::recupererIdSalle(QString nomSalle)
         }
     }
 
-    qDebug() << "idSalle introuvable !";
+    qDebug() << Q_FUNC_INFO << "idSalle introuvable pour" << nomSalle;
     return QString();
 }
 
@@ -171,7 +171,7 @@ int IHMEcoClassroom::recupererIndexSalle(QString idSalle)
         }
     }
 
-    qDebug() << "index introuvable !";
+    qDebug() << Q_FUNC_INFO << "index introuvable pour" << idSalle;
     return -1;
 }
 
@@ -476,17 +476,18 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     // Affiche la fenêtre de la salle
     afficherFenetre(IHMEcoClassroom::Fenetre::InformationsSalle);
 }
+
 /**
  * @brief IHMEcoClassroom::supprimerSalle
  */
 void IHMEcoClassroom::supprimerSalle()
 {
     qDebug() << Q_FUNC_INFO;
-    QString                     requete = "";
+    QString                     requete;
     QMessageBox::StandardButton reponse;
     reponse = QMessageBox::question(this,
                                     "Supprimer une salle",
-                                    "Vous vouliez supprimer cette ?",
+                                    "Voulez-vous supprimer cette salle ?",
                                     QMessageBox::Yes | QMessageBox::No);
     if(reponse == QMessageBox::Yes)
     {
@@ -573,7 +574,7 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
             chargerSalles();
             idSalle   = recupererIdSalle(nomSalle);
             int index = recupererIndexSalle(idSalle);
-            if(index == salleSelectionnee)
+            if(index != -1 && index == salleSelectionnee)
             {
                 QStringList mesureSalle;
                 QString     requete =
