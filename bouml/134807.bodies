@@ -1,0 +1,306 @@
+class BaseDeDonnees
+!!!134551.cpp!!!	BaseDeDonnees(in type : QString)
+    qDebug() << Q_FUNC_INFO << type;
+    db       = QSqlDatabase::addDatabase(type);
+    typeBase = type;
+!!!134679.cpp!!!	~BaseDeDonnees()
+    qDebug() << Q_FUNC_INFO;
+!!!134807.cpp!!!	getInstance(in type : QString = "QSQLITE") : BaseDeDonnees
+    if(baseDeDonnees == nullptr)
+        baseDeDonnees = new BaseDeDonnees(type);
+
+    nbAcces++;
+    qDebug() << Q_FUNC_INFO << "nbAcces" << nbAcces;
+
+    return baseDeDonnees;
+!!!134935.cpp!!!	detruireInstance() : void
+    if(baseDeDonnees != nullptr)
+    {
+        if(nbAcces > 0)
+            nbAcces--;
+
+        qDebug() << Q_FUNC_INFO << "nbAcces restants" << nbAcces;
+
+        if(nbAcces == 0)
+        {
+            delete baseDeDonnees;
+            baseDeDonnees = nullptr;
+        }
+    }
+!!!135063.cpp!!!	ouvrir(in fichierBase : QString) : bool
+    if(typeBase != "QSQLITE")
+        return false;
+    QMutexLocker verrou(&mutex);
+    if(!db.isOpen())
+    {
+        db.setDatabaseName(fichierBase);
+
+        qDebug() << Q_FUNC_INFO << db.databaseName();
+
+        if(db.open())
+        {
+            qDebug() << Q_FUNC_INFO
+                     << QString::fromUtf8("Ouverture réussie à %1")
+                          .arg(db.databaseName());
+
+            return true;
+        }
+        else
+        {
+            qDebug() << Q_FUNC_INFO
+                     << QString::fromUtf8(
+                          "Erreur : impossible d'ouvrir la base de données !");
+            QMessageBox::critical(
+              nullptr,
+              QString::fromUtf8("BaseDeDonnees"),
+              QString::fromUtf8("Impossible d'ouvrir la base de données !"));
+            return false;
+        }
+    }
+    else
+        return true;
+!!!135191.cpp!!!	estOuvert() : bool
+    QMutexLocker verrou(&mutex);
+    return db.isOpen();
+!!!135319.cpp!!!	executer(in requete : QString) : bool
+    QMutexLocker verrou(&mutex);
+    QSqlQuery    r;
+    bool         retour;
+
+    if(db.isOpen())
+    {
+        if(requete.contains("UPDATE") || requete.contains("INSERT") ||
+           requete.contains("DELETE"))
+        {
+            retour = r.exec(requete);
+            qDebug() << Q_FUNC_INFO
+                     << QString::fromUtf8("Retour %1 pour la requete : %2")
+                          .arg(QString::number(retour))
+                          .arg(requete);
+            if(retour)
+            {
+                return true;
+            }
+            else
+            {
+                qDebug() << Q_FUNC_INFO
+                         << QString::fromUtf8("Erreur : %1 pour la requête %2")
+                              .arg(r.lastError().text())
+                              .arg(requete);
+                return false;
+            }
+        }
+        else
+        {
+            qDebug() << Q_FUNC_INFO
+                     << QString::fromUtf8("Erreur : requête %1 non autorisée !")
+                          .arg(requete);
+            return false;
+        }
+    }
+    else
+        return false;
+!!!135447.cpp!!!	recuperer(in requete : QString, inout donnees : QString) : bool
+    QMutexLocker verrou(&mutex);
+    QSqlQuery    r;
+    bool         retour;
+
+    if(db.isOpen())
+    {
+        if(requete.contains("SELECT"))
+        {
+            retour = r.exec(requete);
+            qDebug() << Q_FUNC_INFO
+                     << QString::fromUtf8("Retour %1 pour la requete : %2")
+                          .arg(QString::number(retour))
+                          .arg(requete);
+            if(retour)
+            {
+                r.first();
+
+                if(!r.isValid())
+                {
+                    qDebug() << Q_FUNC_INFO
+                             << QString::fromUtf8("Résultat non valide !");
+                    return false;
+                }
+
+                if(r.isNull(0))
+                {
+                    qDebug()
+                      << Q_FUNC_INFO << QString::fromUtf8("Aucun résultat !");
+                    return false;
+                }
+                donnees = r.value(0).toString();
+                qDebug() << Q_FUNC_INFO << "Enregistrement -> " << donnees;
+                return true;
+            }
+            else
+            {
+                qDebug() << Q_FUNC_INFO
+                         << QString::fromUtf8("Erreur : %1 pour la requête %2")
+                              .arg(r.lastError().text())
+                              .arg(requete);
+                return false;
+            }
+        }
+        else
+        {
+            qDebug() << Q_FUNC_INFO
+                     << QString::fromUtf8("Erreur : requête %1 non autorisée !")
+                          .arg(requete);
+            return false;
+        }
+    }
+    else
+        return false;
+!!!135575.cpp!!!	recuperer(in requete : QString, inout donnees : QStringList) : bool
+    QMutexLocker verrou(&mutex);
+    QSqlQuery    r;
+    bool         retour;
+
+    if(db.isOpen())
+    {
+        if(requete.contains("SELECT"))
+        {
+            retour = r.exec(requete);
+            qDebug() << QString::fromUtf8(
+                          "<BaseDeDonnees::recuperer(QString, QStringList)> "
+                          "retour %1 pour la requete : %2")
+                          .arg(QString::number(retour))
+                          .arg(requete);
+            if(retour)
+            {
+                r.first();
+
+                if(!r.isValid())
+                {
+                    qDebug() << Q_FUNC_INFO
+                             << QString::fromUtf8("Résultat non valide !");
+                    return false;
+                }
+
+                for(int i = 0; i < r.record().count(); i++)
+                    if(!r.isNull(i))
+                        donnees << r.value(i).toString();
+                qDebug() << Q_FUNC_INFO << "Enregistrement -> " << donnees;
+                return true;
+            }
+            else
+            {
+                qDebug() << Q_FUNC_INFO
+                         << QString::fromUtf8("Erreur : %1 pour la requête %2")
+                              .arg(r.lastError().text())
+                              .arg(requete);
+                return false;
+            }
+        }
+        else
+        {
+            qDebug() << Q_FUNC_INFO
+                     << QString::fromUtf8("Erreur : requête %1 non autorisée !")
+                          .arg(requete);
+            return false;
+        }
+    }
+    else
+        return false;
+!!!135703.cpp!!!	recuperer(in requete : QString, inout donnees : QVector<QString>) : bool
+    QMutexLocker verrou(&mutex);
+    QSqlQuery    r;
+    bool         retour;
+    QString      data;
+
+    if(db.isOpen())
+    {
+        if(requete.contains("SELECT"))
+        {
+            retour = r.exec(requete);
+            qDebug() << Q_FUNC_INFO
+                     << QString::fromUtf8("Retour %1 pour la requete : %2")
+                          .arg(QString::number(retour))
+                          .arg(requete);
+            if(retour)
+            {
+                while(r.next())
+                {
+                    data = r.value(0).toString();
+
+                    qDebug() << Q_FUNC_INFO << "Enregistrement -> " << data;
+
+                    donnees.push_back(data);
+                }
+                qDebug() << Q_FUNC_INFO << "Enregistrement -> " << donnees;
+                return true;
+            }
+            else
+            {
+                qDebug() << Q_FUNC_INFO
+                         << QString::fromUtf8("Erreur : %1 pour la requête %2")
+                              .arg(r.lastError().text())
+                              .arg(requete);
+                return false;
+            }
+        }
+        else
+        {
+            qDebug() << Q_FUNC_INFO
+                     << QString::fromUtf8("Erreur : requête %1 non autorisée !")
+                          .arg(requete);
+            return false;
+        }
+    }
+    else
+        return false;
+!!!135831.cpp!!!	recuperer(in requete : QString, inout donnees : QVector<QStringList>) : bool
+    QMutexLocker verrou(&mutex);
+    QSqlQuery    r;
+    bool         retour;
+    QStringList  data;
+
+    if(db.isOpen())
+    {
+        if(requete.contains("SELECT"))
+        {
+            retour = r.exec(requete);
+            qDebug() << Q_FUNC_INFO
+                     << QString::fromUtf8("Retour %1 pour la requete : %2")
+                          .arg(QString::number(retour))
+                          .arg(requete);
+            if(retour)
+            {
+                while(r.next())
+                {
+                    for(int i = 0; i < r.record().count(); i++)
+                        data << r.value(i).toString();
+
+                    qDebug() << Q_FUNC_INFO << "Enregistrement -> " << data;
+                    for(int i = 0; i < r.record().count(); i++)
+                        qDebug() << r.value(i).toString();
+
+                    donnees.push_back(data);
+
+                    data.clear();
+                }
+                qDebug() << Q_FUNC_INFO << "Enregistrement -> " << donnees;
+                return true;
+            }
+            else
+            {
+                qDebug() << Q_FUNC_INFO
+                         << QString::fromUtf8("Erreur : %1 pour la requête %2")
+                              .arg(r.lastError().text())
+                              .arg(requete);
+                return false;
+            }
+        }
+        else
+        {
+            qDebug() << Q_FUNC_INFO
+                     << QString::fromUtf8("Erreur : requête %1 non autorisée !")
+                          .arg(requete);
+            return false;
+        }
+    }
+    else
+        return false;

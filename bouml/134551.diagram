@@ -1,0 +1,40 @@
+format 224
+
+classcanvas 128023 class_ref 135319 // IHMEcoClassroom
+  classdiagramsettings member_max_width 0 end
+  xyz 307 35 2000
+end
+classcanvas 128151 class_ref 134807 // BaseDeDonnees
+  classdiagramsettings member_max_width 0 end
+  xyz 1958.9 319.8 2010
+end
+classcanvas 128791 class_ref 135063 // CommunicationMQTT
+  classdiagramsettings member_max_width 0 end
+  xyz 1861.9 1206.1 3005
+end
+classcanvas 129047 class_ref 136087 // Salle
+  classdiagramsettings member_max_width 0 end
+  xyz 56.4 1347.6 2000
+end
+classcanvas 129175 class_ref 135831 // Mesure
+  classdiagramsettings member_max_width 0 end
+  xyz 670.2 1351 3010
+end
+relationcanvas 128279 relation_ref 134935 // <unidirectional association>
+  from ref 128151 z 2011 to point 2461.8 314.2
+  line 128407 z 2011 to point 2431.8 314.2
+  line 128535 z 2011 to ref 128151
+  role_a_pos 2447 283 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 128663 relation_ref 135319 // <unidirectional association>
+  from ref 128023 z 2011 to ref 128151
+  role_a_pos 1722 540 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 128919 relation_ref 135447 // <unidirectional association>
+  from ref 128023 z 3006 to ref 128791
+  role_a_pos 1824 1177 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end

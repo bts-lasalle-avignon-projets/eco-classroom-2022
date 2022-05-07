@@ -1,7 +1,8 @@
 format 224
-"diag classe"
-  revision 8
-  modified_by 23 "zeryouhi"
+"bouml"
+  revision 11
+  modified_by 23 "tv"
+  cpp_root_dir ".."
 
 
   
@@ -210,6 +211,22 @@ format 224
 	    classrelation_ref 128151 // <generalisation>
 	  b parent class_ref 128279 // IndiceQualiteAir
       end
+
+      classrelation 135554 // <association>
+	relation_ref 135554 // <association>
+      end
+
+      classrelation 135810 // <association>
+	relation_ref 135682 // <association>
+      end
+
+      classrelation 136066 // <association>
+	relation_ref 135810 // <association>
+      end
+
+      classrelation 136322 // <association>
+	relation_ref 135938 // <association>
+      end
     end
 
     class 128143 "IHMClassroom"
@@ -410,6 +427,14 @@ ${members}};
 	    classrelation_ref 128279 // <generalisation>
 	  b parent class_ref 128015 // Salle
       end
+
+      classrelation 135938 // <association>
+	relation 135810 ----
+	  a role_name "" private
+	    classrelation_ref 135938 // <association>
+	  b role_name "" private
+	    classrelation_ref 136066 // <association>
+      end
     end
 
     class 128151 "IndiceConfort"
@@ -443,6 +468,14 @@ ${members}};
 	mysql_decl ""
 	MysqlColumn
       end
+
+      classrelation 135426 // <association>
+	relation 135554 ----
+	  a role_name "" private
+	    classrelation_ref 135426 // <association>
+	  b role_name "" private
+	    classrelation_ref 135554 // <association>
+      end
     end
 
     class 128279 "IndiceQualiteAir"
@@ -464,6 +497,33 @@ ${members}};
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
+      end
+
+      classrelation 135682 // <association>
+	relation 135682 ----
+	  a role_name "" private
+	    classrelation_ref 135682 // <association>
+	  b role_name "" private
+	    classrelation_ref 135810 // <association>
+      end
+    end
+
+    class 128002 "ModificationSalle"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 136194 // <association>
+	relation 135938 ----
+	  a role_name "" private
+	    classrelation_ref 136194 // <association>
+	  b role_name "" private
+	    classrelation_ref 136322 // <association>
       end
     end
   end
@@ -518,4 +578,6 @@ ${members}};
       
     end
   end
+
+  package_ref 134551 // eco-classroom
 end

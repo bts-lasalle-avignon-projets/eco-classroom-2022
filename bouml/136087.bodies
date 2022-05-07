@@ -1,0 +1,58 @@
+class Salle
+!!!142103.cpp!!!	Salle()
+    qDebug() << Q_FUNC_INFO;
+!!!142231.cpp!!!	Salle(in salle : QStringList)
+    qDebug() << Q_FUNC_INFO << salle;
+    id            = salle.at(ChampsTableSalle::ID);
+    nom           = salle.at(ChampsTableSalle::NOM);
+    lieu          = salle.at(ChampsTableSalle::LIEU);
+    description   = salle.at(ChampsTableSalle::DESCRIPTION);
+    surface       = salle.at(ChampsTableSalle::SUPERFICIE).toInt();
+    indiceConfort = salle.at(ChampsTableSalle::INDICE_DE_CONFORT).toInt();
+    libelleIndiceConfort =
+      salle.at(ChampsTableSalle::LIBELLE_INDICE_DE_CONFORT);
+    libelleQualiteAir = salle.at(ChampsTableSalle::LIBELLE_QUALITE_AIR);
+    etatFenetres      = salle.at(ChampsTableSalle::ETAT_DES_FENETRES).toInt();
+    etatLumieres      = salle.at(ChampsTableSalle::ETAT_DES_LUMIERES).toInt();
+    etatOccupation    = salle.at(ChampsTableSalle::ETAT_OCCUPATION).toInt();
+!!!142359.cpp!!!	~Salle()
+    qDebug() << Q_FUNC_INFO;
+!!!142487.cpp!!!	getSalle() : QStringList
+    return salle;
+!!!142615.cpp!!!	getId() : QString
+    return id;
+!!!142743.cpp!!!	getNom() : QString
+    return nom;
+!!!142871.cpp!!!	getLieu() : QString
+    return lieu;
+!!!142999.cpp!!!	getDesciption() : QString
+    return description;
+!!!143127.cpp!!!	getSurface() : int
+    return surface;
+!!!143255.cpp!!!	getIndiceConfort() : int
+    return indiceConfort;
+!!!143383.cpp!!!	getLibelleIndiceConfort() : QString
+    return libelleIndiceConfort;
+!!!143511.cpp!!!	getLibelleQualiteAir() : QString
+    return libelleQualiteAir;
+!!!143639.cpp!!!	getEtatFenetres() : bool
+    return etatFenetres;
+!!!143767.cpp!!!	getEtatLumierres() : bool
+    return etatLumieres;
+!!!143895.cpp!!!	getEtatOccupation() : bool
+    return etatOccupation;
+!!!144023.cpp!!!	setSalle(in salle : QStringList) : void
+    qDebug() << Q_FUNC_INFO << salle;
+    this->salle   = salle;
+    id            = salle.at(ChampsTableSalle::ID);
+    nom           = salle.at(ChampsTableSalle::NOM);
+    lieu          = salle.at(ChampsTableSalle::LIEU);
+    description   = salle.at(ChampsTableSalle::DESCRIPTION);
+    surface       = salle.at(ChampsTableSalle::SUPERFICIE).toInt();
+    indiceConfort = salle.at(ChampsTableSalle::INDICE_DE_CONFORT).toInt();
+    libelleIndiceConfort =
+      salle.at(ChampsTableSalle::LIBELLE_INDICE_DE_CONFORT);
+    libelleQualiteAir = salle.at(ChampsTableSalle::LIBELLE_QUALITE_AIR);
+    etatFenetres      = salle.at(ChampsTableSalle::ETAT_DES_FENETRES).toInt();
+    etatLumieres      = salle.at(ChampsTableSalle::ETAT_DES_LUMIERES).toInt();
+    etatOccupation    = salle.at(ChampsTableSalle::ETAT_OCCUPATION).toInt();
