@@ -22,14 +22,12 @@
  */
 #define VERSION "0.2"
 
-//#define TEST_SANS_BROKER_MQTT
+#define TEST_SANS_BROKER_MQTT
 
-// QT_BEGIN_NAMESPACE
 namespace Ui
 {
 class IHMEcoClassroom;
 }
-// QT_END_NAMESPACE
 
 class BaseDeDonnees;
 class CommunicationMQTT;
@@ -107,6 +105,7 @@ class IHMEcoClassroom : public QMainWindow
     void afficherSalleTable(QStringList salle);
     void effacerTableSalles();
     void selectionner(QModelIndex index);
+    void supprimerSalle();
     void editerSalle();
     void validerEditionSalle();
     void traiterNouvelleDonnee(QString nomSalle,

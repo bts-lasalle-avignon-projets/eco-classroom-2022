@@ -1,29 +1,5 @@
-#include "ihmecoclassroom.h"
-#include "ui_ihmecoclassroom.h"
-#include "basededonnees.h"
-#include "communicationmqtt.h"
-#include "salle.h"
-#include "mesure.h"
-#include <QDebug>
-
-/**
- * @file ihmecoclassroom.cpp
- * @brief Définition de la classe IHMEcoClassroom
- * @author Zeryouhi Mohamed Amine
- * @version 0.2
- */
-
-/**
- * @brief Constructeur de la classe IHMEcoClassroom
- *
- * @fn IHMEcoClassroom::IHMEcoClassroom
- * @param parent L'adresse de l'objet parent, si nullptr IHMEcoClassroom sera la
- * fenêtre principale de l'application
- */
-IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
-    QMainWindow(parent), ui(new Ui::IHMEcoClassroom), baseDeDonnees(nullptr),
-    communicationMQTT(nullptr), nbLignesSalle(0), salleSelectionnee(-1)
-{
+class IHMEcoClassroom
+!!!137239.cpp!!!	IHMEcoClassroom(inout parent : QWidget = nullptr)
     qDebug() << Q_FUNC_INFO;
     ui->setupUi(this);
     baseDeDonnees = BaseDeDonnees::getInstance();
@@ -43,22 +19,42 @@ IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
     connect(timerSimulation, SIGNAL(timeout()), this, SLOT(simuler()));
     timerSimulation->start(5000); // toutes les secondes
 #endif
-}
-
-/**
- * @brief Destructeur de la classe IHMEcoClassroom
- *
- * @fn IHMEcoClassroom::~IHMEcoClassroom
- * @details Libère les ressources de l'application
- */
-IHMEcoClassroom::~IHMEcoClassroom()
-{
+!!!137367.cpp!!!	~IHMEcoClassroom()
     delete ui;
     qDebug() << Q_FUNC_INFO;
-}
-
-void IHMEcoClassroom::initialiserAffichage()
-{
+!!!137495.cpp!!!	simulerDonnee(in typeDonnee : QString) : int
+    if(typeDonnee == ("temperature"))
+    {
+        return randInt(15, 35);
+    }
+    else if(typeDonnee == ("humidite"))
+    {
+        return randInt(0, 100);
+    }
+    else if(typeDonnee == ("co2"))
+    {
+        return randInt(400, 1500);
+    }
+    else if(typeDonnee == ("confort"))
+    {
+        return randInt(0, 6);
+    }
+    else if(typeDonnee == ("air"))
+    {
+        return randInt(1, 6);
+    }
+    else if(typeDonnee == ("fenetres"))
+    {
+        return randInt(0, 1);
+    }
+    else if(typeDonnee == ("lumieres"))
+    {
+        return randInt(0, 1);
+    }
+    return -1;
+!!!137623.cpp!!!	randInt(in min : int, in max : int) : int
+    return qrand() % ((max + 1) - min) + min;
+!!!137751.cpp!!!	initialiserAffichage() : void
     qDebug() << Q_FUNC_INFO;
     ui->statusbar->showMessage(QString::fromUtf8(NOM_APPLICATION) + " " +
                                QString::fromUtf8(VERSION));
@@ -83,15 +79,19 @@ void IHMEcoClassroom::initialiserAffichage()
     ui->boutonEffacer->hide();
     chargerSalles();
     afficherFenetre(IHMEcoClassroom::Fenetre::Accueil);
-}
+!!!137879.cpp!!!	ajouterMenuAide() : void
+    qDebug() << Q_FUNC_INFO;
+    QMenu* menuAide = new QMenu(QString::fromUtf8("&Aide"), this);
+    menuBar()->addMenu(menuAide);
 
-/**
- * @brief assla connexion des signaux et slots
- *
- * @fn IHMEcoClassroom::gererEvenements()
- */
-void IHMEcoClassroom::gererEvenements()
-{
+    menuAide->addAction(QString::fromUtf8("À propos ") +
+                          QString::fromUtf8(NOM_APPLICATION),
+                        this,
+                        SLOT(afficherAPropos()));
+    menuAide->addAction(QString::fromUtf8("À propos de Qt"),
+                        qApp,
+                        SLOT(aboutQt()));
+!!!138007.cpp!!!	gererEvenements() : void
     qDebug() << Q_FUNC_INFO;
     // Fenêtre Accueil
     connect(ui->boutonCharger,
@@ -134,15 +134,7 @@ void IHMEcoClassroom::gererEvenements()
             SIGNAL(nouvelleDonnee(QString, QString, QString)),
             this,
             SLOT(traiterNouvelleDonnee(QString, QString, QString)));
-}
-
-/**
- * @brief Retourne l'idSalle à partir de son nom
- *
- * @fn IHMEcoClassroom::recupererIdSalle
- */
-QString IHMEcoClassroom::recupererIdSalle(QString nomSalle)
-{
+!!!138135.cpp!!!	recupererIdSalle(in nomSalle : QString) : QString
     for(int i = 0; i < salles.size(); ++i)
     {
         if(nomSalle == salles.at(i).at(Salle::NOM))
@@ -154,15 +146,7 @@ QString IHMEcoClassroom::recupererIdSalle(QString nomSalle)
 
     qDebug() << Q_FUNC_INFO << "idSalle introuvable pour" << nomSalle;
     return QString();
-}
-
-/**
- * @brief Retourne l'index à partir de son idSalle
- *
- * @fn IHMEcoClassroom::recupererIndexSalle
- */
-int IHMEcoClassroom::recupererIndexSalle(QString idSalle)
-{
+!!!138263.cpp!!!	recupererIndexSalle(in idSalle : QString) : int
     for(int i = 0; i < salles.size(); ++i)
     {
         if(idSalle == salles.at(i).at(Salle::ID))
@@ -173,13 +157,7 @@ int IHMEcoClassroom::recupererIndexSalle(QString idSalle)
 
     qDebug() << Q_FUNC_INFO << "index introuvable pour" << idSalle;
     return -1;
-}
-
-/**
- * @brief IHMEcoClassroom::reinitialiserAffichageMesureSalle
- */
-void IHMEcoClassroom::reinitialiserAffichageMesureSalle()
-{
+!!!138391.cpp!!!	reinitialiserAffichageMesureSalle() : void
     ui->labelCo2Salle->setText("");
     ui->labelCo2->setVisible(false);
     ui->labelCo2Salle->setVisible(false);
@@ -188,14 +166,7 @@ void IHMEcoClassroom::reinitialiserAffichageMesureSalle()
     ui->labelTemperatureSalle->setVisible(false);
     ui->labelHorodatage->setText("");
     ui->labelHorodatage->setVisible(false);
-}
-
-/**
- * @brief IHMEcoClassroom::afficherMesureSalle
- * @param mesureSalle
- */
-void IHMEcoClassroom::afficherMesureSalle(QStringList mesureSalle)
-{
+!!!138519.cpp!!!	afficherMesureSalle(in mesureSalle : QStringList) : void
     ui->labelCo2Salle->setText(mesureSalle.at(Mesure::CO2) + " ppm");
     ui->labelCo2->setVisible(true);
     ui->labelCo2Salle->setVisible(true);
@@ -209,14 +180,7 @@ void IHMEcoClassroom::afficherMesureSalle(QStringList mesureSalle)
     ui->labelHorodatage->setText(
       horodatage.toString("Le dd/MM/yyyy à HH:mm:ss"));
     ui->labelHorodatage->setVisible(true);
-}
-
-/**
- * @brief IHMEcoClassroom::afficheInformationsSalle
- * @param index
- */
-void IHMEcoClassroom::afficheInformationsSalle(int index)
-{
+!!!138647.cpp!!!	afficheInformationsSalle(in index : int) : void
     ui->labelNomSalle->setText(salles.at(index).at(Salle::NOM));
     ui->labelLieuSalle->setText(salles.at(index).at(Salle::LIEU));
     ui->labelDescriptionSalle->setText(salles.at(index).at(Salle::DESCRIPTION));
@@ -237,12 +201,7 @@ void IHMEcoClassroom::afficheInformationsSalle(int index)
     if(salles.at(index).at(Salle::ETAT_DES_LUMIERES).toInt())
         etatLumieres = "Allumées";
     ui->labelLumieresSalle->setText(etatLumieres);
-}
-
-bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
-                                        QString typeDonnee,
-                                        QString idSalle)
-{
+!!!138775.cpp!!!	mettreAJourDonnee(in donnee : QString, in typeDonnee : QString, in idSalle : QString) : bool
     QString   requete;
     QDateTime horodatage = QDateTime::currentDateTime();
 
@@ -295,10 +254,7 @@ bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
     bool retour = baseDeDonnees->executer(requete);
 
     return retour;
-}
-
-QString IHMEcoClassroom::insererNouvelleSalle(QString nomSalle)
-{
+!!!138903.cpp!!!	insererNouvelleSalle(in nomSalle : QString) : QString
     qDebug() << Q_FUNC_INFO << nomSalle << "nouvelle salle détectée !";
     QString requete = "INSERT INTO Salle(nom) VALUES ('" + nomSalle + "');";
     QString idSalle;
@@ -322,15 +278,7 @@ QString IHMEcoClassroom::insererNouvelleSalle(QString nomSalle)
     }
 
     return QString();
-}
-
-/**
- * @brief Charge les données des salles dans le QTableView
- *
- * @fn IHMEcoClassroom::chargerSalles
- */
-void IHMEcoClassroom::chargerSalles()
-{
+!!!139031.cpp!!!	chargerSalles() : void
     effacerTableSalles();
 
     QString requete =
@@ -352,16 +300,7 @@ void IHMEcoClassroom::chargerSalles()
         for(int i = 0; i < salles.size(); ++i)
             afficherSalleTable(salles.at(i));
     }
-}
-
-/**
- * @brief Affiche les données d'une salle dans le QTableView
- *
- * @fn IHMEcoClassroom::afficherSalleTable
- * @param salle Les informations sur une salle
- */
-void IHMEcoClassroom::afficherSalleTable(QStringList salle)
-{
+!!!139159.cpp!!!	afficherSalleTable(in salle : QStringList) : void
     qDebug() << Q_FUNC_INFO << salle;
 
     // Crée les items pour les cellules d'une ligne
@@ -426,27 +365,15 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
     ui->tableViewSalles->setFixedHeight(
       ui->tableViewSalles->verticalHeader()->length() +
       ui->tableViewSalles->horizontalHeader()->height());
-}
-
-/**
- * @brief Efface les salles du QTableView
- *
- * @fn IHMEcoClassroom::effacerTableSalles
- */
-void IHMEcoClassroom::effacerTableSalles()
-{
+!!!139287.cpp!!!	effacerTableSalles() : void
     qDebug() << Q_FUNC_INFO;
 
-    salleSelectionnee = -1;
     salles.clear();
     modeleSalle->clear();
     modeleSalle->setHorizontalHeaderLabels(nomColonnes);
     ui->tableViewSalles->setModel(modeleSalle);
     nbLignesSalle = 0;
-}
-
-void IHMEcoClassroom::selectionner(QModelIndex index)
-{
+!!!139415.cpp!!!	selectionner(in index : QModelIndex) : void
     qDebug() << Q_FUNC_INFO << "numéro de ligne"
              << index.row(); // le numéro de ligne
     qDebug() << Q_FUNC_INFO << salles.at(index.row());
@@ -476,15 +403,7 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
 
     // Affiche la fenêtre de la salle
     afficherFenetre(IHMEcoClassroom::Fenetre::InformationsSalle);
-}
-
-/**
- * @brief Supprime la salle sélectionnée
- */
-void IHMEcoClassroom::supprimerSalle()
-{
-    if(salleSelectionnee == -1)
-        return;
+!!!139543.cpp!!!	supprimerSalle() : void
     qDebug() << Q_FUNC_INFO;
     QString                     requete;
     QMessageBox::StandardButton reponse;
@@ -494,32 +413,11 @@ void IHMEcoClassroom::supprimerSalle()
                                     QMessageBox::Yes | QMessageBox::No);
     if(reponse == QMessageBox::Yes)
     {
-        requete = "DELETE FROM Salle WHERE idSalle='" +
-                  salles.at(salleSelectionnee).at(Salle::ID) + "';";
-
-        bool retour = baseDeDonnees->executer(requete);
-        if(!retour)
-        {
-            QMessageBox::critical(this, "Erreur", "La suppression a échoué !");
-        }
-        else
-        {
-            qDebug() << Q_FUNC_INFO
-                     << salles.at(salleSelectionnee).at(Salle::ID)
-                     << salles.at(salleSelectionnee).at(Salle::NOM);
-            chargerSalles();
-            afficherFenetrePrincipale();
-        }
     }
-}
 
-/**
- * @brief Éditer les différentes informations d'une salle
- * @fn  IHMEcoClassroom::editerSalle
- */
-void IHMEcoClassroom::editerSalle()
-{
-    qDebug() << Q_FUNC_INFO << salleSelectionnee;
+    afficherFenetrePrincipale();
+!!!139671.cpp!!!	editerSalle() : void
+    qDebug() << Q_FUNC_INFO;
 
     ui->lineEditNom->setText(salles.at(salleSelectionnee).at(Salle::NOM));
     ui->labelSalleNomEdite->setText(
@@ -530,14 +428,7 @@ void IHMEcoClassroom::editerSalle()
     ui->lineEditSurface->setText(
       salles.at(salleSelectionnee).at(Salle::SUPERFICIE));
     afficherFenetre(IHMEcoClassroom::Fenetre::EditionSalle);
-}
-
-/**
- * @brief Valide et enregistre les nouvelles informations d'une salle
- * @fn  IHMEcoClassroom::editerSalle
- */
-void IHMEcoClassroom::validerEditionSalle()
-{
+!!!139799.cpp!!!	validerEditionSalle() : void
     qDebug() << Q_FUNC_INFO << ui->lineEditNom->text()
              << ui->lineEditLieu->text() << ui->lineEditDescription->text()
              << ui->lineEditSurface->text();
@@ -570,12 +461,7 @@ void IHMEcoClassroom::validerEditionSalle()
             afficherFenetrePrincipale();
         }
     }
-}
-
-void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
-                                            QString typeDonnee,
-                                            QString donnee)
-{
+!!!139927.cpp!!!	traiterNouvelleDonnee(in nomSalle : QString, in typeDonnee : QString, in donnee : QString) : void
     QString idSalle = recupererIdSalle(nomSalle);
 
     if(idSalle.isEmpty())
@@ -609,70 +495,26 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
             qDebug() << "erreur modification !";
         }
     }
-}
-
-/**
- * @brief Méthode qui permet d'afficher une fenêtre de la pile
- * QStackedWidget
- *
- * @fn IHMEcoClassroom::afficherFenetre
- * @param fenetre le numéro de fenêtre à afficher
- */
-void IHMEcoClassroom::afficherFenetre(IHMEcoClassroom::Fenetre fenetre)
-{
+!!!140055.cpp!!!	afficherFenetre(in fenetre : IHMEcoClassroom::Fenetre) : void
     qDebug() << Q_FUNC_INFO << "fenetre" << fenetre;
     ui->fenetres->setCurrentIndex(fenetre);
-}
-
-/**
- * @brief Affiche la première fenêtre
- *
- * @fn IHMEcoClassroom:afficherFenetrePrincipale
- */
-void IHMEcoClassroom::afficherFenetrePrincipale()
-{
+!!!140183.cpp!!!	afficherFenetrePrincipale() : void
     qDebug() << Q_FUNC_INFO;
     salleSelectionnee = -1;
     afficherFenetre(IHMEcoClassroom::Fenetre::Accueil);
-}
-
-void IHMEcoClassroom::ajouterMenuAide()
-{
-    qDebug() << Q_FUNC_INFO;
-    QMenu* menuAide = new QMenu(QString::fromUtf8("&Aide"), this);
-    menuBar()->addMenu(menuAide);
-
-    menuAide->addAction(QString::fromUtf8("À propos ") +
-                          QString::fromUtf8(NOM_APPLICATION),
-                        this,
-                        SLOT(afficherAPropos()));
-    menuAide->addAction(QString::fromUtf8("À propos de Qt"),
-                        qApp,
-                        SLOT(aboutQt()));
-}
-
-void IHMEcoClassroom::afficherAPropos()
-{
+!!!140311.cpp!!!	afficherAPropos() : void
     QMessageBox::about(
       this,
       QString::fromUtf8("À propos ..."),
       QString::fromUtf8("<p><b>") + QString::fromUtf8(NOM_APPLICATION) + " " +
-        QString::fromUtf8(VERSION) +
-        QString::fromUtf8(
-          "</b><br/><br/>Supervision de salles dans un établissement "
-          "scolaire<br/><br/>Zeryouhi Mohamed Amine</p>"));
-}
-
-//#ifdef TEST_SANS_BROKER_MQTT
-void IHMEcoClassroom::simuler()
-{
+        QString::fromUtf8(VERSION) + QString::fromUtf8("</b><br/>...</p>"));
+!!!140439.cpp!!!	simuler() : void
     // simule une réception de donnée sans MQTT
     QStringList nomsDeSalle;
     nomsDeSalle << "B11"
                 << "B20"
-                << "B21"
-                << "B22"
-                << "G21";
+                << "G21"
+                << "B22";
     QStringList nomsDeTopic;
     nomsDeTopic << "temperature"
                 << "humidite"
@@ -680,8 +522,7 @@ void IHMEcoClassroom::simuler()
                 << "confort"
                 << "air"
                 << "fenetres"
-                << "lumieres"
-                << "occupation";
+                << "lumieres";
     QString    salle      = nomsDeSalle.at(randInt(0, nomsDeSalle.size() - 1));
     QString    typeDonnee = nomsDeTopic.at(randInt(0, nomsDeTopic.size() - 1));
     QByteArray donnee =
@@ -690,48 +531,3 @@ void IHMEcoClassroom::simuler()
     communicationMQTT->recevoir(
       donnee,
       QMqttTopicName(QString("salles/") + salle + QString("/") + typeDonnee));
-}
-
-int IHMEcoClassroom::simulerDonnee(QString typeDonnee)
-{
-    if(typeDonnee == ("temperature"))
-    {
-        return randInt(15, 35);
-    }
-    else if(typeDonnee == ("humidite"))
-    {
-        return randInt(0, 100);
-    }
-    else if(typeDonnee == ("co2"))
-    {
-        return randInt(400, 1500);
-    }
-    else if(typeDonnee == ("confort"))
-    {
-        return randInt(-3, 3);
-    }
-    else if(typeDonnee == ("air"))
-    {
-        return randInt(1, 6);
-    }
-    else if(typeDonnee == ("fenetres"))
-    {
-        return randInt(0, 1);
-    }
-    else if(typeDonnee == ("lumieres"))
-    {
-        return randInt(0, 1);
-    }
-    else if(typeDonnee == ("occupation"))
-    {
-        return randInt(0, 1);
-    }
-    return -1;
-}
-
-int IHMEcoClassroom::randInt(int min, int max)
-{
-    return qrand() % ((max + 1) - min) + min;
-}
-
-//#endif

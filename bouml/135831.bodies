@@ -1,0 +1,31 @@
+class Mesure
+!!!140567.cpp!!!	Mesure()
+    qDebug() << Q_FUNC_INFO;
+!!!140695.cpp!!!	Mesure(in mesure : QStringList)
+    if(!mesure.isEmpty())
+    {
+        temperature = mesure.at(ChampsTableMesure::TEMPERATURE).toDouble();
+        humidite    = mesure.at(ChampsTableMesure::HUMIDITE).toInt();
+        co2         = mesure.at(ChampsTableMesure::CO2).toInt();
+        luminosite  = mesure.at(ChampsTableMesure::LUMINOSITE).toInt();
+    }
+!!!140823.cpp!!!	Mesure(in temperature : double, in humidite : int, in co2 : int, in luminosite : int)
+    qDebug() << Q_FUNC_INFO;
+!!!140951.cpp!!!	~Mesure()
+    qDebug() << Q_FUNC_INFO;
+!!!141079.cpp!!!	getTemperature() : double
+    return temperature;
+!!!141207.cpp!!!	getHumidite() : int
+    return humidite;
+!!!141335.cpp!!!	getCo2() : int
+    return co2;
+!!!141463.cpp!!!	getLuminosite() : int
+    return luminosite;
+!!!141591.cpp!!!	setTemperature(in temperature : double) : void
+    this->temperature = temperature;
+!!!141719.cpp!!!	setHumidite(in humidite : int) : void
+    this->humidite = humidite;
+!!!141847.cpp!!!	setCo2(in co2 : int) : void
+    this->co2 = co2;
+!!!141975.cpp!!!	setLuminosite(in luminosite : int) : void
+    this->luminosite = luminosite;

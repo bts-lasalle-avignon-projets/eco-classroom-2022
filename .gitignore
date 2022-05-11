@@ -137,3 +137,5 @@ lint/tmp/
 # lint/reports/
 
 *.swp
+*.session
+

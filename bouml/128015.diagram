@@ -6,11 +6,11 @@ classcanvas 128015 class_ref 128015 // Salle
 end
 classcanvas 128023 class_ref 128023 // Mesure
   classdiagramsettings member_max_width 0 end
-  xyzwh 594 412 2000 181 113
+  xyzwh 594 412 2000 283 177
 end
 classcanvas 128143 class_ref 128143 // IHMClassroom
   classdiagramsettings member_max_width 0 class_drawing_mode class end
-  xyzwh 134 66 2000 125 83
+  xyzwh 134 66 2000 217 89
 end
 classcanvas 128151 class_ref 128151 // IndiceConfort
   classdiagramsettings member_max_width 0 end

@@ -1,0 +1,59 @@
+class CommunicationMQTT
+!!!135959.cpp!!!	CommunicationMQTT(inout parent : QObject = nullptr)
+    qDebug() << Q_FUNC_INFO;
+    client = new QMqttClient(this);
+    client->setHostname(BROKER_MQTT_HOSTNAME);
+    client->setPort(BROKER_MQTT_PORT);
+
+    connect(client, SIGNAL(connected()), this, SLOT(connecte()));
+    connect(client, SIGNAL(disconnected()), this, SLOT(deconnecte()));
+    connect(client,
+            SIGNAL(messageReceived(const QByteArray&, const QMqttTopicName&)),
+            this,
+            SLOT(recevoir(const QByteArray&, const QMqttTopicName&)));
+
+    connecter();
+!!!136087.cpp!!!	~CommunicationMQTT()
+    desabonner(QString(TOPIC_RACINE) + QString("/#")); // tous les sujets
+    deconnecter();
+    qDebug() << Q_FUNC_INFO;
+!!!136215.cpp!!!	connecter() : void
+    qDebug() << Q_FUNC_INFO;
+    client->connectToHost();
+!!!136343.cpp!!!	deconnecter() : void
+    qDebug() << Q_FUNC_INFO;
+    client->disconnectFromHost();
+!!!136471.cpp!!!	abonner(in topic : QString) : void
+    qDebug() << Q_FUNC_INFO;
+    QMqttSubscription* subscription = client->subscribe(topic);
+    if(!subscription)
+    {
+        qDebug() << Q_FUNC_INFO << "erreur subscribe";
+        return;
+    }
+!!!136599.cpp!!!	desabonner(in topic : QString) : void
+    qDebug() << Q_FUNC_INFO;
+    client->unsubscribe(topic);
+!!!136727.cpp!!!	recevoir(in message : QByteArray, in topic : QMqttTopicName) : void
+    qDebug() << Q_FUNC_INFO << QDateTime::currentDateTime().toString()
+             << topic.name() << message;
+    qDebug() << Q_FUNC_INFO << message.toInt() << message.toDouble();
+    QStringList champs = topic.name().split("/");
+    for(int i = 0; i < champs.size(); ++i)
+    {
+        qDebug() << Q_FUNC_INFO << champs.at(i);
+    }
+
+    // Exemple topic : salles/B20/temperature
+    // Exemple message : 20.5
+    if(champs.at(ChampsTopic::RACINE) == TOPIC_RACINE)
+    {
+        emit nouvelleDonnee(champs.at(ChampsTopic::NOM_SALLE),
+                            champs.at(ChampsTopic::TYPE_DONNEE),
+                            QString(message));
+    }
+!!!136855.cpp!!!	connecte() : void
+    qDebug() << Q_FUNC_INFO;
+    abonner("salles/#");
+!!!136983.cpp!!!	deconnecte() : void
+    qDebug() << Q_FUNC_INFO;
