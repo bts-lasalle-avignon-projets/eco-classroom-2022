@@ -419,6 +419,11 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_DESCRIPTION,
                          description);
+    if(salle.at(Salle::INDICE_DE_CONFORT).toInt() >=
+       Salle::IndiceDeConfort::TIEDE)
+    {
+        indiceDeConfort->setForeground(QColor(255, 0, 0));
+    }
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_INDICE_DE_CONFORT,
                          indiceDeConfort);
@@ -441,9 +446,7 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
         QStandardItem* item = modeleSalle->item(nbLignesSalle, i);
         item->setBackground(QColor(255, 223, 0));
         item->setFont(texte);
-        if(salle.at(Salle::INDICE_DE_CONFORT).toInt() >=
-           Salle::IndiceDeConfort::TIEDE)
-            item->setForeground(QColor(255, 0, 0));
+        item->setTextAlignment(Qt::AlignCenter);
     }
 
     // Incrémente le nombre de lignes
