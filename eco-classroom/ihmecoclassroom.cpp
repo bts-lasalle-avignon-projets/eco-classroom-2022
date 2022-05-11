@@ -186,6 +186,12 @@ void IHMEcoClassroom::reinitialiserAffichageMesureSalle()
     ui->labelTemperatureSalle->setText("");
     ui->labelTemperature->setVisible(false);
     ui->labelTemperatureSalle->setVisible(false);
+    ui->labelHumiditeSalle->setText("");
+    ui->labelHumidite->setVisible(false);
+    ui->labelHumiditeSalle->setVisible(false);
+    ui->labelLuminositeSalle->setText("");
+    ui->labelLuminosite->setVisible(false);
+    ui->labelLuminositeSalle->setVisible(false);
     ui->labelHorodatage->setText("");
     ui->labelHorodatage->setVisible(false);
 }
@@ -203,6 +209,13 @@ void IHMEcoClassroom::afficherMesureSalle(QStringList mesureSalle)
                                        " °C");
     ui->labelTemperature->setVisible(true);
     ui->labelTemperatureSalle->setVisible(true);
+    ui->labelHumiditeSalle->setText(mesureSalle.at(Mesure::HUMIDITE) + " %");
+    ui->labelHumidite->setVisible(true);
+    ui->labelHumiditeSalle->setVisible(true);
+    ui->labelLuminositeSalle->setText(mesureSalle.at(Mesure::LUMINOSITE) +
+                                      " lux");
+    ui->labelLuminosite->setVisible(true);
+    ui->labelLuminositeSalle->setVisible(true);
     QDateTime horodatage =
       QDateTime::fromString(mesureSalle.at(Mesure::HORODATAGE),
                             "yyyy-MM-dd HH:mm:ss");
@@ -237,6 +250,10 @@ void IHMEcoClassroom::afficheInformationsSalle(int index)
     if(salles.at(index).at(Salle::ETAT_DES_LUMIERES).toInt())
         etatLumieres = "Allumées";
     ui->labelLumieresSalle->setText(etatLumieres);
+    QString estOccupe = "Occupée";
+    if(salles.at(index).at(Salle::ETAT_OCCUPATION).toInt())
+        estOccupe = "Disponible";
+    ui->labelOccupationSalle->setText(estOccupe);
 }
 
 bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
@@ -266,6 +283,13 @@ bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
                   horodatage.toString("yyyy-MM-dd HH:mm:ss") +
                   "' WHERE idSalle=" + idSalle + ";";
     }
+    else if(typeDonnee == ("luminosite"))
+    {
+        requete = "UPDATE Mesure SET luminosite='" + donnee +
+                  "', horodatage='" +
+                  horodatage.toString("yyyy-MM-dd HH:mm:ss") +
+                  "' WHERE idSalle=" + idSalle + ";";
+    }
     else if(typeDonnee == ("confort"))
     {
         requete = "UPDATE Salle SET idIndiceConfort='" + donnee +
@@ -284,6 +308,11 @@ bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
     else if(typeDonnee == ("lumieres"))
     {
         requete = "UPDATE Salle SET etatLumieres='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
+    }
+    else if(typeDonnee == ("occupation"))
+    {
+        requete = "UPDATE Salle SET estOccupe='" + donnee +
                   "' WHERE idSalle=" + idSalle + ";";
     }
     else
@@ -412,6 +441,9 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
         QStandardItem* item = modeleSalle->item(nbLignesSalle, i);
         item->setBackground(QColor(255, 223, 0));
         item->setFont(texte);
+        if(salle.at(Salle::INDICE_DE_CONFORT).toInt() >=
+           Salle::IndiceDeConfort::TIEDE)
+            item->setForeground(QColor(255, 0, 0));
     }
 
     // Incrémente le nombre de lignes
@@ -661,7 +693,7 @@ void IHMEcoClassroom::afficherAPropos()
         QString::fromUtf8(VERSION) + QString::fromUtf8("</b><br/>...</p>"));
 }
 
-//#ifdef TEST_SANS_BROKER_MQTT
+#ifdef TEST_SANS_BROKER_MQTT
 void IHMEcoClassroom::simuler()
 {
     // simule une réception de donnée sans MQTT
@@ -675,6 +707,7 @@ void IHMEcoClassroom::simuler()
                 << "humidite"
                 << "co2"
                 << "confort"
+                << "luminosite"
                 << "air"
                 << "fenetres"
                 << "lumieres";
@@ -706,6 +739,10 @@ int IHMEcoClassroom::simulerDonnee(QString typeDonnee)
     {
         return randInt(0, 6);
     }
+    else if(typeDonnee == ("luminosite"))
+    {
+        return randInt(40, 400);
+    }
     else if(typeDonnee == ("air"))
     {
         return randInt(1, 6);
@@ -725,5 +762,4 @@ int IHMEcoClassroom::randInt(int min, int max)
 {
     return qrand() % ((max + 1) - min) + min;
 }
-
-//#endif
+#endif

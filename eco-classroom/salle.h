@@ -71,6 +71,21 @@ class Salle
         ETAT_DES_LUMIERES,   //!< Emplacement d'état des lumieres
         ETAT_OCCUPATION,     //!< Emplacement d'état d'occupation de la salle
     };
+
+    /**
+     * @enum IndiceDeConfort
+     * @brief Définit les niveaux de l'indice de confort
+     */
+    enum IndiceDeConfort
+    {
+        FROID = -3,
+        FRAIS,
+        LEGEREMENT_FRAIS,
+        NEUTRE,
+        LEGEREMENT_TIEDE,
+        TIEDE,
+        CHAUD
+    };
 };
 
 #endif // SALLE_H
