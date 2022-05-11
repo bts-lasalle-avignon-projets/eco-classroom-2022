@@ -22,9 +22,9 @@
  */
 #define VERSION "0.2"
 
-//#define TEST_SANS_BROKER_MQTT
+#define TEST_SANS_BROKER_MQTT
 
-// QT_BEGIN_NAMESPACE
+QT_BEGIN_NAMESPACE
 namespace Ui
 {
 class IHMEcoClassroom;

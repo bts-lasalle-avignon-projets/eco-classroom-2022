@@ -491,9 +491,27 @@ void IHMEcoClassroom::supprimerSalle()
                                     QMessageBox::Yes | QMessageBox::No);
     if(reponse == QMessageBox::Yes)
     {
-    }
+        requete = "DELETE FROM Salle WHERE nom = '" +
+                  salles.at(salleSelectionnee).at(Salle::NOM) + "';";
 
-    afficherFenetrePrincipale();
+        bool retour = baseDeDonnees->executer(requete);
+        if(!retour)
+        {
+            QMessageBox::critical(this,
+                                  "Erreur",
+                                  "les modification n'ont pas été effectuées!");
+        }
+        else
+        {
+            chargerSalles();
+            afficherFenetrePrincipale();
+            qDebug() << "Suppression de la salle";
+        }
+    }
+    else
+    {
+        qDebug() << "la salle n'est pas supprimée";
+    }
 }
 
 /**
@@ -643,7 +661,7 @@ void IHMEcoClassroom::afficherAPropos()
         QString::fromUtf8(VERSION) + QString::fromUtf8("</b><br/>...</p>"));
 }
 
-#ifdef TEST_SANS_BROKER_MQTT
+//#ifdef TEST_SANS_BROKER_MQTT
 void IHMEcoClassroom::simuler()
 {
     // simule une réception de donnée sans MQTT
@@ -708,4 +726,4 @@ int IHMEcoClassroom::randInt(int min, int max)
     return qrand() % ((max + 1) - min) + min;
 }
 
-#endif
+//#endif
