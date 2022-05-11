@@ -10,7 +10,6 @@ DROP TABLE IF EXISTS IndiceConfort;
 
 --- Création des tables
 
-
 -- Structure de la table IndiceConfort
 -- indice : facultatif (peut être calculé à partir de l'id)
 
@@ -49,13 +48,13 @@ CREATE TABLE IF NOT EXISTS Mesure(
     co2 SMALLINT UNSIGNED DEFAULT 0,
     horodatage DATETIME NOT NULL,
     CONSTRAINT Salle_fk_1 FOREIGN KEY (idSalle) REFERENCES Salle(idSalle)
+    ON DELETE CASCADE
 );
 
 --- Voir aussi :
 --- ON DELETE CASCADE
 
-PRAGMA foreign_keys=ON;
-
+PRAGMA foreign_keys=on;
 -- Structure de la table SeuilsAlerte
 
 CREATE TABLE IF NOT EXISTS SeuilsAlerte(
