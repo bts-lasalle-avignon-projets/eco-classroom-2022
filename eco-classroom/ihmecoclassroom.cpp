@@ -437,6 +437,7 @@ void IHMEcoClassroom::effacerTableSalles()
 {
     qDebug() << Q_FUNC_INFO;
 
+    salleSelectionnee = -1;
     salles.clear();
     modeleSalle->clear();
     modeleSalle->setHorizontalHeaderLabels(nomColonnes);
@@ -478,10 +479,12 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
 }
 
 /**
- * @brief IHMEcoClassroom::supprimerSalle
+ * @brief Supprime la salle sélectionnée
  */
 void IHMEcoClassroom::supprimerSalle()
 {
+    if(salleSelectionnee == -1)
+        return;
     qDebug() << Q_FUNC_INFO;
     QString                     requete;
     QMessageBox::StandardButton reponse;
@@ -491,26 +494,22 @@ void IHMEcoClassroom::supprimerSalle()
                                     QMessageBox::Yes | QMessageBox::No);
     if(reponse == QMessageBox::Yes)
     {
-        requete = "DELETE FROM Salle WHERE nom = '" +
-                  salles.at(salleSelectionnee).at(Salle::NOM) + "';";
+        requete = "DELETE FROM Salle WHERE idSalle='" +
+                  salles.at(salleSelectionnee).at(Salle::ID) + "';";
 
         bool retour = baseDeDonnees->executer(requete);
         if(!retour)
         {
-            QMessageBox::critical(this,
-                                  "Erreur",
-                                  "les modification n'ont pas été effectuées!");
+            QMessageBox::critical(this, "Erreur", "La suppression a échoué !");
         }
         else
         {
+            qDebug() << Q_FUNC_INFO
+                     << salles.at(salleSelectionnee).at(Salle::ID)
+                     << salles.at(salleSelectionnee).at(Salle::NOM);
             chargerSalles();
             afficherFenetrePrincipale();
-            qDebug() << "Suppression de la salle";
         }
-    }
-    else
-    {
-        qDebug() << "la salle n'est pas supprimée";
     }
 }
 
@@ -520,7 +519,7 @@ void IHMEcoClassroom::supprimerSalle()
  */
 void IHMEcoClassroom::editerSalle()
 {
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << salleSelectionnee;
 
     ui->lineEditNom->setText(salles.at(salleSelectionnee).at(Salle::NOM));
     ui->labelSalleNomEdite->setText(
@@ -658,7 +657,10 @@ void IHMEcoClassroom::afficherAPropos()
       this,
       QString::fromUtf8("À propos ..."),
       QString::fromUtf8("<p><b>") + QString::fromUtf8(NOM_APPLICATION) + " " +
-        QString::fromUtf8(VERSION) + QString::fromUtf8("</b><br/>...</p>"));
+        QString::fromUtf8(VERSION) +
+        QString::fromUtf8(
+          "</b><br/><br/>Supervision de salles dans un établissement "
+          "scolaire<br/><br/>Zeryouhi Mohamed Amine</p>"));
 }
 
 //#ifdef TEST_SANS_BROKER_MQTT
@@ -668,8 +670,9 @@ void IHMEcoClassroom::simuler()
     QStringList nomsDeSalle;
     nomsDeSalle << "B11"
                 << "B20"
-                << "G21"
-                << "B22";
+                << "B21"
+                << "B22"
+                << "G21";
     QStringList nomsDeTopic;
     nomsDeTopic << "temperature"
                 << "humidite"
@@ -677,7 +680,8 @@ void IHMEcoClassroom::simuler()
                 << "confort"
                 << "air"
                 << "fenetres"
-                << "lumieres";
+                << "lumieres"
+                << "occupation";
     QString    salle      = nomsDeSalle.at(randInt(0, nomsDeSalle.size() - 1));
     QString    typeDonnee = nomsDeTopic.at(randInt(0, nomsDeTopic.size() - 1));
     QByteArray donnee =
@@ -704,7 +708,7 @@ int IHMEcoClassroom::simulerDonnee(QString typeDonnee)
     }
     else if(typeDonnee == ("confort"))
     {
-        return randInt(0, 6);
+        return randInt(-3, 3);
     }
     else if(typeDonnee == ("air"))
     {
@@ -715,6 +719,10 @@ int IHMEcoClassroom::simulerDonnee(QString typeDonnee)
         return randInt(0, 1);
     }
     else if(typeDonnee == ("lumieres"))
+    {
+        return randInt(0, 1);
+    }
+    else if(typeDonnee == ("occupation"))
     {
         return randInt(0, 1);
     }

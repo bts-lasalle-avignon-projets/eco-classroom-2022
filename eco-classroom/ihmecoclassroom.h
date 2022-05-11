@@ -24,12 +24,10 @@
 
 #define TEST_SANS_BROKER_MQTT
 
-QT_BEGIN_NAMESPACE
 namespace Ui
 {
 class IHMEcoClassroom;
 }
-// QT_END_NAMESPACE
 
 class BaseDeDonnees;
 class CommunicationMQTT;
