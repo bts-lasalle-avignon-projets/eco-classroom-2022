@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file alias="logo.png">images/logo.png</file>
+        <file>images/vierge.png</file>
         <file>images/lieu.png</file>
         <file>images/celsius.png</file>
         <file>images/humidite.png</file>

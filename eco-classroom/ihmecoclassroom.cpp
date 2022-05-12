@@ -26,11 +26,8 @@ IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
 {
     qDebug() << Q_FUNC_INFO;
     ui->setupUi(this);
-    baseDeDonnees = BaseDeDonnees::getInstance();
-    baseDeDonnees->ouvrir("eco-classroom.db");
 
-    communicationMQTT = new CommunicationMQTT(this);
-
+    initialiserEcoClassroom();
     ajouterMenuAide();
     initialiserAffichage();
     gererEvenements();
@@ -55,6 +52,13 @@ IHMEcoClassroom::~IHMEcoClassroom()
 {
     delete ui;
     qDebug() << Q_FUNC_INFO;
+}
+
+void IHMEcoClassroom::initialiserEcoClassroom()
+{
+    baseDeDonnees = BaseDeDonnees::getInstance();
+    baseDeDonnees->ouvrir("eco-classroom.db");
+    communicationMQTT = new CommunicationMQTT(this);
 }
 
 void IHMEcoClassroom::initialiserAffichage()
@@ -405,37 +409,96 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
     QStandardItem* nom = new QStandardItem(salle.at(Salle::NOM));
     QStandardItem* description =
       new QStandardItem(salle.at(Salle::DESCRIPTION));
+
     QString libelleIndiceConfort = salle.at(Salle::LIBELLE_INDICE_DE_CONFORT);
     libelleIndiceConfort.replace(0, 1, libelleIndiceConfort.at(0).toUpper());
-    QStandardItem* indiceDeConfort   = new QStandardItem(libelleIndiceConfort);
-    QString        libelleQualiteAir = salle.at(Salle::LIBELLE_QUALITE_AIR);
+    QString libelleQualiteAir = salle.at(Salle::LIBELLE_QUALITE_AIR);
     libelleQualiteAir.replace(0, 1, libelleQualiteAir.at(0).toUpper());
-    QStandardItem* qualiteAir   = new QStandardItem(libelleQualiteAir);
-    QString        etatFenetres = "Fermées";
+    QString etatFenetres;
+    QString etatLumieres;
+    QString estOccupe;
+
     if(salle.at(Salle::ETAT_DES_FENETRES).toInt())
+    {
         etatFenetres = "Ouvertes";
-    QStandardItem* fenetres     = new QStandardItem(etatFenetres);
-    QString        etatLumieres = "Éteintes";
+    }
+    else
+    {
+        etatFenetres = "Fermées";
+    }
+
     if(salle.at(Salle::ETAT_DES_LUMIERES).toInt())
+    {
         etatLumieres = "Allumées";
-    QStandardItem* lumieres = new QStandardItem(etatLumieres);
+    }
+    else
+    {
+        etatLumieres = "Éteintes";
+    }
 
-    QString estOccupe = "Occupée";
     if(salle.at(Salle::ETAT_OCCUPATION).toInt())
-        etatLumieres = "Disponible";
-    QStandardItem* occupation = new QStandardItem(estOccupe);
+    {
+        estOccupe = "Disponible";
+    }
+    else
+    {
+        estOccupe = "Occupée";
+    }
 
+    QStandardItem* indiceDeConfort = new QStandardItem(libelleIndiceConfort);
+    QStandardItem* qualiteAir      = new QStandardItem(libelleQualiteAir);
+    QStandardItem* fenetres        = new QStandardItem(etatFenetres);
+    QStandardItem* lumieres        = new QStandardItem(etatLumieres);
+    QStandardItem* occupation      = new QStandardItem(estOccupe);
+
+    if(salle.at(Salle::ETAT_DES_FENETRES).toInt() &&
+       !salle.at(Salle::ETAT_OCCUPATION).toInt())
+    {
+        fenetres->setForeground(QColor(255, 0, 0));
+    }
+    else
+    {
+    }
+
+    if(salle.at(Salle::ETAT_DES_LUMIERES).toInt() &&
+       !salle.at(Salle::ETAT_OCCUPATION).toInt())
+    {
+        lumieres->setForeground(QColor(255, 0, 0));
+    }
+    else
+    {
+    }
+
+    if(salle.at(Salle::ETAT_OCCUPATION).toInt())
+    {
+        occupation->setForeground(QColor(0, 255, 0));
+    }
+    else
+    {
+        occupation->setForeground(QColor(255, 0, 0));
+    }
+
+    // si l'indice de qualité d'air est au moins mauvais
     if(salle.at(Salle::LIBELLE_QUALITE_AIR).toInt() >=
        Salle::IndiceDeQualiteAir::TRES_MAUVAIS)
     {
         qualiteAir->setForeground(QColor(255, 0, 0));
     }
-    // si l'indice de confort est tiéde
+    else if(salle.at(Salle::LIBELLE_QUALITE_AIR).toInt() <=
+            Salle::IndiceDeQualiteAir::BON)
+    {
+        qualiteAir->setForeground(QColor(0, 255, 0));
+    }
+
+    // si l'indice de confort est au moins tiéde
     if(salle.at(Salle::INDICE_DE_CONFORT).toInt() >=
-       Salle::IndiceDeConfort::TIEDE)
+         Salle::IndiceDeConfort::TIEDE ||
+       salle.at(Salle::INDICE_DE_CONFORT).toInt() <=
+         Salle::IndiceDeConfort::FRAIS)
     {
         indiceDeConfort->setForeground(QColor(255, 0, 0));
     }
+
     // Ajoute les items dans le modèle de données
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_NOM,
@@ -721,7 +784,7 @@ void IHMEcoClassroom::afficherAPropos()
           "scolaire<br/><br/>Zeryouhi Mohamed Amine</p>"));
 }
 
-/*#ifdef TEST_SANS_BROKER_MQTT
+#ifdef TEST_SANS_BROKER_MQTT
 void IHMEcoClassroom::simuler()
 {
     // simule une réception de donnée sans MQTT
@@ -796,4 +859,4 @@ int IHMEcoClassroom::randInt(int min, int max)
 {
     return qrand() % ((max + 1) - min) + min;
 }
-#endif*/
+#endif

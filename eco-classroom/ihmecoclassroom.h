@@ -22,7 +22,7 @@
  */
 #define VERSION "0.2"
 
-//#define TEST_SANS_BROKER_MQTT
+#define TEST_SANS_BROKER_MQTT
 
 namespace Ui
 {
@@ -90,6 +90,7 @@ class IHMEcoClassroom : public QMainWindow
         NB_COLONNES
     };
 
+    void    initialiserEcoClassroom();
     void    initialiserAffichage();
     void    ajouterMenuAide();
     void    gererEvenements();

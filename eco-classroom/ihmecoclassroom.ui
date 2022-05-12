@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>611</width>
-    <height>600</height>
+    <height>931</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
     <item>
      <widget class="QStackedWidget" name="fenetres">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="accueil">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -45,7 +45,7 @@
              </size>
             </property>
             <property name="styleSheet">
-             <string notr="true">font-size : 20px;</string>
+             <string notr="true">font-size : 30px;</string>
             </property>
             <property name="currentText">
              <string>Toutes</string>
@@ -57,17 +57,12 @@
             </item>
             <item>
              <property name="text">
-              <string>Par Nom</string>
+              <string>Disponibles</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>Par état des lumières</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Par état des fenêtres</string>
+              <string>À vérifier</string>
              </property>
             </item>
            </widget>
@@ -164,7 +159,36 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayoutNom">
             <item>
+             <widget class="QLabel" name="label_10">
+              <property name="minimumSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="ressources.qrc">:/images/vierge.png</pixmap>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QLabel" name="labelNom">
+              <property name="font">
+               <font>
+                <pointsize>-1</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true">font-size : 20px;</string>
               </property>
@@ -175,6 +199,13 @@
             </item>
             <item>
              <widget class="QLabel" name="labelNomSalle">
+              <property name="font">
+               <font>
+                <pointsize>-1</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true">font-size : 20px;</string>
               </property>
@@ -524,6 +555,28 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayoutEtat">
             <item>
+             <widget class="QLabel" name="label_13">
+              <property name="minimumSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="ressources.qrc">:/images/vierge.png</pixmap>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QLabel" name="labelFenetres">
               <property name="styleSheet">
                <string notr="true">font-size : 20px;</string>
@@ -731,6 +784,28 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
+             <widget class="QLabel" name="label_11">
+              <property name="minimumSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="ressources.qrc">:/images/vierge.png</pixmap>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QLabel" name="labelOccupation">
               <property name="styleSheet">
                <string notr="true">font-size : 20px;</string>
@@ -892,7 +967,36 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
+             <widget class="QLabel" name="label_12">
+              <property name="minimumSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="pixmap">
+               <pixmap resource="ressources.qrc">:/images/vierge.png</pixmap>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QLabel" name="labelHorodatage">
+              <property name="font">
+               <font>
+                <pointsize>-1</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
               <property name="styleSheet">
                <string notr="true">font-size : 20px;</string>
               </property>
@@ -1244,7 +1348,7 @@
      <x>0</x>
      <y>0</y>
      <width>611</width>
-     <height>22</height>
+     <height>39</height>
     </rect>
    </property>
   </widget>
