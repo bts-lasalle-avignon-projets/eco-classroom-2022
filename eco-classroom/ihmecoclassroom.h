@@ -86,6 +86,7 @@ class IHMEcoClassroom : public QMainWindow
         COLONNE_SALLE_QUALITE_AIR, //!< Emplacement d'indice de qualité d'air
         COLONNE_SALLE_FENETRES,    //!< Emplacement des fenétres
         COLONNE_SALLE_LUMIERES,    //!< Emplacement des lumières
+        COLONNE_SALLE_OCCUPATION,  //!< Emplacement d'occupation
         NB_COLONNES
     };
 
