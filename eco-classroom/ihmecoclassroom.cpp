@@ -353,6 +353,13 @@ QString IHMEcoClassroom::insererNouvelleSalle(QString nomSalle)
 
     return QString();
 }
+/**
+ * @brief changer le couleurde la nouvelle donnee
+ * @fn IHMEcoClassroom::changerCouleurDonnee
+ */
+void IHMEcoClassroom::changerCouleurDonnee()
+{
+}
 
 /**
  * @brief Charge les données des salles dans le QTableView
@@ -418,6 +425,17 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
         etatLumieres = "Disponible";
     QStandardItem* occupation = new QStandardItem(estOccupe);
 
+    if(salle.at(Salle::LIBELLE_QUALITE_AIR).toInt() >=
+       Salle::IndiceDeQualiteAir::TRES_MAUVAIS)
+    {
+        qualiteAir->setForeground(QColor(255, 0, 0));
+    }
+    // si l'indice de confort est tiéde
+    if(salle.at(Salle::INDICE_DE_CONFORT).toInt() >=
+       Salle::IndiceDeConfort::TIEDE)
+    {
+        indiceDeConfort->setForeground(QColor(255, 0, 0));
+    }
     // Ajoute les items dans le modèle de données
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_NOM,

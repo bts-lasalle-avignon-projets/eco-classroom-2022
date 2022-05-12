@@ -86,6 +86,20 @@ class Salle
         TIEDE,
         CHAUD
     };
+
+    /**
+     * @enum IndiceDeConfort
+     * @brief Définit les niveaux de l'indice de confort
+     */
+    enum IndiceDeQualiteAir
+    {
+        TRES_BON = 1,
+        BON,
+        MOYEN,
+        MEDIOCRE,
+        MAUVAIS,
+        TRES_MAUVAIS
+    };
 };
 
 #endif // SALLE_H
