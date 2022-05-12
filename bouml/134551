@@ -1,7 +1,7 @@
 format 224
 "eco-classroom" // eco-classroom
-  revision 2
-  modified_by 23 "tv"
+  revision 3
+  modified_by 2 "btssn2"
   // class settings
   
   classdiagramsettings member_max_width 0 end
@@ -578,6 +578,7 @@ ${items}};
       end
 
       operation 136215 "connecter"
+	stereotype "slot"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -592,6 +593,7 @@ ${body}}
       end
 
       operation 136343 "deconnecter"
+	stereotype "slot"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -606,6 +608,7 @@ ${body}}
       end
 
       operation 136471 "abonner"
+	stereotype "slot"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 1
 	  param in name "topic" explicit_type "QString"
@@ -621,6 +624,7 @@ ${body}}
       end
 
       operation 136599 "desabonner"
+	stereotype "slot"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 1
 	  param in name "topic" explicit_type "QString"
@@ -636,6 +640,7 @@ ${body}}
       end
 
       operation 136727 "recevoir"
+	stereotype "slot"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 2
 	  param in name "message" explicit_type "QByteArray"
@@ -652,6 +657,7 @@ ${body}}
       end
 
       operation 136855 "connecte"
+	stereotype "slot"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -666,6 +672,7 @@ ${body}}
       end
 
       operation 136983 "deconnecte"
+	stereotype "slot"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
@@ -690,6 +697,7 @@ ${body}}
       end
 
       operation 137111 "nouvelleDonnee"
+	stereotype "signal"
 	public explicit_return_type "void"
 	nparams 3
 	  param in name "nomSalle" explicit_type "QString"
@@ -907,9 +915,6 @@ ${body}}
 	  param in name "typeDonnee" explicit_type "QString"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
-${body}}
-"
 	
 	
 	
@@ -922,9 +927,6 @@ ${body}}
 	  param in name "min" explicit_type "int"
 	  param in name "max" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
-"
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
-${body}}
 "
 	
 	
@@ -1343,7 +1345,7 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "//@brief IHMEcoClassroom::supprimerSalle
+	cpp_def "//@brief Supprime la salle sélectionnée
 //
 
 ${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
@@ -1468,14 +1470,12 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
-	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
-${body}}
-"
 	
 	
 	
 	
       end
+
     end
 
     class 135447 "typedef2"
@@ -2509,9 +2509,105 @@ ${items}};
 	  MysqlColumn
 	end
       end
+
+      class 134530 "IndiceDeConfort"
+	visibility package stereotype "enum"
+	cpp_decl "${comment}enum ${name} {
+${items}};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	attribute 134658 "FROID"
+	  public type class_ref 134530 // IndiceDeConfort
+	  init_value " -3"
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 134786 "FRAIS"
+	  public type class_ref 134530 // IndiceDeConfort
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 134914 "LEGEREMENT_FRAIS"
+	  public type class_ref 134530 // IndiceDeConfort
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 135042 "NEUTRE"
+	  public type class_ref 134530 // IndiceDeConfort
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 135170 "LEGEREMENT_TIEDE"
+	  public type class_ref 134530 // IndiceDeConfort
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 135298 "TIEDE"
+	  public type class_ref 134530 // IndiceDeConfort
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 135426 "CHAUD"
+	  public type class_ref 134530 // IndiceDeConfort
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+      end
     end
 
     classdiagram 134551 "version 0.2"
+      classdiagramsettings show_members_full_definition yes show_members_visibility yes show_members_stereotype yes member_max_width 0 end
+      size A0
+    end
+
+    classdiagram 128258 "classes - ds - visualiser une salle"
       classdiagramsettings show_members_full_definition yes show_members_visibility yes member_max_width 0 end
       size A0
     end

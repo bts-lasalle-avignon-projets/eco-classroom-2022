@@ -1,7 +1,7 @@
 format 224
 "bouml"
-  revision 11
-  modified_by 23 "tv"
+  revision 12
+  modified_by 2 "btssn2"
   cpp_root_dir ".."
 
 
@@ -576,6 +576,16 @@ ${members}};
       explicit_switch_type ""
       mysql_decl ""
       
+    end
+
+    sequencediagram 128002 "ds - visualiser la liste des salles"
+      sequencediagramsettings show_full_operations_definition yes end
+      overlapping_bars size A0
+    end
+
+    sequencediagram 128130 "ds - visualiser une salle"
+      sequencediagramsettings show_full_operations_definition yes end
+      overlapping_bars size A0
     end
   end
 
