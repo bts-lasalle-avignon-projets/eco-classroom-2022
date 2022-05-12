@@ -164,6 +164,12 @@ class IHMEcoClassroom
     ui->labelTemperatureSalle->setText("");
     ui->labelTemperature->setVisible(false);
     ui->labelTemperatureSalle->setVisible(false);
+    ui->labelHumiditeSalle->setText("");
+    ui->labelHumidite->setVisible(false);
+    ui->labelHumiditeSalle->setVisible(false);
+    ui->labelLuminositeSalle->setText("");
+    ui->labelLuminosite->setVisible(false);
+    ui->labelLuminositeSalle->setVisible(false);
     ui->labelHorodatage->setText("");
     ui->labelHorodatage->setVisible(false);
 !!!138519.cpp!!!	afficherMesureSalle(in mesureSalle : QStringList) : void
@@ -174,6 +180,13 @@ class IHMEcoClassroom
                                        " °C");
     ui->labelTemperature->setVisible(true);
     ui->labelTemperatureSalle->setVisible(true);
+    ui->labelHumiditeSalle->setText(mesureSalle.at(Mesure::HUMIDITE) + " %");
+    ui->labelHumidite->setVisible(true);
+    ui->labelHumiditeSalle->setVisible(true);
+    ui->labelLuminositeSalle->setText(mesureSalle.at(Mesure::LUMINOSITE) +
+                                      " lux");
+    ui->labelLuminosite->setVisible(true);
+    ui->labelLuminositeSalle->setVisible(true);
     QDateTime horodatage =
       QDateTime::fromString(mesureSalle.at(Mesure::HORODATAGE),
                             "yyyy-MM-dd HH:mm:ss");
@@ -201,6 +214,10 @@ class IHMEcoClassroom
     if(salles.at(index).at(Salle::ETAT_DES_LUMIERES).toInt())
         etatLumieres = "Allumées";
     ui->labelLumieresSalle->setText(etatLumieres);
+    QString estOccupe = "Occupée";
+    if(salles.at(index).at(Salle::ETAT_OCCUPATION).toInt())
+        estOccupe = "Disponible";
+    ui->labelOccupationSalle->setText(estOccupe);
 !!!138775.cpp!!!	mettreAJourDonnee(in donnee : QString, in typeDonnee : QString, in idSalle : QString) : bool
     QString   requete;
     QDateTime horodatage = QDateTime::currentDateTime();
@@ -225,6 +242,13 @@ class IHMEcoClassroom
                   horodatage.toString("yyyy-MM-dd HH:mm:ss") +
                   "' WHERE idSalle=" + idSalle + ";";
     }
+    else if(typeDonnee == ("luminosite"))
+    {
+        requete = "UPDATE Mesure SET luminosite='" + donnee +
+                  "', horodatage='" +
+                  horodatage.toString("yyyy-MM-dd HH:mm:ss") +
+                  "' WHERE idSalle=" + idSalle + ";";
+    }
     else if(typeDonnee == ("confort"))
     {
         requete = "UPDATE Salle SET idIndiceConfort='" + donnee +
@@ -243,6 +267,11 @@ class IHMEcoClassroom
     else if(typeDonnee == ("lumieres"))
     {
         requete = "UPDATE Salle SET etatLumieres='" + donnee +
+                  "' WHERE idSalle=" + idSalle + ";";
+    }
+    else if(typeDonnee == ("occupation"))
+    {
+        requete = "UPDATE Salle SET estOccupe='" + donnee +
                   "' WHERE idSalle=" + idSalle + ";";
     }
     else
@@ -329,6 +358,11 @@ class IHMEcoClassroom
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_DESCRIPTION,
                          description);
+    if(salle.at(Salle::INDICE_DE_CONFORT).toInt() >=
+       Salle::IndiceDeConfort::TIEDE)
+    {
+        indiceDeConfort->setForeground(QColor(255, 0, 0));
+    }
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_INDICE_DE_CONFORT,
                          indiceDeConfort);
@@ -351,6 +385,7 @@ class IHMEcoClassroom
         QStandardItem* item = modeleSalle->item(nbLignesSalle, i);
         item->setBackground(QColor(255, 223, 0));
         item->setFont(texte);
+        item->setTextAlignment(Qt::AlignCenter);
     }
 
     // Incrémente le nombre de lignes
@@ -368,6 +403,7 @@ class IHMEcoClassroom
 !!!139287.cpp!!!	effacerTableSalles() : void
     qDebug() << Q_FUNC_INFO;
 
+    salleSelectionnee = -1;
     salles.clear();
     modeleSalle->clear();
     modeleSalle->setHorizontalHeaderLabels(nomColonnes);
@@ -404,6 +440,8 @@ class IHMEcoClassroom
     // Affiche la fenêtre de la salle
     afficherFenetre(IHMEcoClassroom::Fenetre::InformationsSalle);
 !!!139543.cpp!!!	supprimerSalle() : void
+    if(salleSelectionnee == -1)
+        return;
     qDebug() << Q_FUNC_INFO;
     QString                     requete;
     QMessageBox::StandardButton reponse;
@@ -413,11 +451,25 @@ class IHMEcoClassroom
                                     QMessageBox::Yes | QMessageBox::No);
     if(reponse == QMessageBox::Yes)
     {
-    }
+        requete = "DELETE FROM Salle WHERE idSalle='" +
+                  salles.at(salleSelectionnee).at(Salle::ID) + "';";
 
-    afficherFenetrePrincipale();
+        bool retour = baseDeDonnees->executer(requete);
+        if(!retour)
+        {
+            QMessageBox::critical(this, "Erreur", "La suppression a échoué !");
+        }
+        else
+        {
+            qDebug() << Q_FUNC_INFO
+                     << salles.at(salleSelectionnee).at(Salle::ID)
+                     << salles.at(salleSelectionnee).at(Salle::NOM);
+            chargerSalles();
+            afficherFenetrePrincipale();
+        }
+    }
 !!!139671.cpp!!!	editerSalle() : void
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << salleSelectionnee;
 
     ui->lineEditNom->setText(salles.at(salleSelectionnee).at(Salle::NOM));
     ui->labelSalleNomEdite->setText(
@@ -507,7 +559,10 @@ class IHMEcoClassroom
       this,
       QString::fromUtf8("À propos ..."),
       QString::fromUtf8("<p><b>") + QString::fromUtf8(NOM_APPLICATION) + " " +
-        QString::fromUtf8(VERSION) + QString::fromUtf8("</b><br/>...</p>"));
+        QString::fromUtf8(VERSION) +
+        QString::fromUtf8(
+          "</b><br/><br/>Supervision de salles dans un établissement "
+          "scolaire<br/><br/>Zeryouhi Mohamed Amine</p>"));
 !!!140439.cpp!!!	simuler() : void
     // simule une réception de donnée sans MQTT
     QStringList nomsDeSalle;

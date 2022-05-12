@@ -1,0 +1,23 @@
+format 224
+
+classcanvas 128002 class_ref 135319 // IHMEcoClassroom
+  classdiagramsettings member_max_width 0 end
+  xyz 10 10 2000
+end
+classcanvas 128130 class_ref 134807 // BaseDeDonnees
+  classdiagramsettings member_max_width 0 end
+  xyz 909 163 3005
+end
+relationcanvas 128258 relation_ref 134935 // <unidirectional association>
+  from ref 128130 z 3006 to point 879 233
+  line 128386 z 3006 to point 879 263
+  line 128514 z 3006 to ref 128130
+  role_a_pos 789 249 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 128642 relation_ref 135319 // <unidirectional association>
+  from ref 128002 z 3006 to ref 128130
+  role_a_pos 789 284 3000 no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+end

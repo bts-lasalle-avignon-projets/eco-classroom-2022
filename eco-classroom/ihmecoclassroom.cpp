@@ -698,7 +698,7 @@ void IHMEcoClassroom::afficherAPropos()
           "scolaire<br/><br/>Zeryouhi Mohamed Amine</p>"));
 }
 
-#ifdef TEST_SANS_BROKER_MQTT
+/*#ifdef TEST_SANS_BROKER_MQTT
 void IHMEcoClassroom::simuler()
 {
     // simule une réception de donnée sans MQTT
@@ -773,4 +773,4 @@ int IHMEcoClassroom::randInt(int min, int max)
 {
     return qrand() % ((max + 1) - min) + min;
 }
-#endif
+#endif*/
