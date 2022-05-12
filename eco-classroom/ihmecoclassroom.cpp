@@ -69,7 +69,8 @@ void IHMEcoClassroom::initialiserAffichage()
                 << "Indice de confort"
                 << "Qualité d'air"
                 << "Fenêtres"
-                << "Lumières";
+                << "Lumières"
+                << "Occupation";
     modeleSalle = new QStandardItemModel(0, nomColonnes.size());
     modeleSalle->setHorizontalHeaderLabels(nomColonnes);
     ui->tableViewSalles->setModel(modeleSalle);
@@ -412,6 +413,11 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
         etatLumieres = "Allumées";
     QStandardItem* lumieres = new QStandardItem(etatLumieres);
 
+    QString estOccupe = "Occupée";
+    if(salle.at(Salle::ETAT_OCCUPATION).toInt())
+        etatLumieres = "Disponible";
+    QStandardItem* occupation = new QStandardItem(estOccupe);
+
     // Ajoute les items dans le modèle de données
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_NOM,
@@ -419,11 +425,7 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_DESCRIPTION,
                          description);
-    if(salle.at(Salle::INDICE_DE_CONFORT).toInt() >=
-       Salle::IndiceDeConfort::TIEDE)
-    {
-        indiceDeConfort->setForeground(QColor(255, 0, 0));
-    }
+
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_INDICE_DE_CONFORT,
                          indiceDeConfort);
@@ -436,6 +438,9 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_LUMIERES,
                          lumieres);
+    modeleSalle->setItem(nbLignesSalle,
+                         IHMEcoClassroom::COLONNE_SALLE_OCCUPATION,
+                         occupation);
 
     // Personnalise l'affichage d'une ligne
     QFont texte;
