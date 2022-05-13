@@ -2,11 +2,8 @@ class IHMEcoClassroom
 !!!137239.cpp!!!	IHMEcoClassroom(inout parent : QWidget = nullptr)
     qDebug() << Q_FUNC_INFO;
     ui->setupUi(this);
-    baseDeDonnees = BaseDeDonnees::getInstance();
-    baseDeDonnees->ouvrir("eco-classroom.db");
 
-    communicationMQTT = new CommunicationMQTT(this);
-
+    initialiserEcoClassroom();
     ajouterMenuAide();
     initialiserAffichage();
     gererEvenements();
@@ -37,7 +34,11 @@ class IHMEcoClassroom
     }
     else if(typeDonnee == ("confort"))
     {
-        return randInt(0, 6);
+        return randInt(-3, 3);
+    }
+    else if(typeDonnee == ("luminosite"))
+    {
+        return randInt(40, 400);
     }
     else if(typeDonnee == ("air"))
     {
@@ -51,9 +52,17 @@ class IHMEcoClassroom
     {
         return randInt(0, 1);
     }
+    else if(typeDonnee == ("occupation"))
+    {
+        return randInt(0, 1);
+    }
     return -1;
 !!!137623.cpp!!!	randInt(in min : int, in max : int) : int
     return qrand() % ((max + 1) - min) + min;
+!!!150551.cpp!!!	initialiserEcoClassroom() : void
+    baseDeDonnees = BaseDeDonnees::getInstance();
+    baseDeDonnees->ouvrir("eco-classroom.db");
+    communicationMQTT = new CommunicationMQTT(this);
 !!!137751.cpp!!!	initialiserAffichage() : void
     qDebug() << Q_FUNC_INFO;
     ui->statusbar->showMessage(QString::fromUtf8(NOM_APPLICATION) + " " +
@@ -65,7 +74,8 @@ class IHMEcoClassroom
                 << "Indice de confort"
                 << "Qualité d'air"
                 << "Fenêtres"
-                << "Lumières";
+                << "Lumières"
+                << "Occupation";
     modeleSalle = new QStandardItemModel(0, nomColonnes.size());
     modeleSalle->setHorizontalHeaderLabels(nomColonnes);
     ui->tableViewSalles->setModel(modeleSalle);
@@ -134,6 +144,11 @@ class IHMEcoClassroom
             SIGNAL(nouvelleDonnee(QString, QString, QString)),
             this,
             SLOT(traiterNouvelleDonnee(QString, QString, QString)));
+    // filtrer les salles
+    connect(ui->listeSallesDetectees,
+            SIGNAL(currentTextChanged(QString)),
+            this,
+            SLOT(filtrerSalles()));
 !!!138135.cpp!!!	recupererIdSalle(in nomSalle : QString) : QString
     for(int i = 0; i < salles.size(); ++i)
     {
@@ -329,6 +344,85 @@ class IHMEcoClassroom
         for(int i = 0; i < salles.size(); ++i)
             afficherSalleTable(salles.at(i));
     }
+!!!150679.cpp!!!	filtrerSalles() : void
+    qDebug() << Q_FUNC_INFO << ui->listeSallesDetectees->currentIndex()
+             << ui->listeSallesDetectees->currentText();
+    QString requete;
+
+    switch(ui->listeSallesDetectees->currentIndex())
+    {
+        case FiltreSalles::TOUTES:
+            requete =
+              "SELECT "
+              "Salle.idSalle,Salle.nom,Salle.lieu,Salle.description,Salle."
+              "superficie,IndiceConfort.idIndiceConfort AS "
+              "indiceConfort,IndiceConfort.libelle AS "
+              "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
+              "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,"
+              "Salle.estOccupe FROM Salle INNER JOIN IndiceConfort ON "
+              "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
+              "IndiceQualiteAir ON "
+              "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir";
+            break;
+        case FiltreSalles::OCCUPEES:
+            requete =
+              "SELECT "
+              "Salle.idSalle,Salle.nom,Salle.lieu,Salle.description,Salle."
+              "superficie,IndiceConfort.idIndiceConfort AS "
+              "indiceConfort,IndiceConfort.libelle AS "
+              "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
+              "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,"
+              "Salle.estOccupe FROM Salle INNER JOIN IndiceConfort ON "
+              "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
+              "IndiceQualiteAir ON "
+              "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir "
+              "WHERE estOccupe = 0";
+            break;
+        case FiltreSalles::DISPONIBLES:
+            requete =
+              "SELECT "
+              "Salle.idSalle,Salle.nom,Salle.lieu,Salle.description,Salle."
+              "superficie,IndiceConfort.idIndiceConfort AS "
+              "indiceConfort,IndiceConfort.libelle AS "
+              "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
+              "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,"
+              "Salle.estOccupe FROM Salle INNER JOIN IndiceConfort ON "
+              "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
+              "IndiceQualiteAir ON "
+              "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir "
+              "WHERE estOccupe = 1";
+            break;
+        case FiltreSalles::QUALITE_AIR:
+            /**
+             * @todo Récupérer la liste des salles disponibles avec un bon
+             * indeice de qualité d'air
+             */
+            return;
+            break;
+        case FiltreSalles::A_VERIFIER:
+            /**
+             * @todo Récupérer la liste des salles non occupées avec les
+             * lumières allumées ou les fenêtres ouvertes
+             */
+            return;
+            break;
+        default:
+            return;
+    }
+
+    effacerTableSalles();
+
+    bool retour;
+    retour = baseDeDonnees->recuperer(requete, salles);
+    qDebug() << Q_FUNC_INFO << salles;
+
+    if(retour)
+    {
+        for(int i = 0; i < salles.size(); ++i)
+        {
+            afficherSalleTable(salles.at(i));
+        }
+    }
 !!!139159.cpp!!!	afficherSalleTable(in salle : QStringList) : void
     qDebug() << Q_FUNC_INFO << salle;
 
@@ -336,20 +430,95 @@ class IHMEcoClassroom
     QStandardItem* nom = new QStandardItem(salle.at(Salle::NOM));
     QStandardItem* description =
       new QStandardItem(salle.at(Salle::DESCRIPTION));
+
     QString libelleIndiceConfort = salle.at(Salle::LIBELLE_INDICE_DE_CONFORT);
     libelleIndiceConfort.replace(0, 1, libelleIndiceConfort.at(0).toUpper());
-    QStandardItem* indiceDeConfort   = new QStandardItem(libelleIndiceConfort);
-    QString        libelleQualiteAir = salle.at(Salle::LIBELLE_QUALITE_AIR);
+    QString libelleQualiteAir = salle.at(Salle::LIBELLE_QUALITE_AIR);
     libelleQualiteAir.replace(0, 1, libelleQualiteAir.at(0).toUpper());
-    QStandardItem* qualiteAir   = new QStandardItem(libelleQualiteAir);
-    QString        etatFenetres = "Fermées";
+    QString etatFenetres;
+    QString etatLumieres;
+    QString estOccupe;
+
     if(salle.at(Salle::ETAT_DES_FENETRES).toInt())
+    {
         etatFenetres = "Ouvertes";
-    QStandardItem* fenetres     = new QStandardItem(etatFenetres);
-    QString        etatLumieres = "Éteintes";
+    }
+    else
+    {
+        etatFenetres = "Fermées";
+    }
+
     if(salle.at(Salle::ETAT_DES_LUMIERES).toInt())
+    {
         etatLumieres = "Allumées";
-    QStandardItem* lumieres = new QStandardItem(etatLumieres);
+    }
+    else
+    {
+        etatLumieres = "Éteintes";
+    }
+
+    if(salle.at(Salle::ETAT_OCCUPATION).toInt())
+    {
+        estOccupe = "Disponible";
+    }
+    else
+    {
+        estOccupe = "Occupée";
+    }
+
+    QStandardItem* indiceDeConfort = new QStandardItem(libelleIndiceConfort);
+    QStandardItem* qualiteAir      = new QStandardItem(libelleQualiteAir);
+    QStandardItem* fenetres        = new QStandardItem(etatFenetres);
+    QStandardItem* lumieres        = new QStandardItem(etatLumieres);
+    QStandardItem* occupation      = new QStandardItem(estOccupe);
+
+    if(salle.at(Salle::ETAT_DES_FENETRES).toInt() &&
+       !salle.at(Salle::ETAT_OCCUPATION).toInt())
+    {
+        fenetres->setForeground(QColor(255, 0, 0));
+    }
+    else
+    {
+    }
+
+    if(salle.at(Salle::ETAT_DES_LUMIERES).toInt() &&
+       !salle.at(Salle::ETAT_OCCUPATION).toInt())
+    {
+        lumieres->setForeground(QColor(255, 0, 0));
+    }
+    else
+    {
+    }
+
+    if(salle.at(Salle::ETAT_OCCUPATION).toInt())
+    {
+        occupation->setForeground(QColor(0, 255, 0));
+    }
+    else
+    {
+        occupation->setForeground(QColor(255, 0, 0));
+    }
+
+    // si l'indice de qualité d'air est au moins mauvais
+    if(salle.at(Salle::LIBELLE_QUALITE_AIR).toInt() >=
+       Salle::IndiceDeQualiteAir::TRES_MAUVAIS)
+    {
+        qualiteAir->setForeground(QColor(255, 0, 0));
+    }
+    else if(salle.at(Salle::LIBELLE_QUALITE_AIR).toInt() <=
+            Salle::IndiceDeQualiteAir::BON)
+    {
+        qualiteAir->setForeground(QColor(0, 255, 0));
+    }
+
+    // si l'indice de confort est au moins tiéde
+    if(salle.at(Salle::INDICE_DE_CONFORT).toInt() >=
+         Salle::IndiceDeConfort::TIEDE ||
+       salle.at(Salle::INDICE_DE_CONFORT).toInt() <=
+         Salle::IndiceDeConfort::FRAIS)
+    {
+        indiceDeConfort->setForeground(QColor(255, 0, 0));
+    }
 
     // Ajoute les items dans le modèle de données
     modeleSalle->setItem(nbLignesSalle,
@@ -358,11 +527,7 @@ class IHMEcoClassroom
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_DESCRIPTION,
                          description);
-    if(salle.at(Salle::INDICE_DE_CONFORT).toInt() >=
-       Salle::IndiceDeConfort::TIEDE)
-    {
-        indiceDeConfort->setForeground(QColor(255, 0, 0));
-    }
+
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_INDICE_DE_CONFORT,
                          indiceDeConfort);
@@ -375,6 +540,9 @@ class IHMEcoClassroom
     modeleSalle->setItem(nbLignesSalle,
                          IHMEcoClassroom::COLONNE_SALLE_LUMIERES,
                          lumieres);
+    modeleSalle->setItem(nbLignesSalle,
+                         IHMEcoClassroom::COLONNE_SALLE_OCCUPATION,
+                         occupation);
 
     // Personnalise l'affichage d'une ligne
     QFont texte;
@@ -568,16 +736,19 @@ class IHMEcoClassroom
     QStringList nomsDeSalle;
     nomsDeSalle << "B11"
                 << "B20"
-                << "G21"
-                << "B22";
+                << "B21"
+                << "B22"
+                << "G21";
     QStringList nomsDeTopic;
     nomsDeTopic << "temperature"
                 << "humidite"
                 << "co2"
                 << "confort"
+                << "luminosite"
                 << "air"
                 << "fenetres"
-                << "lumieres";
+                << "lumieres"
+                << "occupation";
     QString    salle      = nomsDeSalle.at(randInt(0, nomsDeSalle.size() - 1));
     QString    typeDonnee = nomsDeTopic.at(randInt(0, nomsDeTopic.size() - 1));
     QByteArray donnee =

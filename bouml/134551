@@ -1,7 +1,7 @@
 format 224
 "eco-classroom" // eco-classroom
-  revision 3
-  modified_by 2 "btssn2"
+  revision 4
+  modified_by 23 "tv"
   // class settings
   
   classdiagramsettings member_max_width 0 end
@@ -915,6 +915,9 @@ ${body}}
 	  param in name "typeDonnee" explicit_type "QString"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}${)}${const}${volatile}${throw}${abstract};
 "
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
 	
 	
 	
@@ -927,6 +930,9 @@ ${body}}
 	  param in name "min" explicit_type "int"
 	  param in name "max" explicit_type "int"
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${t0} ${p0}${v0}, ${t1} ${p1}${v1}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
 "
 	
 	
@@ -1070,6 +1076,17 @@ ${items}};
 	  MysqlColumn
 	end
 
+	attribute 149399 "COLONNE_SALLE_OCCUPATION"
+	  public type class_ref 135703 // ColonneSalle
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
 	attribute 138519 "NB_COLONNES"
 	  public type class_ref 135703 // ColonneSalle
 	  cpp_decl "  ${name}${value},${comment}"
@@ -1080,6 +1097,88 @@ ${items}};
 	  mysql_decl ""
 	  MysqlColumn
 	end
+      end
+
+      class 142743 "FiltreSalles"
+	visibility package stereotype "enum"
+	cpp_decl "${comment}enum ${name} {
+${items}};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	attribute 149527 "TOUTES"
+	  public type class_ref 142743 // FiltreSalles
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 149655 "OCCUPEES"
+	  public type class_ref 142743 // FiltreSalles
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 149783 "DISPONIBLES"
+	  public type class_ref 142743 // FiltreSalles
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 149911 "QUALITE_AIR"
+	  public type class_ref 142743 // FiltreSalles
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 150039 "A_VERIFIER"
+	  public type class_ref 142743 // FiltreSalles
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+      end
+
+      operation 150551 "initialiserEcoClassroom"
+	preserve_cpp_body_indent private explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+  ${body}}
+"
+	
+	
+	
+	
       end
 
       operation 137751 "initialiserAffichage"
@@ -1285,6 +1384,23 @@ ${body}}
 	
       end
 
+      operation 150679 "filtrerSalles"
+	preserve_cpp_body_indent public explicit_return_type "void"
+	nparams 0
+	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
+"
+	cpp_def "//@brief IHMEcoClassroom::filtrerSalles
+//
+
+${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
+	
+	
+	
+	
+      end
+
       operation 139159 "afficherSalleTable"
 	preserve_cpp_body_indent public explicit_return_type "void"
 	nparams 1
@@ -1470,12 +1586,14 @@ ${body}}
 	nparams 0
 	cpp_decl "    ${comment}${friend}${static}${inline}${virtual}${typeprefix}${type} ${name}${(}${)}${const}${volatile}${throw}${abstract};
 "
+	cpp_def "${comment}${inline}${typeprefix}${type} ${class}::${name}${(}${)}${const}${volatile}${throw}${staticnl}{
+${body}}
+"
 	
 	
 	
 	
       end
-
     end
 
     class 135447 "typedef2"
@@ -2591,6 +2709,86 @@ ${items}};
 
 	attribute 135426 "CHAUD"
 	  public type class_ref 134530 // IndiceDeConfort
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+      end
+
+      class 142871 "IndiceDeQualiteAir"
+	visibility package stereotype "enum"
+	cpp_decl "${comment}enum ${name} {
+${items}};
+"
+	java_decl ""
+	php_decl ""
+	python_2_2 python_decl ""
+	idl_decl ""
+	explicit_switch_type ""
+	mysql_decl ""
+	
+	attribute 150167 "TRES_BON"
+	  public type class_ref 142871 // IndiceDeQualiteAir
+	  init_value " 1"
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 150295 "BON"
+	  public type class_ref 142871 // IndiceDeQualiteAir
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 150423 "MOYEN"
+	  public type class_ref 142871 // IndiceDeQualiteAir
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 150551 "MEDIOCRE"
+	  public type class_ref 142871 // IndiceDeQualiteAir
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 150679 "MAUVAIS"
+	  public type class_ref 142871 // IndiceDeQualiteAir
+	  cpp_decl "  ${name}${value},${comment}"
+	  java_decl ""
+	  php_decl ""
+	  python_decl ""
+	  idl_decl ""
+	  mysql_decl ""
+	  MysqlColumn
+	end
+
+	attribute 150807 "TRES_MAUVAIS"
+	  public type class_ref 142871 // IndiceDeQualiteAir
 	  cpp_decl "  ${name}${value},${comment}"
 	  java_decl ""
 	  php_decl ""

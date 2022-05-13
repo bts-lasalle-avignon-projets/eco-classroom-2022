@@ -2,51 +2,51 @@ format 224
 
 classcanvas 128023 class_ref 135319 // IHMEcoClassroom
   classdiagramsettings member_max_width 0 end
-  xyz 310.1 36.1 2000
+  xyz 311 36.1 2000
 end
 classcanvas 128151 class_ref 134807 // BaseDeDonnees
   classdiagramsettings member_max_width 0 end
-  xyz 1959 319.8 2010
+  xyz 1958 319.8 2010
 end
 classcanvas 128514 class_ref 135575 // Fenetre
   classdiagramsettings member_max_width 0 end
-  xyz 562 836 2006
+  xyz 562 836.7 2006
 end
 classcanvas 128770 class_ref 135703 // ColonneSalle
   classdiagramsettings member_max_width 0 end
-  xyz 100 821 2012
+  xyz 100.6 821.1 2012
 end
 classcanvas 128791 class_ref 135063 // CommunicationMQTT
   classdiagramsettings member_max_width 0 end
-  xyz 1859.8 1207.5 3005
+  xyz 1860.4 1207.9 3005
 end
 classcanvas 129047 class_ref 136087 // Salle
   classdiagramsettings member_max_width 0 end
-  xyz 57.4 1349 2000
+  xyz 56.8 1347.2 2000
 end
 classcanvas 129175 class_ref 135831 // Mesure
   classdiagramsettings member_max_width 0 end
-  xyz 672 1351 3010
+  xyz 671.8 1350.4 3010
 end
 relationcanvas 128279 relation_ref 134935 // <unidirectional association>
-  from ref 128151 z 2011 to point 2496.7 278.4
-  line 128407 z 2011 to point 2466.7 278.4
+  from ref 128151 z 2011 to point 2495.6 278
+  line 128407 z 2011 to point 2465.6 278
   line 128535 z 2011 to ref 128151
-  role_a_pos 2441 275 3000 no_role_b
+  role_a_pos 2481 283 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 line 128642 ---+
   from ref 128514 z 2007 to ref 128023
 relationcanvas 128663 relation_ref 135319 // <unidirectional association>
   from ref 128023 z 2011 to ref 128151
-  role_a_pos 1827 415 3000 no_role_b
+  role_a_pos 1722 550 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 line 128898 ---+
   from ref 128770 z 2013 to ref 128023
 relationcanvas 128919 relation_ref 135447 // <unidirectional association>
   from ref 128023 z 3006 to ref 128791
-  role_a_pos 1868 1189 3000 no_role_b
+  role_a_pos 1869 1175 3000 no_role_b
   no_multiplicity_a no_multiplicity_b
 end
 end
