@@ -57,12 +57,17 @@
             </item>
             <item>
              <property name="text">
+              <string>Occupées</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
               <string>Disponibles</string>
              </property>
             </item>
             <item>
              <property name="text">
-              <string>À vérifier</string>
+              <string>Qualité d'air</string>
              </property>
             </item>
            </widget>
@@ -1348,7 +1353,7 @@
      <x>0</x>
      <y>0</y>
      <width>611</width>
-     <height>39</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
