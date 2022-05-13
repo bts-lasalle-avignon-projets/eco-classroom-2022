@@ -398,60 +398,77 @@ void IHMEcoClassroom::chargerSalles()
  */
 void IHMEcoClassroom::filtrerSalles()
 {
-    effacerTableSalles();
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << ui->listeSallesDetectees->currentIndex()
+             << ui->listeSallesDetectees->currentText();
     QString requete;
 
-    if(ui->listeSallesDetectees->currentText() == "Occupées")
+    switch(ui->listeSallesDetectees->currentIndex())
     {
-        requete =
-          "SELECT Salle.idSalle,"
-          "Salle.nom,Salle.lieu,Salle.description,Salle.superficie,"
-          "IndiceConfort.idIndiceConfort AS "
-          "indiceConfort,IndiceConfort.libelle AS "
-          "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
-          "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,Salle."
-          "estOccupe FROM Salle INNER JOIN IndiceConfort ON "
-          "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
-          "IndiceQualiteAir ON "
-          "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir WHERE "
-          "estOccupe = 0";
-    }
-    else if(ui->listeSallesDetectees->currentText() == "Disponibles")
-    {
-        requete =
-          "SELECT Salle.idSalle,"
-          "Salle.nom,Salle.lieu,Salle.description,Salle.superficie,"
-          "IndiceConfort.idIndiceConfort AS "
-          "indiceConfort,IndiceConfort.libelle AS "
-          "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
-          "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,Salle."
-          "estOccupe FROM Salle INNER JOIN IndiceConfort ON "
-          "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
-          "IndiceQualiteAir ON "
-          "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir WHERE "
-          "estOccupe = 1";
+        case FiltreSalles::TOUTES:
+            requete =
+              "SELECT "
+              "Salle.idSalle,Salle.nom,Salle.lieu,Salle.description,Salle."
+              "superficie,IndiceConfort.idIndiceConfort AS "
+              "indiceConfort,IndiceConfort.libelle AS "
+              "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
+              "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,"
+              "Salle.estOccupe FROM Salle INNER JOIN IndiceConfort ON "
+              "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
+              "IndiceQualiteAir ON "
+              "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir";
+            break;
+        case FiltreSalles::OCCUPEES:
+            requete =
+              "SELECT "
+              "Salle.idSalle,Salle.nom,Salle.lieu,Salle.description,Salle."
+              "superficie,IndiceConfort.idIndiceConfort AS "
+              "indiceConfort,IndiceConfort.libelle AS "
+              "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
+              "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,"
+              "Salle.estOccupe FROM Salle INNER JOIN IndiceConfort ON "
+              "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
+              "IndiceQualiteAir ON "
+              "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir "
+              "WHERE estOccupe = 0";
+            break;
+        case FiltreSalles::DISPONIBLES:
+            requete =
+              "SELECT "
+              "Salle.idSalle,Salle.nom,Salle.lieu,Salle.description,Salle."
+              "superficie,IndiceConfort.idIndiceConfort AS "
+              "indiceConfort,IndiceConfort.libelle AS "
+              "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
+              "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,"
+              "Salle.estOccupe FROM Salle INNER JOIN IndiceConfort ON "
+              "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
+              "IndiceQualiteAir ON "
+              "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir "
+              "WHERE estOccupe = 1";
+            break;
+        case FiltreSalles::QUALITE_AIR:
+            /**
+             * @todo Récupérer la liste des salles disponibles avec un bon
+             * indeice de qualité d'air
+             */
+            return;
+            break;
+        case FiltreSalles::A_VERIFIER:
+            /**
+             * @todo Récupérer la liste des salles non occupées avec les
+             * lumières allumées ou les fenêtres ouvertes
+             */
+            return;
+            break;
+        default:
+            return;
     }
 
-    else if(ui->listeSallesDetectees->currentText() == "Toutes")
-    {
-        requete =
-          "SELECT Salle.idSalle,"
-          "Salle.nom,Salle.lieu,Salle.description,Salle.superficie,"
-          "IndiceConfort.idIndiceConfort AS "
-          "indiceConfort,IndiceConfort.libelle AS "
-          "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
-          "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,Salle."
-          "estOccupe FROM Salle INNER JOIN IndiceConfort ON "
-          "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
-          "IndiceQualiteAir ON "
-          "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir";
-    }
+    effacerTableSalles();
 
     bool retour;
     retour = baseDeDonnees->recuperer(requete, salles);
-
     qDebug() << Q_FUNC_INFO << salles;
+
     if(retour)
     {
         for(int i = 0; i < salles.size(); ++i)

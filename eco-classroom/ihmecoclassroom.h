@@ -90,6 +90,19 @@ class IHMEcoClassroom : public QMainWindow
         NB_COLONNES
     };
 
+    /**
+     * @enum FiltreSalles
+     * @brief Définit les différents index de la liste déroulante
+     */
+    enum FiltreSalles
+    {
+        TOUTES,
+        OCCUPEES,
+        DISPONIBLES,
+        QUALITE_AIR,
+        A_VERIFIER
+    };
+
     void    initialiserEcoClassroom();
     void    initialiserAffichage();
     void    ajouterMenuAide();
