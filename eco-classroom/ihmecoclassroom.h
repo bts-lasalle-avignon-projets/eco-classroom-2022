@@ -22,7 +22,7 @@
  */
 #define VERSION "0.2"
 
-//#define TEST_SANS_BROKER_MQTT
+#define TEST_SANS_BROKER_MQTT
 
 namespace Ui
 {

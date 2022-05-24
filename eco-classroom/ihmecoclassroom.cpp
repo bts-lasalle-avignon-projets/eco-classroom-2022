@@ -153,17 +153,11 @@ void IHMEcoClassroom::gererEvenements()
  */
 QString IHMEcoClassroom::recupererIdSalle(QString nomSalle)
 {
-    for(int i = 0; i < salles.size(); ++i)
-    {
-        if(nomSalle == salles.at(i).at(Salle::NOM))
-        {
-            // qDebug() << Q_FUNC_INFO << salles.at(i).at(Salle::ID);
-            return salles.at(i).at(Salle::ID);
-        }
-    }
-
-    qDebug() << Q_FUNC_INFO << "idSalle introuvable pour" << nomSalle;
-    return QString();
+    QString idSalle;
+    QString requete = "SELECT idSalle FROM Salle WHERE nom='" + nomSalle + "';";
+    baseDeDonnees->recuperer(requete, idSalle);
+    qDebug() << Q_FUNC_INFO << nomSalle << "idSalle" << idSalle;
+    return idSalle;
 }
 
 /**
@@ -370,98 +364,20 @@ QString IHMEcoClassroom::insererNouvelleSalle(QString nomSalle)
  */
 void IHMEcoClassroom::chargerSalles()
 {
-    effacerTableSalles();
-
-    QString requete =
-      "SELECT Salle.idSalle,"
-      "Salle.nom,Salle.lieu,Salle.description,Salle.superficie,"
-      "IndiceConfort.idIndiceConfort AS indiceConfort,IndiceConfort.libelle AS "
-      "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
-      "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,Salle."
-      "estOccupe FROM Salle INNER JOIN IndiceConfort ON "
-      "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
-      "IndiceQualiteAir ON "
-      "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir";
-    bool retour;
-
-    retour = baseDeDonnees->recuperer(requete, salles);
-    qDebug() << Q_FUNC_INFO << salles;
-    if(retour)
-    {
-        for(int i = 0; i < salles.size(); ++i)
-            afficherSalleTable(salles.at(i));
-    }
-}
-
-/**
- * @brief IHMEcoClassroom::filtrerSalles
- */
-void IHMEcoClassroom::filtrerSalles()
-{
-    qDebug() << Q_FUNC_INFO << ui->listeSallesDetectees->currentIndex()
-             << ui->listeSallesDetectees->currentText();
     QString requete;
 
-    switch(ui->listeSallesDetectees->currentIndex())
-    {
-        case FiltreSalles::TOUTES:
-            requete =
-              "SELECT "
-              "Salle.idSalle,Salle.nom,Salle.lieu,Salle.description,Salle."
-              "superficie,IndiceConfort.idIndiceConfort AS "
-              "indiceConfort,IndiceConfort.libelle AS "
-              "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
-              "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,"
-              "Salle.estOccupe FROM Salle INNER JOIN IndiceConfort ON "
-              "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
-              "IndiceQualiteAir ON "
+    requete = "SELECT Salle.idSalle,Salle.nom,Salle.lieu,Salle.description,"
+              "Salle.superficie,"
+              "IndiceConfort.idIndiceConfort AS indiceConfort,"
+              "IndiceQualiteAir.idIndiceQualiteAir AS indiceQualiteAir,"
+              "IndiceConfort.libelle AS libelleIndiceConfort,"
+              "IndiceQualiteAir.libelle AS libelleIndiceQualiteAir,"
+              "Salle.etatFenetres,Salle.etatLumieres,"
+              "Salle.estOccupe FROM Salle "
+              "INNER JOIN IndiceConfort ON "
+              "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort "
+              "INNER JOIN IndiceQualiteAir ON "
               "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir";
-            break;
-        case FiltreSalles::OCCUPEES:
-            requete =
-              "SELECT "
-              "Salle.idSalle,Salle.nom,Salle.lieu,Salle.description,Salle."
-              "superficie,IndiceConfort.idIndiceConfort AS "
-              "indiceConfort,IndiceConfort.libelle AS "
-              "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
-              "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,"
-              "Salle.estOccupe FROM Salle INNER JOIN IndiceConfort ON "
-              "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
-              "IndiceQualiteAir ON "
-              "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir "
-              "WHERE estOccupe = 0";
-            break;
-        case FiltreSalles::DISPONIBLES:
-            requete =
-              "SELECT "
-              "Salle.idSalle,Salle.nom,Salle.lieu,Salle.description,Salle."
-              "superficie,IndiceConfort.idIndiceConfort AS "
-              "indiceConfort,IndiceConfort.libelle AS "
-              "libelleIndiceConfort,IndiceQualiteAir.libelle AS "
-              "libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,"
-              "Salle.estOccupe FROM Salle INNER JOIN IndiceConfort ON "
-              "IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN "
-              "IndiceQualiteAir ON "
-              "IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir "
-              "WHERE estOccupe = 1";
-            break;
-        case FiltreSalles::QUALITE_AIR:
-            /**
-             * @todo Récupérer la liste des salles disponibles avec un bon
-             * indeice de qualité d'air
-             */
-            return;
-            break;
-        case FiltreSalles::A_VERIFIER:
-            /**
-             * @todo Récupérer la liste des salles non occupées avec les
-             * lumières allumées ou les fenêtres ouvertes
-             */
-            return;
-            break;
-        default:
-            return;
-    }
 
     effacerTableSalles();
 
@@ -479,6 +395,17 @@ void IHMEcoClassroom::filtrerSalles()
 }
 
 /**
+ * @brief IHMEcoClassroom::filtrerSalles
+ */
+void IHMEcoClassroom::filtrerSalles()
+{
+    qDebug() << Q_FUNC_INFO << ui->listeSallesDetectees->currentIndex()
+             << ui->listeSallesDetectees->currentText();
+
+    chargerSalles();
+}
+
+/**
  * @brief Affiche les données d'une salle dans le QTableView
  *
  * @fn IHMEcoClassroom::afficherSalleTable
@@ -487,6 +414,39 @@ void IHMEcoClassroom::filtrerSalles()
 void IHMEcoClassroom::afficherSalleTable(QStringList salle)
 {
     qDebug() << Q_FUNC_INFO << salle;
+
+    switch(ui->listeSallesDetectees->currentIndex())
+    {
+        case FiltreSalles::OCCUPEES:
+            if(salle.at(Salle::ETAT_OCCUPATION).toInt())
+                return;
+            break;
+        case FiltreSalles::DISPONIBLES:
+            if(!salle.at(Salle::ETAT_OCCUPATION).toInt())
+                return;
+            break;
+        case FiltreSalles::QUALITE_AIR: // Utilisables
+            /**
+             * @todo Ajouter la disponibilité
+             */
+            if(salle.at(Salle::INDICE_QUALITE_AIR).toInt() >=
+               Salle::IndiceDeQualiteAir::MAUVAIS)
+                return;
+            break;
+        case FiltreSalles::A_VERIFIER:
+            // occupée ?
+            if(!salle.at(Salle::ETAT_OCCUPATION).toInt())
+                return;
+            // ouverte ou allumée ?
+            bool salleAVerifier = (salle.at(Salle::ETAT_DES_FENETRES).toInt() ||
+                                   salle.at(Salle::ETAT_DES_LUMIERES).toInt());
+            if(!salleAVerifier)
+                return;
+            /**
+             * @todo Ajouter la qualité d'air
+             */
+            break;
+    }
 
     // Crée les items pour les cellules d'une ligne
     QStandardItem* nom = new QStandardItem(salle.at(Salle::NOM));
@@ -562,12 +522,17 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
     }
 
     // si l'indice de qualité d'air est au moins mauvais
-    if(salle.at(Salle::LIBELLE_QUALITE_AIR).toInt() >=
+    if(salle.at(Salle::INDICE_QUALITE_AIR).toInt() >=
        Salle::IndiceDeQualiteAir::TRES_MAUVAIS)
     {
         qualiteAir->setForeground(QColor(255, 0, 0));
     }
-    else if(salle.at(Salle::LIBELLE_QUALITE_AIR).toInt() <=
+    if(salle.at(Salle::INDICE_QUALITE_AIR).toInt() ==
+       Salle::IndiceDeQualiteAir::MAUVAIS)
+    {
+        qualiteAir->setForeground(QColor(0xf9, 0x92, 0x05));
+    }
+    else if(salle.at(Salle::INDICE_QUALITE_AIR).toInt() <=
             Salle::IndiceDeQualiteAir::BON)
     {
         qualiteAir->setForeground(QColor(0, 255, 0));
@@ -641,7 +606,6 @@ void IHMEcoClassroom::effacerTableSalles()
 {
     qDebug() << Q_FUNC_INFO;
 
-    salleSelectionnee = -1;
     salles.clear();
     modeleSalle->clear();
     modeleSalle->setHorizontalHeaderLabels(nomColonnes);
@@ -689,7 +653,8 @@ void IHMEcoClassroom::supprimerSalle()
 {
     if(salleSelectionnee == -1)
         return;
-    qDebug() << Q_FUNC_INFO;
+    qDebug() << Q_FUNC_INFO << salleSelectionnee;
+
     QString                     requete;
     QMessageBox::StandardButton reponse;
     reponse = QMessageBox::question(this,
@@ -711,6 +676,7 @@ void IHMEcoClassroom::supprimerSalle()
             qDebug() << Q_FUNC_INFO
                      << salles.at(salleSelectionnee).at(Salle::ID)
                      << salles.at(salleSelectionnee).at(Salle::NOM);
+            salleSelectionnee = -1;
             chargerSalles();
             afficherFenetrePrincipale();
         }
@@ -723,6 +689,8 @@ void IHMEcoClassroom::supprimerSalle()
  */
 void IHMEcoClassroom::editerSalle()
 {
+    if(salleSelectionnee == -1)
+        return;
     qDebug() << Q_FUNC_INFO << salleSelectionnee;
 
     ui->lineEditNom->setText(salles.at(salleSelectionnee).at(Salle::NOM));
@@ -742,6 +710,9 @@ void IHMEcoClassroom::editerSalle()
  */
 void IHMEcoClassroom::validerEditionSalle()
 {
+    if(salleSelectionnee == -1)
+        return;
+
     qDebug() << Q_FUNC_INFO << ui->lineEditNom->text()
              << ui->lineEditLieu->text() << ui->lineEditDescription->text()
              << ui->lineEditSurface->text();
@@ -770,6 +741,7 @@ void IHMEcoClassroom::validerEditionSalle()
         }
         else
         {
+            salleSelectionnee = -1;
             chargerSalles();
             afficherFenetrePrincipale();
         }
