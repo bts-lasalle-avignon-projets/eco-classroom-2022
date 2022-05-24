@@ -2,11 +2,11 @@
 
 - [Le projet eco-classroom-2022](#le-projet-eco-classroom-2022)
   - [Présentation](#présentation)
-  - [Fonctionnalités attendues](#fonctionnalités-attendues)
   - [Ressources logicielles](#ressources-logicielles)
   - [Historique des versions](#historique-des-versions)
   - [Auteur](#auteur)
   - [Kanban](#kanban)
+  - [Captures d'écran](#captures-décran)
   - [Base de données](#base-de-données)
   - [Qt MQTT](#qt-mqtt)
     - [Installation](#installation)
@@ -24,12 +24,7 @@ Chaque salle sera équipée de deux modules connectés afin de détecter et mesu
 
 Les informations seront accessibles à partir d’une application PC permettant aux personnels d’assurer un suivi et d’intervenir en conséquence.
 
-## Fonctionnalités attendues
-
-- [ ] détecter l’état ouverture/fermeture des fenêtres et l’état allumé/éteint des lumières, la présence dans une salle (en option)
-- [ ] de mesurer la luminosité, la température, l’humidité, le CO 2 , les composés organiques volatils et les particules fines (en option) pour évaluer un niveau de confort et de la qualité d’air
-- [ ] de paramétrer à distance certains seuils d’alerte
-- [ ] de superviser l’ensemble des salles afin d’intervenir directement dans les salles concernées (aérer ou fermer les fenêtres, éteindre les lumières)
+L'objectif est de superviser l’ensemble des salles afin d’intervenir directement dans les salles concernées (aérer ou fermer les fenêtres, éteindre les lumières)
 
 ## Ressources logicielles
 
@@ -58,9 +53,23 @@ Les informations seront accessibles à partir d’une application PC permettant 
 
 [eco-classroom-2022](https://github.com/btssn-lasalle-84/eco-classroom-2022/projects/1)
 
+## Captures d'écran
+
+![](images/capture-liste-salle.png)
+
+![](images/capture-filtrage.png)
+
+![](images/capture-etat-salle.png)
+
+![](images/capture-edition-salle.png)
+
+![](images/capture-suppression.png)
+
 ## Base de données
 
 L'application Qt embarque une base de données SQLite `eco-classroom.db`.
+
+![](images/sqlite-eco-classroom-v0.2.png)
 
 Structure de la base de données :
 
