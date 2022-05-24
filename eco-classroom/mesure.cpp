@@ -5,7 +5,7 @@
  * @file mesure.cpp
  * @brief Définition de la classe Mesure
  * @author Zeryouhi Mohamed Amine
- * @version 0.1
+ * @version 0.2
  */
 
 /**

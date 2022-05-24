@@ -1,0 +1,70 @@
+format 224
+
+classinstance 128130 class_ref 135319 // IHMEcoClassroom
+  name ""   xyz 103 4 2000 life_line_z 2000
+classinstance 128770 class_ref 134807 // BaseDeDonnees
+  name ""   xyz 550 4 2000 life_line_z 2000
+note 129154 "SELECT Salle.idSalle,
+Salle.nom,Salle.lieu,Salle.description,Salle.superficie
+IndiceConfort.idIndiceConfort AS indiceConfort,IndiceConfort.libelle AS
+libelleIndiceConfort,IndiceQualiteAir.libelle AS 
+libelleIndiceQualiteAir,Salle.etatFenetres,Salle.etatLumieres,Salle.
+estOccupe FROM Salle INNER JOIN IndiceConfort ON 
+IndiceConfort.idIndiceConfort=Salle.idIndiceConfort INNER JOIN
+IndiceQualiteAir ON 
+IndiceQualiteAir.idIndiceQualiteAir=Salle.idIndiceQualiteAir"
+  xyzwh 659 55 2000 485 179
+fragment 129410 "alt"
+  xyzwh 11 188 0 635 149
+end
+fragment 129538 "loop"
+  xyzwh 48 219 2000 585 108
+end
+textcanvas 129666 "[données salles]"
+  xyzwh 47 196 2000 116 15
+textcanvas 129794 "[pour chaque salle]"
+  xyzwh 97 225 2020 140 18
+durationcanvas 128258 classinstance_ref 128130 // :IHMEcoClassroom
+  xyzwh 166 75 2000 11 328
+  overlappingdurationcanvas 128514
+    xyzwh 172 115 2010 11 187
+    overlappingdurationcanvas 129922
+      xyzwh 178 267 2030 11 25
+    end
+  end
+  overlappingdurationcanvas 130178
+    xyzwh 172 364 2020 11 25
+  end
+end
+durationcanvas 128898 classinstance_ref 128770 // :BaseDeDonnees
+  xyzwh 608 161 2010 11 25
+end
+reflexivemsg 128386 synchronous
+  to durationcanvas_ref 128258
+  yz 75 2015 explicitmsg "initialiserAffichage()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 179 59
+reflexivemsg 128642 synchronous
+  to durationcanvas_ref 128514
+  yz 115 2025 explicitmsg "chargerSalles()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 184 102
+msg 129026 synchronous
+  from durationcanvas_ref 128514
+  to durationcanvas_ref 128898
+  yz 161 2025 msg operation_ref 135447 // "recuperer(in requete : QString, inout donnees : QString) : bool"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 194 146
+reflexivemsg 130050 synchronous
+  to durationcanvas_ref 129922
+  yz 267 2035 msg operation_ref 139159 // "afficherSalleTable(in salle : QStringList) : void"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 191 254
+reflexivemsg 130306 synchronous
+  to durationcanvas_ref 130178
+  yz 364 2025 explicitmsg "afficherFenetre(IHMEcoClassroom::Fenetre::Accueil)"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 182 349
+line 129282 -_-_
+  from ref 129154 z 2026 to ref 129026
+end

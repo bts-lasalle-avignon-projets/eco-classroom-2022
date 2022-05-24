@@ -5,7 +5,7 @@
  * @file ihmecoclassroom.h
  * @brief Déclaration de la classe IHMEcoClassroom
  * @author Zeryouhi Mohamed Amine
- * @version 0.1
+ * @version 0.2
  */
 
 #include <QtWidgets>
@@ -20,16 +20,17 @@
  * @def VERSION_APPLICATION
  * @brief La version de l'application
  */
-#define VERSION "0.1"
+#define VERSION "0.2"
 
-QT_BEGIN_NAMESPACE
+#define TEST_SANS_BROKER_MQTT
+
 namespace Ui
 {
 class IHMEcoClassroom;
 }
 
 class BaseDeDonnees;
-QT_END_NAMESPACE
+class CommunicationMQTT;
 
 /**
  * @class IHMEcoClassroom
@@ -45,12 +46,20 @@ class IHMEcoClassroom : public QMainWindow
     ~IHMEcoClassroom();
 
   private:
-    Ui::IHMEcoClassroom* ui; //!< la fenêtre graphique associée à cette classe
-    BaseDeDonnees*       baseDeDonnees; //!< base de donnes
+    Ui::IHMEcoClassroom* ui; //!< La fenêtre graphique associée à cette classe
+    BaseDeDonnees*       baseDeDonnees; //!< Base de donnes
+    CommunicationMQTT*   communicationMQTT;
     QStringList          nomColonnes;   //!< Liste de nom des colonnes
-    int                  nbLignesSalle; //!< nombre de lignes
+    int                  nbLignesSalle; //!< Nombre de lignes
     QVector<QStringList> salles;        //!< Les salles
     QStandardItemModel*  modeleSalle;   //!< Modèle pour le QTableView
+    int
+      salleSelectionnee; //!< Indice de la salle sélectionnée à éditer sinon -1
+#ifdef TEST_SANS_BROKER_MQTT
+    QTimer* timerSimulation;
+    int     simulerDonnee(QString typeDonnee);
+    int     randInt(int min, int max);
+#endif
 
     /**
      * @enum Fenetre
@@ -59,8 +68,9 @@ class IHMEcoClassroom : public QMainWindow
      */
     enum Fenetre
     {
-        Fenetre1 = 0,
-        Fenetre2,
+        Accueil = 0,
+        InformationsSalle,
+        EditionSalle,
         NbFenetres
     };
 
@@ -76,21 +86,53 @@ class IHMEcoClassroom : public QMainWindow
         COLONNE_SALLE_QUALITE_AIR, //!< Emplacement d'indice de qualité d'air
         COLONNE_SALLE_FENETRES,    //!< Emplacement des fenétres
         COLONNE_SALLE_LUMIERES,    //!< Emplacement des lumières
+        COLONNE_SALLE_OCCUPATION,  //!< Emplacement d'occupation
         NB_COLONNES
     };
 
-    void initialiserAffichage();
-    void ajouterMenuAide();
-    void gererEvenements();
+    /**
+     * @enum FiltreSalles
+     * @brief Définit les différents index de la liste déroulante
+     */
+    enum FiltreSalles
+    {
+        TOUTES,
+        OCCUPEES,
+        DISPONIBLES,
+        QUALITE_AIR,
+        A_VERIFIER
+    };
+
+    void    initialiserEcoClassroom();
+    void    initialiserAffichage();
+    void    ajouterMenuAide();
+    void    gererEvenements();
+    QString recupererIdSalle(QString nomSalle);
+    int     recupererIndexSalle(QString idSalle);
+    void    reinitialiserAffichageMesureSalle();
+    void    afficherMesureSalle(QStringList mesureSalle);
+    void    afficheInformationsSalle(int index);
+    bool mettreAJourDonnee(QString donnee, QString typeDonnee, QString idSalle);
+    QString insererNouvelleSalle(QString nomSalle);
 
   public slots:
     void chargerSalles();
+    void filtrerSalles();
     void afficherSalleTable(QStringList salle);
     void effacerTableSalles();
     void selectionner(QModelIndex index);
+    void supprimerSalle();
+    void editerSalle();
+    void validerEditionSalle();
+    void traiterNouvelleDonnee(QString nomSalle,
+                               QString typeDonnee,
+                               QString donnee);
     void afficherFenetre(IHMEcoClassroom::Fenetre fenetre);
     void afficherFenetrePrincipale();
     void afficherAPropos();
+#ifdef TEST_SANS_BROKER_MQTT
+    void simuler();
+#endif
 };
 
 #endif // IHMECOCLASSROOM_H

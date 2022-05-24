@@ -1,0 +1,77 @@
+format 224
+
+classinstance 128002 class_ref 135055 // Utilisateur
+  name ""   xyz 13 11 2000 life_line_z 2000
+classinstance 128258 class_ref 135319 // IHMEcoClassroom
+  name ""   xyz 272 6 2000 life_line_z 2000
+classinstance 128898 class_ref 134807 // BaseDeDonnees
+  name ""   xyz 751 4 2000 life_line_z 2000
+note 129666 "SELECT * FROM Mesure WHERE Mesure.idSalle=\" + idSalle  + \";\""
+  xyzwh 484 56 2000 249 53
+fragment 130178 "alt"
+  xyzwh 230 170 2000 569 140
+  separator 5142
+end
+textcanvas 130306 "[données salle]"
+  xyzwh 269 175 3005 121 20
+note 131458 "Clique sur une salle de la liste"
+  xyzwh 12 149 2000 175 57
+durationcanvas 128386 classinstance_ref 128002 // :Utilisateur
+  xyzwh 44 109 2010 11 25
+end
+durationcanvas 128514 classinstance_ref 128258 // :IHMEcoClassroom
+  xyzwh 335 107 2010 11 330
+  overlappingdurationcanvas 130434
+    xyzwh 341 210 2020 11 25
+  end
+  overlappingdurationcanvas 130690
+    xyzwh 341 273 2020 11 25
+  end
+  overlappingdurationcanvas 130946
+    xyzwh 341 346 2020 11 25
+  end
+  overlappingdurationcanvas 131202
+    xyzwh 341 402 2020 11 25
+  end
+end
+durationcanvas 129410 classinstance_ref 128898 // :BaseDeDonnees
+  xyzwh 809 131 2010 11 42
+end
+msg 128642 asynchronous
+  from durationcanvas_ref 128386
+  to durationcanvas_ref 128514
+  yz 109 3005 explicitmsg "selectionner(in index : QModelIndex)"
+  stereotype "<<slot>>" xyz 166 124 3000
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 76 94
+msg 129538 synchronous
+  from durationcanvas_ref 128514
+  to durationcanvas_ref 129410
+  yz 137 2015 msg operation_ref 135447 // "recuperer(in requete : QString, inout donnees : QString) : bool"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 354 124
+reflexivemsg 130562 synchronous
+  to durationcanvas_ref 130434
+  yz 210 2025 explicitmsg "afficherMesureSalle(in mesureSalle : QStringList)"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 354 196
+reflexivemsg 130818 synchronous
+  to durationcanvas_ref 130690
+  yz 273 2025 explicitmsg "reinitialiserAffichageMesureSalle()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 352 258
+reflexivemsg 131074 synchronous
+  to durationcanvas_ref 130946
+  yz 346 2025 explicitmsg "afficheInformationsSalle(in index : int)"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 351 329
+reflexivemsg 131330 synchronous
+  to durationcanvas_ref 131202
+  yz 402 2025 explicitmsg "afficherFenetre(IHMEcoClassroom::Fenetre::InformationsSalle)"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 353 387
+line 130050 -_-_
+  from ref 129538 z 2016 to ref 129666
+line 132098 -_-_
+  from ref 131458 z 3006 to ref 128642
+end

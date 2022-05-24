@@ -2,11 +2,11 @@ window_sizes 1864 1016 436 1422 843 120
 cleanlooks_style
 diagrams
   active  classdiagram_ref 128015 // Diagramme de Classes
-    1137 674 100 A0 0 0
+    1384 752 100 A0 0 0
 end
 show_stereotypes
-selected 
-package_ref 129 // diag classe
+selected class_ref 128002 // ModificationSalle
 open
+  attribute_ref 129295 // code
 end
 end

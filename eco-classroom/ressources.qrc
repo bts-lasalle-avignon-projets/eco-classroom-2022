@@ -1,5 +1,17 @@
 <RCC>
     <qresource prefix="/">
-    <file alias="logo.png">images/logo.png</file>
+        <file alias="logo.png">images/logo.png</file>
+        <file>images/vierge.png</file>
+        <file>images/lieu.png</file>
+        <file>images/celsius.png</file>
+        <file>images/humidite.png</file>
+        <file>images/luminosite.png</file>
+        <file>images/co2.png</file>
+        <file>images/qualite-de-lair(2).png</file>
+        <file>images/information.png</file>
+        <file>images/barometer.png</file>
+        <file>images/area.png</file>
+        <file>images/rond_vert.png</file>
+        <file>images/rond_rouge.png</file>
     </qresource>
 </RCC>

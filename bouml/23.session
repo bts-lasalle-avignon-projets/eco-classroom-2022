@@ -1,15 +1,19 @@
 window_sizes 3840 2032 794 3040 1829 116
 cleanlooks_style
 diagrams
-  active  sequencediagram_ref 134543 // Diagramme de sequence systeme
+  sequencediagram_ref 134543 // Diagramme de sequence systeme
     3040 1829 100 A4 0 0
   classdiagram_ref 128015 // Diagramme de Classes
     1939 1150 100 A0 0 0
+  classdiagram_ref 134551 // version 0.2
+    3040 1829 70 A0 0 0
+  active  sequencediagram_ref 128130 // ds - visualiser une salle
+    2432 1463 100 A0 0 0
 end
 show_stereotypes
-selected 
-package_ref 129 // diag classe
+selected sequencediagram_ref 128130 // ds - visualiser une salle
 open
-  class_ref 128015 // Salle
+  usecaseview_ref 134543 // Vue de diagramme de sequence de systeme
+  deploymentview_ref 134551 // eco-classroom
 end
 end

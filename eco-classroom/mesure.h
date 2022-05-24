@@ -5,7 +5,7 @@
  * @file mesure.h
  * @brief Déclaration de la classe  Mesure
  * @author Zeryouhi Mohamed Amine
- * @version 0.1
+ * @version 0.2
  */
 
 #include <QStringList>
@@ -17,10 +17,10 @@
 class Mesure
 {
   private:
-    double temperature; //!< la température dans la salle
-    int    humidite;    //!< l'humidité dans la salle
-    int    co2;         //!< le taux de CO2 dans la salle
-    int    luminosite;  //!< la luminosite dans la salle
+    double temperature; //!< La température dans la salle
+    int    humidite;    //!< L'humidité dans la salle
+    int    co2;         //!< Le taux de CO2 dans la salle
+    int    luminosite;  //!< La luminosite dans la salle
 
   public:
     Mesure();
