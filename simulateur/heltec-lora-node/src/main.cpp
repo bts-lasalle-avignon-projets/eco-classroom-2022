@@ -134,7 +134,8 @@ void loop()
     salle = salles[random(0, NB_SALLES)];
     ui.drawString(0, LIGNE_STATUS_WIFI, salle.c_str());
 
-    message = racineTopic + String("/") + salle + String("/") + String("temperature") + String("/") + getTemperature();
+    //message = racineTopic + String("/") + salle + String("/") + String("temperature") + String("/") + getTemperature();
+    message = salle + String("/") + String("temperature") + String("/") + getTemperature();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -144,7 +145,8 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = racineTopic + String("/") + salle + String("/") + String("humidite") + String("/") + getHumidite();
+    //message = racineTopic + String("/") + salle + String("/") + String("humidite") + String("/") + getHumidite();
+    message = salle + String("/") + String("humidite") + String("/") + getHumidite();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -154,7 +156,8 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = racineTopic + String("/") + salle + String("/") + String("confort") + String("/") + getIndiceNiveauConfort();
+    //message = racineTopic + String("/") + salle + String("/") + String("confort") + String("/") + getIndiceNiveauConfort();
+    message = salle + String("/") + String("confort") + String("/") + getIndiceNiveauConfort();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -164,7 +167,8 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = racineTopic + String("/") + salle + String("/") + String("luminosite") + String("/") + getLuminosite();
+    //message = racineTopic + String("/") + salle + String("/") + String("luminosite") + String("/") + getLuminosite();
+    message = salle + String("/") + String("luminosite") + String("/") + getLuminosite();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -174,7 +178,8 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = racineTopic + String("/") + salle + String("/") + String("co2") + String("/") + getCO2();
+    //message = racineTopic + String("/") + salle + String("/") + String("co2") + String("/") + getCO2();
+    message = salle + String("/") + String("co2") + String("/") + getCO2();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -184,7 +189,8 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = racineTopic + String("/") + salle + String("/") + String("air") + String("/") + getIndiceQualiteAir();
+    //message = racineTopic + String("/") + salle + String("/") + String("air") + String("/") + getIndiceQualiteAir();
+    message = salle + String("/") + String("air") + String("/") + getIndiceQualiteAir();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -194,7 +200,8 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = racineTopic + String("/") + salle + String("/") + String("fenetres") + String("/") + getEtatFenetres();
+    //message = racineTopic + String("/") + salle + String("/") + String("fenetres") + String("/") + getEtatFenetres();
+    message = salle + String("/") + String("fenetres") + String("/") + getEtatFenetres();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -204,7 +211,8 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = racineTopic + String("/") + salle + String("/") + String("lumieres") + String("/") + getEtatLumieres();
+    //message = racineTopic + String("/") + salle + String("/") + String("lumieres") + String("/") + getEtatLumieres();
+    message = salle + String("/") + String("lumieres") + String("/") + getEtatLumieres();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
@@ -214,7 +222,8 @@ void loop()
     #endif
     delay(DELAI);
 
-    message = racineTopic + String("/") + salle + String("/") + String("occupation") + String("/") + getEtatOccupation();
+    //message = racineTopic + String("/") + salle + String("/") + String("occupation") + String("/") + getEtatOccupation();
+    message = salle + String("/") + String("occupation") + String("/") + getEtatOccupation();
     #ifdef LORA_ON
     sendMessage(message.c_str());
     #endif
