@@ -5,14 +5,15 @@ diagrams
     3040 1829 100 A4 0 0
   classdiagram_ref 128015 // Diagramme de Classes
     1939 1150 100 A0 0 0
-  active  classdiagram_ref 134551 // version 0.2
+  classdiagram_ref 134551 // version 0.2
     3040 1829 70 A0 0 0
+  active  sequencediagram_ref 128130 // ds - visualiser une salle
+    2432 1463 100 A0 0 0
 end
 show_stereotypes
-selected 
-  package_ref 134551 // eco-classroom
+selected sequencediagram_ref 128130 // ds - visualiser une salle
 open
-  classview_ref 134551 // eco-classroom
+  usecaseview_ref 134543 // Vue de diagramme de sequence de systeme
   deploymentview_ref 134551 // eco-classroom
 end
 end

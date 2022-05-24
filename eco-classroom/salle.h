@@ -59,12 +59,13 @@ class Salle
      */
     enum ChampsTableSalle
     {
-        ID,                        //!< Emplacement de l'id dans la table
-        NOM,                       //!< Emplacement du nom
-        LIEU,                      //!< Emplacement du lieu
-        DESCRIPTION,               //!< Emplacement de description
-        SUPERFICIE,                //!< Emplacement de la superficie
-        INDICE_DE_CONFORT,         //!< Emplacement de l'indice de confort
+        ID,                 //!< Emplacement de l'id dans la table
+        NOM,                //!< Emplacement du nom
+        LIEU,               //!< Emplacement du lieu
+        DESCRIPTION,        //!< Emplacement de description
+        SUPERFICIE,         //!< Emplacement de la superficie
+        INDICE_DE_CONFORT,  //!< Emplacement de l'indice de confort
+        INDICE_QUALITE_AIR, //!< Emplacement de l'indice de qualité d'air
         LIBELLE_INDICE_DE_CONFORT, //!< Emplacement du libelle de l'indice de
         LIBELLE_QUALITE_AIR, //!< Emplacement du libelle de la qualité d'air
         ETAT_DES_FENETRES,   //!< Emplacement d'état des fenêtres

@@ -90,6 +90,19 @@ class IHMEcoClassroom : public QMainWindow
         NB_COLONNES
     };
 
+    /**
+     * @enum FiltreSalles
+     * @brief Définit les différents index de la liste déroulante
+     */
+    enum FiltreSalles
+    {
+        TOUTES,
+        OCCUPEES,
+        DISPONIBLES,
+        QUALITE_AIR,
+        A_VERIFIER
+    };
+
     void    initialiserEcoClassroom();
     void    initialiserAffichage();
     void    ajouterMenuAide();
@@ -101,10 +114,10 @@ class IHMEcoClassroom : public QMainWindow
     void    afficheInformationsSalle(int index);
     bool mettreAJourDonnee(QString donnee, QString typeDonnee, QString idSalle);
     QString insererNouvelleSalle(QString nomSalle);
-    void    changerCouleurDonnee();
 
   public slots:
     void chargerSalles();
+    void filtrerSalles();
     void afficherSalleTable(QStringList salle);
     void effacerTableSalles();
     void selectionner(QModelIndex index);

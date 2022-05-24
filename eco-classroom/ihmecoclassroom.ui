@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>611</width>
-    <height>931</height>
+    <height>979</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -57,7 +57,17 @@
             </item>
             <item>
              <property name="text">
+              <string>Occupées</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
               <string>Disponibles</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Utilisables</string>
              </property>
             </item>
             <item>
