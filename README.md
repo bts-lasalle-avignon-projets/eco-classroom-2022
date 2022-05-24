@@ -40,6 +40,12 @@ L'objectif est de superviser l’ensemble des salles afin d’intervenir directe
 
 ## Historique des versions
 
+- Version 0.2 : 24/05/2022
+  - mise à jour des données des salles en temps réel
+  - édition et suppression d'une salle
+  - ajout automatique d'une nouvelle salle
+  - affichage de la liste des salles à partir de critères de filtrage 
+
 - Version 0.1 : 03/04/2022
   - affichage de la liste des salles à partir de la base de données
   - affichage des informations d'une salle en la sélectionnant dans la liste
