@@ -1,0 +1,9 @@
+<map id="IHM" name="IHM">
+<area shape="rect" id="node1" title="Déclaration de la classe IHM." alt="" coords="216,769,411,1228"/>
+<area shape="rect" id="node2" href="$class_q_main_window.html" title=" " alt="" coords="5,490,112,567"/>
+<area shape="rect" id="node3" href="$class_communication.html" title=" " alt="" coords="137,351,309,707"/>
+<area shape="rect" id="node4" href="$class_q_object.html" title=" " alt="" coords="370,101,441,178"/>
+<area shape="rect" id="node5" href="$class_base_de_donnees.html" title="Class permettant de s&#39;interfacer avec la base de données." alt="" coords="333,395,478,663"/>
+<area shape="rect" id="node6" href="$class_seance.html" title=" " alt="" coords="631,365,830,692"/>
+<area shape="rect" id="node7" href="$class_equipe.html" title=" " alt="" coords="636,5,825,273"/>
+</map>

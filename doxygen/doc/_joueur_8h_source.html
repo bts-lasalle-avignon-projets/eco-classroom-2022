@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>basket-game:  Fichier source de Joueur.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="customdoxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="basket-game.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">basket-game
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">BTS SNIR LaSalle Avignon 2022</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('_joueur_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Joueur.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="_joueur_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef JOUEUR_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define JOUEUR_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="class_joueur.html">    6</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_joueur.html">Joueur</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="class_joueur.html#a0a14c9f81f5b53047a0a544c467bd252">    9</a></span>&#160;    QString <a class="code" href="class_joueur.html#a0a14c9f81f5b53047a0a544c467bd252">pseudo</a>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="class_joueur.html#ab06d7f1e6b482299bb03919e0cd2166d">   10</a></span>&#160;    QString <a class="code" href="class_joueur.html#ab06d7f1e6b482299bb03919e0cd2166d">nom</a>;</div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_joueur.html#a96d4237143c2e57b8025c4e116e95909">   11</a></span>&#160;    QString <a class="code" href="class_joueur.html#a96d4237143c2e57b8025c4e116e95909">prenom</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="class_joueur.html#a6ed348faee179580db913e65cff3ec74">Joueur</a>(QString <a class="code" href="class_joueur.html#a0a14c9f81f5b53047a0a544c467bd252">pseudo</a> = <span class="stringliteral">&quot;&quot;</span>, QString <a class="code" href="class_joueur.html#ab06d7f1e6b482299bb03919e0cd2166d">nom</a> = <span class="stringliteral">&quot;&quot;</span>, QString <a class="code" href="class_joueur.html#a96d4237143c2e57b8025c4e116e95909">prenom</a> = <span class="stringliteral">&quot;&quot;</span>);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="class_joueur.html#a9fb594f755601ee77ce5884c4c0861f3">~Joueur</a>();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <a class="code" href="class_joueur.html">Joueur</a>&amp; <a class="code" href="class_joueur.html#aafe920d2e316ac7dc2325c0f08a5db22">operator=</a>(<span class="keyword">const</span> <a class="code" href="class_joueur.html">Joueur</a>&amp;);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    QString <a class="code" href="class_joueur.html#a9720274892574d91d8a0a0ac3311872d">getPseudo</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">void</span>    <a class="code" href="class_joueur.html#aec19e2dc85135909b458e567ffabde46">setPseudo</a>(<span class="keyword">const</span> QString&amp; <a class="code" href="class_joueur.html#a0a14c9f81f5b53047a0a544c467bd252">pseudo</a>);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    QString <a class="code" href="class_joueur.html#a1d7082ab1f926eae1bd6834e901751a7">getNom</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordtype">void</span>    <a class="code" href="class_joueur.html#a8bea5c2a08adb92d2d71dd45f0744a37">setNom</a>(<span class="keyword">const</span> QString&amp; <a class="code" href="class_joueur.html#ab06d7f1e6b482299bb03919e0cd2166d">nom</a>);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    QString <a class="code" href="class_joueur.html#ade527085b285ce86ea9e369bc9959032">getPrenom</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span>    <a class="code" href="class_joueur.html#aa4af23550d72bd9004650feaf39a69d2">setPrenom</a>(<span class="keyword">const</span> QString&amp; <a class="code" href="class_joueur.html#a96d4237143c2e57b8025c4e116e95909">prenom</a>);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#endif // JOUEUR_H</span></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<div class="ttc" id="aclass_joueur_html"><div class="ttname"><a href="class_joueur.html">Joueur</a></div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8h_source.html#l00006">Joueur.h:6</a></div></div>
+<div class="ttc" id="aclass_joueur_html_ab06d7f1e6b482299bb03919e0cd2166d"><div class="ttname"><a href="class_joueur.html#ab06d7f1e6b482299bb03919e0cd2166d">Joueur::nom</a></div><div class="ttdeci">QString nom</div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8h_source.html#l00010">Joueur.h:10</a></div></div>
+<div class="ttc" id="aclass_joueur_html_a8bea5c2a08adb92d2d71dd45f0744a37"><div class="ttname"><a href="class_joueur.html#a8bea5c2a08adb92d2d71dd45f0744a37">Joueur::setNom</a></div><div class="ttdeci">void setNom(const QString &amp;nom)</div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8cpp_source.html#l00044">Joueur.cpp:44</a></div></div>
+<div class="ttc" id="aclass_joueur_html_a6ed348faee179580db913e65cff3ec74"><div class="ttname"><a href="class_joueur.html#a6ed348faee179580db913e65cff3ec74">Joueur::Joueur</a></div><div class="ttdeci">Joueur(QString pseudo=&quot;&quot;, QString nom=&quot;&quot;, QString prenom=&quot;&quot;)</div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8cpp_source.html#l00004">Joueur.cpp:4</a></div></div>
+<div class="ttc" id="aclass_joueur_html_aafe920d2e316ac7dc2325c0f08a5db22"><div class="ttname"><a href="class_joueur.html#aafe920d2e316ac7dc2325c0f08a5db22">Joueur::operator=</a></div><div class="ttdeci">Joueur &amp; operator=(const Joueur &amp;)</div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8cpp_source.html#l00013">Joueur.cpp:13</a></div></div>
+<div class="ttc" id="aclass_joueur_html_a1d7082ab1f926eae1bd6834e901751a7"><div class="ttname"><a href="class_joueur.html#a1d7082ab1f926eae1bd6834e901751a7">Joueur::getNom</a></div><div class="ttdeci">QString getNom() const</div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8cpp_source.html#l00039">Joueur.cpp:39</a></div></div>
+<div class="ttc" id="aclass_joueur_html_a9fb594f755601ee77ce5884c4c0861f3"><div class="ttname"><a href="class_joueur.html#a9fb594f755601ee77ce5884c4c0861f3">Joueur::~Joueur</a></div><div class="ttdeci">~Joueur()</div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8cpp_source.html#l00024">Joueur.cpp:24</a></div></div>
+<div class="ttc" id="aclass_joueur_html_ade527085b285ce86ea9e369bc9959032"><div class="ttname"><a href="class_joueur.html#ade527085b285ce86ea9e369bc9959032">Joueur::getPrenom</a></div><div class="ttdeci">QString getPrenom() const</div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8cpp_source.html#l00049">Joueur.cpp:49</a></div></div>
+<div class="ttc" id="aclass_joueur_html_aa4af23550d72bd9004650feaf39a69d2"><div class="ttname"><a href="class_joueur.html#aa4af23550d72bd9004650feaf39a69d2">Joueur::setPrenom</a></div><div class="ttdeci">void setPrenom(const QString &amp;prenom)</div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8cpp_source.html#l00054">Joueur.cpp:54</a></div></div>
+<div class="ttc" id="aclass_joueur_html_aec19e2dc85135909b458e567ffabde46"><div class="ttname"><a href="class_joueur.html#aec19e2dc85135909b458e567ffabde46">Joueur::setPseudo</a></div><div class="ttdeci">void setPseudo(const QString &amp;pseudo)</div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8cpp_source.html#l00034">Joueur.cpp:34</a></div></div>
+<div class="ttc" id="aclass_joueur_html_a96d4237143c2e57b8025c4e116e95909"><div class="ttname"><a href="class_joueur.html#a96d4237143c2e57b8025c4e116e95909">Joueur::prenom</a></div><div class="ttdeci">QString prenom</div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8h_source.html#l00011">Joueur.h:11</a></div></div>
+<div class="ttc" id="aclass_joueur_html_a9720274892574d91d8a0a0ac3311872d"><div class="ttname"><a href="class_joueur.html#a9720274892574d91d8a0a0ac3311872d">Joueur::getPseudo</a></div><div class="ttdeci">QString getPseudo() const</div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8cpp_source.html#l00029">Joueur.cpp:29</a></div></div>
+<div class="ttc" id="aclass_joueur_html_a0a14c9f81f5b53047a0a544c467bd252"><div class="ttname"><a href="class_joueur.html#a0a14c9f81f5b53047a0a544c467bd252">Joueur::pseudo</a></div><div class="ttdeci">QString pseudo</div><div class="ttdef"><b>Definition:</b> <a href="_joueur_8h_source.html#l00009">Joueur.h:9</a></div></div>
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_59049d07bf27f9926fb47b73ae8981c0.html">basket-game</a></li><li class="navelem"><a class="el" href="_joueur_8h.html">Joueur.h</a></li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Mercredi 25 Mai 2022 06:53:43 pour basket-game par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
+  </ul>
+</div>
+</body>
+</html>

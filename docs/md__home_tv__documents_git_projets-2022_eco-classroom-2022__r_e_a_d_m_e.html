@@ -1,0 +1,359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.17"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>eco-classroom: Le projet eco-classroom-2022</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="customdoxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="eco-classroom.png"/></td>
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">eco-classroom
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">BTS SNIR LaSalle Avignon 2022</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Généré par Doxygen 1.8.17 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Recherche');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Recherche');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('md__home_tv__documents_git_projets-2022_eco-classroom-2022__r_e_a_d_m_e.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="PageDoc"><div class="header">
+  <div class="headertitle">
+<div class="title">Le projet eco-classroom-2022 </div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><ul>
+<li><a href="#le-projet-eco-classroom-2022">Le projet eco-classroom-2022</a><ul>
+<li><a href="#présentation">Présentation</a></li>
+<li><a href="#ressources-logicielles">Ressources logicielles</a></li>
+<li><a href="#historique-des-versions">Historique des versions</a></li>
+<li><a href="#auteur">Auteur</a></li>
+<li><a href="#kanban">Kanban</a></li>
+<li><a href="#captures-décran">Captures d'écran</a></li>
+<li><a href="#base-de-données">Base de données</a></li>
+<li><a href="#qt-mqtt">Qt MQTT</a><ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#glossaire-mqtt">Glossaire MQTT</a></li>
+<li><a href="#structure-des-topics">Structure des topics</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1>Présentation</h1>
+<p>Assurer une supervision de salles dans un établissement scolaire.</p>
+<p>Chaque salle sera équipée de deux modules connectés afin de détecter et mesurer l’état de celle-ci :</p>
+<ul>
+<li>température, humidité, luminosité et qualité de l’air</li>
+<li>état ouverture/fermeture des fenêtres et l’état allumé/éteint des lumières</li>
+</ul>
+<p>Les informations seront accessibles à partir d’une application PC permettant aux personnels d’assurer un suivi et d’intervenir en conséquence.</p>
+<p>L'objectif est de superviser l’ensemble des salles afin d’intervenir directement dans les salles concernées (aérer ou fermer les fenêtres, éteindre les lumières)</p>
+<h1>Ressources logicielles</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Désignation </th><th class="markdownTableHeadCenter">Caractéristiques  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Environnement de développement </td><td class="markdownTableBodyCenter">Qt Creator  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Bibliothèque logicielle </td><td class="markdownTableBodyCenter">Qt 5.12.8, QtMqtt  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Gestionnaire de versions </td><td class="markdownTableBodyCenter">Git (Hébergement : Github)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Générateur de diagrammes UML </td><td class="markdownTableBodyCenter">BOUML 7.11  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Planification </td><td class="markdownTableBodyCenter">Beesbusy  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Gestion de projet logiciel </td><td class="markdownTableBodyCenter">Jira  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">OS du poste de développement </td><td class="markdownTableBodyCenter">Ubuntu 20.04.1  </td></tr>
+</table>
+<h1>Historique des versions</h1>
+<ul>
+<li>Version 0.2 : 24/05/2022<ul>
+<li>mise à jour des données des salles en temps réel</li>
+<li>édition et suppression d'une salle</li>
+<li>ajout automatique d'une nouvelle salle</li>
+<li>affichage de la liste des salles à partir de critères de filtrage</li>
+</ul>
+</li>
+<li>Version 0.1 : 03/04/2022<ul>
+<li>affichage de la liste des salles à partir de la base de données</li>
+<li>affichage des informations d'une salle en la sélectionnant dans la liste</li>
+<li>mise en oeuvre de la communication MQTT</li>
+</ul>
+</li>
+</ul>
+<h1>Auteur</h1>
+<ul>
+<li>Amine Zeryouhi &lt;<a href="#" onclick="location.href='mai'+'lto:'+'ami'+'nz'+'er2'+'02'+'2@g'+'ma'+'il.'+'co'+'m'; return false;">aminz<span style="display: none;">.nosp@m.</span>er20<span style="display: none;">.nosp@m.</span>22@gm<span style="display: none;">.nosp@m.</span>ail.<span style="display: none;">.nosp@m.</span>com</a>&gt;</li>
+</ul>
+<h1>Kanban</h1>
+<p><a href="https://github.com/btssn-lasalle-84/eco-classroom-2022/projects/1">eco-classroom-2022</a></p>
+<h1>Captures d'écran</h1>
+<div class="image">
+<img src="capture-liste-salle.png" alt=""/>
+</div>
+   <div class="image">
+<img src="capture-filtrage.png" alt=""/>
+</div>
+   <div class="image">
+<img src="capture-etat-salle.png" alt=""/>
+</div>
+   <div class="image">
+<img src="capture-edition-salle.png" alt=""/>
+</div>
+   <div class="image">
+<img src="capture-suppression.png" alt=""/>
+</div>
+   <h1>Base de données</h1>
+<p>L'application Qt embarque une base de données SQLite <code>eco-classroom.db</code>.</p>
+<div class="image">
+<img src="sqlite-eco-classroom-v0.2.png" alt=""/>
+</div>
+   <p>Structure de la base de données :</p>
+<div class="fragment"><div class="line"><span class="comment">-- Structure de la table IndiceConfort</span></div>
+<div class="line"><span class="comment">-- indice : facultatif (peut être calculé à partir de l&#39;id)</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keywordflow">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> IndiceConfort(idIndiceConfort <span class="keywordtype">INTEGER</span> <span class="keyword">PRIMARY</span> KEY, indice <span class="keywordtype">INTEGER</span>, libelle <span class="keywordtype">VARCHAR</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">-- Structure de la table IndiceQualiteAir</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keywordflow">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> IndiceQualiteAir(idIndiceQualiteAir <span class="keywordtype">INTEGER</span> <span class="keyword">PRIMARY</span> KEY, libelle <span class="keywordtype">VARCHAR</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">-- Structure de la table Salle</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keywordflow">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> Salle(</div>
+<div class="line">    idSalle <span class="keywordtype">INTEGER</span> <span class="keyword">PRIMARY</span> KEY AUTOINCREMENT,</div>
+<div class="line">    nom <span class="keywordtype">VARCHAR</span>,</div>
+<div class="line">    lieu <span class="keywordtype">VARCHAR</span>,</div>
+<div class="line">    description <span class="keywordtype">VARCHAR</span>,</div>
+<div class="line">    superficie <span class="keywordtype">INTEGER</span> <span class="keyword">DEFAULT</span> <span class="stringliteral">0</span>,</div>
+<div class="line">    code <span class="keywordtype">VARCHAR</span>(<span class="stringliteral">4</span>),</div>
+<div class="line">    idIndiceConfort <span class="keywordtype">INTEGER</span> <span class="keyword">DEFAULT</span> -1,</div>
+<div class="line">    idIndiceQualiteAir <span class="keywordtype">INTEGER</span> <span class="keyword">DEFAULT</span> <span class="stringliteral">0</span>,</div>
+<div class="line">    etatFenetres <span class="keywordtype">INTEGER</span> <span class="keyword">DEFAULT</span> <span class="stringliteral">0</span>, <span class="comment">-- Boolean values are stored as integers 0 (false) and 1 (true)</span></div>
+<div class="line">    etatLumieres <span class="keywordtype">INTEGER</span> <span class="keyword">DEFAULT</span> <span class="stringliteral">0</span>,</div>
+<div class="line">    estOccupe <span class="keywordtype">INTEGER</span> <span class="keyword">DEFAULT</span> <span class="stringliteral">0</span>,</div>
+<div class="line">    estFavori <span class="keywordtype">INTEGER</span> <span class="keyword">DEFAULT</span> <span class="stringliteral">0</span>,</div>
+<div class="line">    <span class="keyword">CONSTRAINT</span> IndiceConfort_fk_1 <span class="keyword">FOREIGN</span> KEY (idIndiceConfort) <span class="keyword">REFERENCES</span> IndiceConfort(idIndiceConfort),</div>
+<div class="line">    <span class="keyword">CONSTRAINT</span> IndiceQualiteAir_fk_1 <span class="keyword">FOREIGN</span> KEY (idIndiceQualiteAir) <span class="keyword">REFERENCES</span> IndiceQualiteAir(idIndiceQualiteAir)</div>
+<div class="line">);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">-- Structure de la table Mesure</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keywordflow">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> Mesure(</div>
+<div class="line">    idMesure <span class="keywordtype">INTEGER</span> <span class="keyword">PRIMARY</span> KEY AUTOINCREMENT,</div>
+<div class="line">    idSalle <span class="keywordtype">INTEGER</span> <span class="keyword">NOT</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    temperature <span class="keywordtype">DECIMAL</span>(<span class="stringliteral">3</span>,<span class="stringliteral">1</span>), <span class="comment">-- de -99.9 à 99.9</span></div>
+<div class="line">    luminosite <span class="keywordtype">SMALLINT</span> UNSIGNED,</div>
+<div class="line">    humidite TINYINT UNSIGNED,</div>
+<div class="line">    co2 <span class="keywordtype">SMALLINT</span> UNSIGNED,</div>
+<div class="line">    horodatage DATETIME <span class="keyword">NOT</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    <span class="keyword">CONSTRAINT</span> Salle_fk_1 <span class="keyword">FOREIGN</span> KEY (idSalle) <span class="keyword">REFERENCES</span> Salle(idSalle)</div>
+<div class="line">);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">-- Structure de la table SeuilsAlerte</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keywordflow">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> SeuilsAlerte(</div>
+<div class="line">    idSalle <span class="keywordtype">INTEGER</span> <span class="keyword">NOT</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    temperatureMin <span class="keywordtype">DOUBLE</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    temperatureMax <span class="keywordtype">DOUBLE</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    luminositeMin <span class="keywordtype">INTEGER</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    luminositeMax <span class="keywordtype">INTEGER</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    humiditeMin <span class="keywordtype">INTEGER</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    humiditeMax <span class="keywordtype">INTEGER</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    co2Min <span class="keywordtype">INTEGER</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    co2Max <span class="keywordtype">INTEGER</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    <span class="keyword">PRIMARY</span> KEY (idSalle),</div>
+<div class="line">    <span class="keyword">CONSTRAINT</span> Salle_fk_2 <span class="keyword">FOREIGN</span> KEY (idSalle) <span class="keyword">REFERENCES</span> Salle(idSalle)</div>
+<div class="line">);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">-- Structure de la table BrokerMQTT</span></div>
+<div class="line"><span class="comment">-- mqtt(s)://[username[:password]@]host[:port]/topic</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keywordflow">IF</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span> BrokerMQTT(</div>
+<div class="line">    idBrokerMQTT <span class="keywordtype">INTEGER</span> <span class="keyword">PRIMARY</span> KEY AUTOINCREMENT,</div>
+<div class="line">    hostname <span class="keywordtype">VARCHAR</span> <span class="keyword">NOT</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    port <span class="keywordtype">INTEGER</span> <span class="keyword">NOT</span> <span class="stringliteral">NULL</span> <span class="keyword">DEFAULT</span> <span class="stringliteral">1883</span>,</div>
+<div class="line">    username <span class="keywordtype">VARCHAR</span> <span class="keyword">DEFAULT</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    `password` <span class="keywordtype">VARCHAR</span> <span class="keyword">DEFAULT</span> <span class="stringliteral">NULL</span>,</div>
+<div class="line">    estActif <span class="keywordtype">INTEGER</span> <span class="keyword">DEFAULT</span> <span class="stringliteral">1</span>,</div>
+<div class="line">);</div>
+</div><!-- fragment --><p>Initialisation de la base de données :</p>
+<div class="fragment"><div class="line"><span class="comment">--- Table IndiceConfort</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> IndiceConfort(idIndiceConfort,indice,libelle) <span class="keyword">VALUES</span></div>
+<div class="line">(-1,<span class="stringliteral">0</span>,<span class="stringliteral">&#39;inconnu&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">0</span>,-3,<span class="stringliteral">&#39;froid&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">1</span>,-2,<span class="stringliteral">&#39;frais&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">2</span>,-1,<span class="stringliteral">&#39;légèrement frais&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">3</span>,<span class="stringliteral">0</span>,<span class="stringliteral">&#39;neutre&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">4</span>,<span class="stringliteral">1</span>,<span class="stringliteral">&#39;légèrement tiède&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">5</span>,<span class="stringliteral">2</span>,<span class="stringliteral">&#39;tiède&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">6</span>,<span class="stringliteral">3</span>,<span class="stringliteral">&#39;chaud&#39;</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">--- Table IndiceQualiteAir</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> IndiceQualiteAir(idIndiceQualiteAir,libelle) <span class="keyword">VALUES</span></div>
+<div class="line">(<span class="stringliteral">0</span>,<span class="stringliteral">&#39;inconnu&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">1</span>,<span class="stringliteral">&#39;très bon&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">2</span>,<span class="stringliteral">&#39;bon&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">3</span>,<span class="stringliteral">&#39;moyen&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">4</span>,<span class="stringliteral">&#39;médiocre&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">5</span>,<span class="stringliteral">&#39;mauvais&#39;</span>),</div>
+<div class="line">(<span class="stringliteral">6</span>,<span class="stringliteral">&#39;très mauvais&#39;</span>);</div>
+</div><!-- fragment --><p>Quelques données de test :</p>
+<div class="fragment"><div class="line"><span class="comment">--- Table Salle</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Salle(nom, lieu, description, superficie, code) <span class="keyword">VALUES</span> (<span class="stringliteral">&#39;B11&#39;</span>,<span class="stringliteral">&#39;Bat. BTS&#39;</span>,<span class="stringliteral">&#39;Cours&#39;</span>,<span class="stringliteral">&#39;15&#39;</span>,<span class="stringliteral">&#39;0000&#39;</span>);</div>
+<div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Salle(nom, lieu, description, superficie, code) <span class="keyword">VALUES</span> (<span class="stringliteral">&#39;B20&#39;</span>,<span class="stringliteral">&#39;Bat. BTS&#39;</span>,<span class="stringliteral">&#39;Atelier&#39;</span>,<span class="stringliteral">&#39;60&#39;</span>,<span class="stringliteral">&#39;1234&#39;</span>);</div>
+<div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Salle(nom, lieu, description, superficie, code) <span class="keyword">VALUES</span> (<span class="stringliteral">&#39;B21&#39;</span>,<span class="stringliteral">&#39;Bat. BTS&#39;</span>,<span class="stringliteral">&#39;Labo&#39;</span>,<span class="stringliteral">&#39;40&#39;</span>,<span class="stringliteral">&#39;1234&#39;</span>);</div>
+<div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Salle(nom, lieu, description, superficie, code) <span class="keyword">VALUES</span> (<span class="stringliteral">&#39;B22&#39;</span>,<span class="stringliteral">&#39;Bat. BTS&#39;</span>,<span class="stringliteral">&#39;Cours&#39;</span>,<span class="stringliteral">&#39;50&#39;</span>,<span class="stringliteral">&#39;6666&#39;</span>);</div>
+<div class="line"> </div>
+<div class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> BrokerMQTT(hostname,estActif) <span class="keyword">VALUES</span> (<span class="stringliteral">&#39;192.168.52.7&#39;</span>,<span class="stringliteral">1</span>);</div>
+</div><!-- fragment --><h1>Qt MQTT</h1>
+<p><a href="https://doc.qt.io/QtMQTT/index.html">Qt MQTT</a> fournit une implémentation conforme à la norme MQTT.</p>
+<p>Qt MQTT fait parti de <a href="http://doc.qt.io/QtForAutomation/qtautomation-overview.html">Qt For Automation</a> et pas directement de Qt. Il faut donc l'installer.</p>
+<h2>Installation</h2>
+<ol type="1">
+<li>Identifier la version de Qt :</li>
+</ol>
+<div class="fragment"><div class="line">$ qmake -v</div>
+<div class="line">QMake version 3.1</div>
+<div class="line">Using Qt version 5.12.8 in /usr/lib/x86_64-linux-gnu</div>
+</div><!-- fragment --><p>Ici, la version de Qt est <code>5.12.8</code>.</p>
+<ol type="1">
+<li>Récupérer le code source du module <code>mqtt</code> en clonant le dépôt git</li>
+</ol>
+<div class="fragment"><div class="line">$ sudo git clone https://code.qt.io/qt/qtmqtt.git</div>
+<div class="line">$ cd qtmqtt/</div>
+</div><!-- fragment --><ol type="1">
+<li>Sélectionner la branche qui correspond à la version de Qt utilisée</li>
+</ol>
+<div class="fragment"><div class="line">$ sudo git checkout 5.12.8</div>
+</div><!-- fragment --><ol type="1">
+<li>Installer le paquet fournissant les fichiers d'en-tête de développement indépendants</li>
+</ol>
+<div class="fragment"><div class="line">$ sudo apt install qtbase5-private-dev</div>
+</div><!-- fragment --><ol type="1">
+<li>Fabriquer et installer le module <code>mqtt</code></li>
+</ol>
+<div class="fragment"><div class="line">$ sudo qmake</div>
+<div class="line"> </div>
+<div class="line">$ sudo make</div>
+<div class="line"> </div>
+<div class="line">$ sudo make install</div>
+</div><!-- fragment --><p>Pour accèder aux classes du module Qt MQTT, il faudra ajouter le module <code>mqtt</code> au fichier de projet <code>.pro</code> :</p>
+<div class="fragment"><div class="line">QT += mqtt</div>
+</div><!-- fragment --><h2>Glossaire MQTT</h2>
+<p>Les messages sont envoyés par des « <em>publishers</em> » sur un « <em>topic</em> » (canal de communication) à un « <em>broker</em> » (serveur).</p>
+<p>Ces messages peuvent être lus par des « <em>subscribers</em> » (abonnés).</p>
+<p>Les « <em>topics</em> » peuvent avoir une hiérarchie qui permettra de sélectionner les informations.</p>
+<p>Les « <em>publishers</em> » et « <em>subscribers</em> » sont considérés comme des « clients » MQTT. Le « <em>broker</em> » est vu comme un serveur MQTT.</p>
+<p>Dans le projet eco-classroom :</p>
+<ul>
+<li>les « publishers » sont les modules sonde et détection réparties dans les différentes salles</li>
+<li>les « subscribers » sont les applications de supervision (Mobile ou Desktop)</li>
+</ul>
+<h2>Structure des topics</h2>
+<p>Racine de la hiérarchie des topics : <code>salles</code></p>
+<p>Les données des modules sonde et détection sont publiées sur le topic : <code>salles/nom/type</code></p>
+<ul>
+<li>Le champ <code>nom</code> indique le nome de la salle, par exemple : <code>B20</code>, <code>B11</code>, ...</li>
+<li>Le champ <code>type</code> peut prendre les valeurs suivantes : <code>temperature|humidite|confort|luminosite|co2|air|fenetres|lumieres|occupation</code></li>
+</ul>
+<p>Exemple : La donnée <code>20.5</code> associé au topic <code>salles/B20/temperature</code> sera une température en Celsius.</p>
+<p>Les topics pour une salle, ici <b>B20</b> :</p>
+<div class="fragment"><div class="line">salles/B20/temperature</div>
+<div class="line">salles/B20/humidite</div>
+<div class="line">salles/B20/confort</div>
+<div class="line">salles/B20/luminosite</div>
+<div class="line">salles/B20/co2</div>
+<div class="line">salles/B20/air</div>
+<div class="line">salles/B20/fenetres</div>
+<div class="line">salles/B20/lumieres</div>
+<div class="line">salles/B20/occupation</div>
+</div><!-- fragment --><p>Deux « <em>wild-cards</em> » (jokers) sont utilisables dans les topics : <code>+</code> et <code>#</code> :</p>
+<ul>
+<li><code>+</code> : sujet unique. Par exemple : <code>salles/+/temperature</code> sera abonné pour recevoir la température de toutes les salles (<code>salles/B20/temperature</code>, <code>salles/B11/temperature</code>, ...</li>
+<li><code>#</code> : multi-sujets. Par exemple : <code>salles/#</code> sera abonné à toutes les données de toutes les salles (<code>salles/B20</code>, <code>salles/B11</code>, ...) </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.9.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 26 Mai 2022 08:09:57 pour eco-classroom par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
+  </ul>
+</div>
+</body>
+</html>

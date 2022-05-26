@@ -6,6 +6,7 @@
   - [Historique des versions](#historique-des-versions)
   - [Auteur](#auteur)
   - [Kanban](#kanban)
+  - [Documentation du code](#documentation-du-code)
   - [Captures d'écran](#captures-décran)
   - [Base de données](#base-de-données)
   - [Qt MQTT](#qt-mqtt)
@@ -58,6 +59,10 @@ L'objectif est de superviser l’ensemble des salles afin d’intervenir directe
 ## Kanban
 
 [eco-classroom-2022](https://github.com/btssn-lasalle-84/eco-classroom-2022/projects/1)
+
+## Documentation du code
+
+https://btssn-lasalle-84.github.io/eco-classroom-2022/
 
 ## Captures d'écran
 
