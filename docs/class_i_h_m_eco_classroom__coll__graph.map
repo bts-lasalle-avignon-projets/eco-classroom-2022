@@ -1,0 +1,7 @@
+<map id="IHMEcoClassroom" name="IHMEcoClassroom">
+<area shape="rect" id="node1" title="Déclaration de la classe IHMEcoClassroom." alt="" coords="130,463,321,1039"/>
+<area shape="rect" id="node2" href="$class_q_main_window.html" title=" " alt="" coords="5,227,112,305"/>
+<area shape="rect" id="node3" href="$class_communication_m_q_t_t.html" title="Déclaration de la classe CommunicationMQTT." alt="" coords="136,169,315,363"/>
+<area shape="rect" id="node4" href="$class_q_object.html" title=" " alt="" coords="282,5,353,83"/>
+<area shape="rect" id="node5" href="$class_base_de_donnees.html" title="Class permettant de s&#39;interfacer avec la base de données." alt="" coords="339,132,485,400"/>
+</map>
