@@ -48,12 +48,18 @@ IHMEcoClassroom::IHMEcoClassroom(QWidget* parent) :
  * @fn IHMEcoClassroom::~IHMEcoClassroom
  * @details Libère les ressources de l'application
  */
+/**
+ * @brief IHMEcoClassroom::~IHMEcoClassroom
+ */
 IHMEcoClassroom::~IHMEcoClassroom()
 {
     delete ui;
     qDebug() << Q_FUNC_INFO;
 }
 
+/**
+ * @brief IHMEcoClassroom::initialiserEcoClassroom
+ */
 void IHMEcoClassroom::initialiserEcoClassroom()
 {
     baseDeDonnees = BaseDeDonnees::getInstance();
@@ -61,6 +67,9 @@ void IHMEcoClassroom::initialiserEcoClassroom()
     communicationMQTT = new CommunicationMQTT(this);
 }
 
+/**
+ * @brief IHMEcoClassroom::initialiserAffichage
+ */
 void IHMEcoClassroom::initialiserAffichage()
 {
     qDebug() << Q_FUNC_INFO;
@@ -260,6 +269,13 @@ void IHMEcoClassroom::afficheInformationsSalle(int index)
     ui->labelOccupationSalle->setText(estOccupe);
 }
 
+/**
+ * @brief IHMEcoClassroom::mettreAJourDonnee
+ * @param donnee
+ * @param typeDonnee
+ * @param idSalle
+ * @return
+ */
 bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
                                         QString typeDonnee,
                                         QString idSalle)
@@ -330,6 +346,11 @@ bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
     return retour;
 }
 
+/**
+ * @brief IHMEcoClassroom::insererNouvelleSalle
+ * @param nomSalle
+ * @return
+ */
 QString IHMEcoClassroom::insererNouvelleSalle(QString nomSalle)
 {
     qDebug() << Q_FUNC_INFO << nomSalle << "nouvelle salle détectée !";
@@ -425,10 +446,13 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
             if(!salle.at(Salle::ETAT_OCCUPATION).toInt())
                 return;
             break;
-        case FiltreSalles::QUALITE_AIR: // Utilisables
+            // Utilisables
+        case FiltreSalles::QUALITE_AIR:
             /**
              * @todo Ajouter la disponibilité
              */
+            if(!salle.at(Salle::ETAT_OCCUPATION).toInt())
+                return;
             if(salle.at(Salle::INDICE_QUALITE_AIR).toInt() >=
                Salle::IndiceDeQualiteAir::MAUVAIS)
                 return;
@@ -445,6 +469,9 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
             /**
              * @todo Ajouter la qualité d'air
              */
+            if(salle.at(Salle::INDICE_QUALITE_AIR).toInt() >=
+               Salle::IndiceDeQualiteAir::MAUVAIS)
+                return;
             break;
     }
 
@@ -613,6 +640,10 @@ void IHMEcoClassroom::effacerTableSalles()
     nbLignesSalle = 0;
 }
 
+/**
+ * @brief IHMEcoClassroom::selectionner
+ * @param index
+ */
 void IHMEcoClassroom::selectionner(QModelIndex index)
 {
     qDebug() << Q_FUNC_INFO << "numéro de ligne"
@@ -748,6 +779,12 @@ void IHMEcoClassroom::validerEditionSalle()
     }
 }
 
+/**
+ * @brief IHMEcoClassroom::traiterNouvelleDonnee
+ * @param nomSalle
+ * @param typeDonnee
+ * @param donnee
+ */
 void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
                                             QString typeDonnee,
                                             QString donnee)
@@ -812,6 +849,9 @@ void IHMEcoClassroom::afficherFenetrePrincipale()
     afficherFenetre(IHMEcoClassroom::Fenetre::Accueil);
 }
 
+/**
+ * @brief IHMEcoClassroom::ajouterMenuAide
+ */
 void IHMEcoClassroom::ajouterMenuAide()
 {
     qDebug() << Q_FUNC_INFO;
@@ -827,6 +867,9 @@ void IHMEcoClassroom::ajouterMenuAide()
                         SLOT(aboutQt()));
 }
 
+/**
+ * @brief IHMEcoClassroom::afficherAPropos
+ */
 void IHMEcoClassroom::afficherAPropos()
 {
     QMessageBox::about(
@@ -839,7 +882,7 @@ void IHMEcoClassroom::afficherAPropos()
           "scolaire<br/><br/>Zeryouhi Mohamed Amine</p>"));
 }
 
-#ifdef TEST_SANS_BROKER_MQTT
+/*#ifdef TEST_SANS_BROKER_MQTT
 void IHMEcoClassroom::simuler()
 {
     // simule une réception de donnée sans MQTT
@@ -915,3 +958,4 @@ int IHMEcoClassroom::randInt(int min, int max)
     return qrand() % ((max + 1) - min) + min;
 }
 #endif
+*/
