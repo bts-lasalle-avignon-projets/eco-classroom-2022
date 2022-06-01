@@ -281,12 +281,6 @@ bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
                   horodatage.toString("yyyy-MM-dd HH:mm:ss") +
                   "' WHERE idSalle=" + idSalle + ";";
     }
-    else if(typeDonnee == ("co2"))
-    {
-        requete = "UPDATE Mesure SET co2='" + donnee + "', horodatage='" +
-                  horodatage.toString("yyyy-MM-dd HH:mm:ss") +
-                  "' WHERE idSalle=" + idSalle + ";";
-    }
     else if(typeDonnee == ("luminosite"))
     {
         requete = "UPDATE Mesure SET luminosite='" + donnee +
@@ -319,6 +313,12 @@ bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
         requete = "UPDATE Salle SET estOccupe='" + donnee +
                   "' WHERE idSalle=" + idSalle + ";";
     }
+    else if(typeDonnee == ("co2"))
+    {
+        requete = "INSERT INTO MesureCo2(co2, idSalle, horodatage) VALUES ('" +
+                  donnee + "', '" + idSalle + "', '" +
+                  horodatage.toString("yyyy-MM-dd HH:mm:ss") + "');";
+    }
     else
     {
         return false;
@@ -349,12 +349,37 @@ QString IHMEcoClassroom::insererNouvelleSalle(QString nomSalle)
                       idSalle + "', '" +
                       horodatage.toString("yyyy-MM-dd HH:mm:ss") + "');";
             retour = baseDeDonnees->executer(requete);
+
+            requete = "INSERT INTO MesureCo2(idSalle, horodatage) VALUES ('" +
+                      idSalle + "', '" +
+                      horodatage.toString("yyyy-MM-dd HH:mm:ss") + "');";
+            retour = baseDeDonnees->executer(requete);
             if(retour)
                 return idSalle;
         }
     }
 
     return QString();
+}
+
+/**
+ * @brief calculerMoyenneCo2
+ */
+int IHMEcoClassroom::calculerMoyenneCo2()
+{
+    qDebug() << Q_FUNC_INFO;
+    QVector<QString> valeursCo2;
+    QString          requete = "SELECT co2 FROM MesureCo2;";
+
+    bool retour;
+    retour = baseDeDonnees->recuperer(requete, valeursCo2);
+    qDebug() << Q_FUNC_INFO << valeursCo2;
+    if(retour)
+    {
+        int midiane = valeursCo2.size() / 2;
+        qDebug() << Q_FUNC_INFO << midiane;
+    }
+    return midime;
 }
 
 /**
@@ -623,9 +648,15 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     QString idSalle   = salles.at(index.row()).at(Salle::ID);
     salleSelectionnee = index.row();
     QStringList mesureSalle;
-    QString     requete =
-      "SELECT * FROM Mesure WHERE Mesure.idSalle=" + idSalle + "";
-    bool retour;
+    QString     requete = "SELECT * FROM Mesure WHERE"
+                      "Mesure.idSalle=" +
+                      idSalle + "";
+
+    bool retour = baseDeDonnees->recuperer(requete, mesureSalle);
+
+    requete = "SELECT * FROM MesureCo2 WHERE"
+              "MesureCo2.idSalle=" +
+              idSalle + "";
     retour = baseDeDonnees->recuperer(requete, mesureSalle);
     qDebug() << Q_FUNC_INFO << mesureSalle;
 
@@ -772,6 +803,9 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
                 QStringList mesureSalle;
                 QString     requete =
                   "SELECT * FROM Mesure WHERE Mesure.idSalle=" + idSalle + "";
+                retour  = baseDeDonnees->recuperer(requete, mesureSalle);
+                requete = "SELECT * FROM MesureCo2 WHERE MesureCo2.idSalle =" +
+                          idSalle + "";
                 retour = baseDeDonnees->recuperer(requete, mesureSalle);
                 if(retour)
                 {
