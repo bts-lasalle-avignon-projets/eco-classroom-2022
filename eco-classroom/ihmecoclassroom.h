@@ -114,7 +114,6 @@ class IHMEcoClassroom : public QMainWindow
     void afficheInformationsSalle(int index);
     bool mettreAJourDonnee(QString donnee, QString typeDonnee, QString idSalle);
     QString insererNouvelleSalle(QString nomSalle);
-    int     calculerMoyenneCo2();
 
   public slots:
     void chargerSalles();

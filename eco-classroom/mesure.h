@@ -45,8 +45,8 @@ class Mesure
         TEMPERATURE, //!< Emplacement de la température dans la salle
         LUMINOSITE,  //!< Emplacement de la luminosité dans la salle
         HUMIDITE,    //!< Emplacement de l'humidité dans la salle
-        CO2,         //!< Emplacement du taux de CO2 dans la salle
-        HORODATAGE   //!< Emplacement de l'horodatage de la mesure
+        // CO2,         //!< Emplacement du taux de CO2 dans la salle
+        HORODATAGE //!< Emplacement de l'horodatage de la mesure
     };
 };
 

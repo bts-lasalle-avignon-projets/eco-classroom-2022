@@ -207,7 +207,7 @@ void IHMEcoClassroom::reinitialiserAffichageMesureSalle()
 void IHMEcoClassroom::afficherMesureSalle(QStringList mesureSalle,
                                           QString     mesureCo2Salle)
 {
-    ui->labelCo2Salle->setText(mesureCo2Salle[Mesure::CO2] + " ppm");
+    ui->labelCo2Salle->setText(mesureCo2Salle + " ppm");
     ui->labelCo2->setVisible(true);
     ui->labelCo2Salle->setVisible(true);
     ui->labelTemperatureSalle->setText(mesureSalle.at(Mesure::TEMPERATURE) +
@@ -634,15 +634,17 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
       "SELECT * FROM Mesure WHERE Mesure.idSalle=" + idSalle + "";
 
     bool retour = baseDeDonnees->recuperer(requete, mesureSalle);
-
-    requete = "SELECT * FROM MesureCo2 WHERE MesureCo2.idSalle=" + idSalle + "";
-    retour  = baseDeDonnees->recuperer(requete, mesureCo2Salle);
     qDebug() << Q_FUNC_INFO << mesureSalle;
-    qDebug() << Q_FUNC_INFO << mesureCo2Salle;
-
-    // Affiche la mesure effectuée dans cette salle
     if(retour)
     {
+        QString requete =
+          "SELECT co2 FROM MesureCo2 WHERE MesureCo2.idSalle=" + idSalle +
+          " AND horodatage IN (SELECT max(horodatage) FROM MesureCo2" +
+          " WHERE MesureCo2.idSalle=" + idSalle + ")";
+        retour = baseDeDonnees->recuperer(requete, mesureCo2Salle);
+        qDebug() << Q_FUNC_INFO << mesureCo2Salle;
+
+        // Affiche les mesures effectuées dans cette salle
         afficherMesureSalle(mesureSalle, mesureCo2Salle);
     }
     else
