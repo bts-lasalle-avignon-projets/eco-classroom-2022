@@ -110,8 +110,8 @@ class IHMEcoClassroom : public QMainWindow
     QString recupererIdSalle(QString nomSalle);
     int     recupererIndexSalle(QString idSalle);
     void    reinitialiserAffichageMesureSalle();
-    void    afficherMesureSalle(QStringList mesureSalle);
-    void    afficheInformationsSalle(int index);
+    void afficherMesureSalle(QStringList mesureSalle, QString mesureCo2Salle);
+    void afficheInformationsSalle(int index);
     bool mettreAJourDonnee(QString donnee, QString typeDonnee, QString idSalle);
     QString insererNouvelleSalle(QString nomSalle);
     int     calculerMoyenneCo2();
