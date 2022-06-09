@@ -661,10 +661,6 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
               "Attanion, la qualité d'aire dans cette salle n'est "
               "pas bonne, il faut aérer");
         }
-        else
-        {
-            ui->labelCo2Min->setText("La qualité d'air est bonne");
-        }
         // Affiche les mesures effectuées dans cette salle
         afficherMesureSalle(mesureSalle, mesureCo2Salle);
     }
