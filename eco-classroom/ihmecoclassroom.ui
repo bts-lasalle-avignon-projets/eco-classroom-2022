@@ -1020,16 +1020,6 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
-             <widget class="QLabel" name="labelCo2Min">
-              <property name="styleSheet">
-               <string notr="true">font-size : 20px ; color : #0F8C32</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QLabel" name="labelCo2Max">
               <property name="styleSheet">
                <string notr="true">font-size :20px; color :red</string>

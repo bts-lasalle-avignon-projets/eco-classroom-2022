@@ -338,6 +338,11 @@ bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
     return retour;
 }
 
+/**
+ * @brief IHMEcoClassroom::insererNouvelleSalle
+ * @param nomSalle
+ * @return
+ */
 QString IHMEcoClassroom::insererNouvelleSalle(QString nomSalle)
 {
     qDebug() << Q_FUNC_INFO << nomSalle << "nouvelle salle détectée !";
@@ -671,9 +676,87 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
 
     // Affiche les informations de la salle
     afficheInformationsSalle(index.row());
+    calculerConfortThermique();
 
     // Affiche la fenêtre de la salle
     afficherFenetre(IHMEcoClassroom::Fenetre::InformationsSalle);
+}
+
+/**
+ * @brief IHMEcoClassroom::calculerConfortThermique
+ * @param nomSalle
+ */
+void IHMEcoClassroom::calculerConfortThermique()
+{
+    if(salleSelectionnee == -1)
+        return;
+    qDebug() << Q_FUNC_INFO << salleSelectionnee;
+    QString requete;
+    QString mesureTemperature;
+    QString mesureHumidite;
+    bool    retour;
+
+    // Récupérer les mesures de températures et d'humidité
+    requete = "SELECT temperature FROM Mesure WHERE Mesure.idSalle=" +
+              salles.at(salleSelectionnee).at(Salle::ID) + "";
+    retour = baseDeDonnees->recuperer(requete, mesureTemperature);
+    qDebug() << Q_FUNC_INFO << "mesuretemperature" << mesureTemperature;
+
+    requete = "SELECT humidite FROM Mesure WHERE Mesure.idSalle=" +
+              salles.at(salleSelectionnee).at(Salle::ID) + "";
+    retour = baseDeDonnees->recuperer(requete, mesureHumidite);
+    qDebug() << Q_FUNC_INFO << "mesurehumidite" << mesureHumidite;
+    if(retour)
+    {
+        // Calculer l'indice de Thom
+        double temperature = mesureTemperature.toDouble();
+        double humidite    = mesureHumidite.toDouble();
+
+        double thom =
+          temperature - (0.55 - 0.0055 * humidite) * (temperature - 14.5);
+        qDebug() << Q_FUNC_INFO << "thom" << thom;
+
+        // tester l'indice de Thom pour trouver le niveau de confort
+        QString indiceDeConfort;
+        QString requete;
+        if(thom >= -1.7 && thom < 13)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::FROID);
+        }
+        else if(thom >= -1.7 && thom < 13)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::FRAIS);
+        }
+        else if(thom >= 13 && thom < 15)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::LEGEREMENT_FRAIS);
+        }
+        else if(thom >= 15 && thom < 20)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::NEUTRE);
+        }
+        else if(thom >= 20 && thom < 26.5)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::LEGEREMENT_TIEDE);
+        }
+        else if(thom >= 26.5 && thom < 30)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::TIEDE);
+        }
+        else if(thom >= 30)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::CHAUD);
+        }
+
+        qDebug() << Q_FUNC_INFO << "indice de confort" << indiceDeConfort;
+
+        requete =
+          "UPDATE IndiceConfort SET idIndiceConfort='" + indiceDeConfort +
+          "' WHERE idSalle=" + salles.at(salleSelectionnee).at(Salle::ID) + ";";
+
+        // Enregistrer la nouvelle donnée dans la base de données
+        retour = baseDeDonnees->executer(requete);
+    }
 }
 
 /**
