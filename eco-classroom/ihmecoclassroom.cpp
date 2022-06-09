@@ -261,6 +261,13 @@ void IHMEcoClassroom::afficheInformationsSalle(int index)
     ui->labelOccupationSalle->setText(estOccupe);
 }
 
+/**
+ * @brief IHMEcoClassroom::mettreAJourDonnee
+ * @param donnee
+ * @param typeDonnee
+ * @param idSalle
+ * @return
+ */
 bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
                                         QString typeDonnee,
                                         QString idSalle)
@@ -619,6 +626,10 @@ void IHMEcoClassroom::effacerTableSalles()
     nbLignesSalle = 0;
 }
 
+/**
+ * @brief IHMEcoClassroom::selectionner
+ * @param index
+ */
 void IHMEcoClassroom::selectionner(QModelIndex index)
 {
     qDebug() << Q_FUNC_INFO << "numéro de ligne"
@@ -644,6 +655,16 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
         retour = baseDeDonnees->recuperer(requete, mesureCo2Salle);
         qDebug() << Q_FUNC_INFO << mesureCo2Salle;
 
+        if(mesureCo2Salle.toInt() >= SEUILMAXCO2)
+        {
+            ui->labelCo2Max->setText(
+              "Attanion, la qualité d'aire dans cette salle n'est "
+              "pas bonne, il faut aérer");
+        }
+        else
+        {
+            ui->labelCo2Min->setText("La qualité d'air est bonne");
+        }
         // Affiche les mesures effectuées dans cette salle
         afficherMesureSalle(mesureSalle, mesureCo2Salle);
     }
@@ -761,6 +782,13 @@ void IHMEcoClassroom::validerEditionSalle()
     }
 }
 
+/**
+ * @brief Cette méthode permet de traiter la trams reçu
+ * @param nomSalle
+ * @param typeDonnee
+ * @param donnee
+ * @fn IHMEcoClassroom::traiterNouvelleDonnee
+ */
 void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
                                             QString typeDonnee,
                                             QString donnee)

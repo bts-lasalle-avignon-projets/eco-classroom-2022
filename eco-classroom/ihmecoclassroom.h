@@ -20,7 +20,8 @@
  * @def VERSION_APPLICATION
  * @brief La version de l'application
  */
-#define VERSION "0.2"
+#define VERSION     "0.2"
+#define SEUILMAXCO2 1300
 
 #define TEST_SANS_BROKER_MQTT
 
