@@ -456,16 +456,17 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
                 return;
             break;
         case FiltreSalles::A_VERIFIER:
-            // occupée ?
-            if(!salle.at(Salle::ETAT_OCCUPATION).toInt())
-                return;
-            // ouverte ou allumée ?
-            bool salleAVerifier = (salle.at(Salle::ETAT_DES_FENETRES).toInt() ||
+            // disponibles et les lumières sont alumée ?
+            bool sallesAVerfier = (salle.at(Salle::ETAT_OCCUPATION).toInt() &&
                                    salle.at(Salle::ETAT_DES_LUMIERES).toInt());
-            if(!salleAVerifier)
+            if(!sallesAVerfier)
                 return;
-            if(salle.at(Salle::INDICE_QUALITE_AIR).toInt() <=
-               Salle::IndiceDeQualiteAir::MAUVAIS)
+            // fermée ou la qualité d'air n'est pas bonne ?
+            bool salleAVerifier =
+              (!salle.at(Salle::ETAT_DES_FENETRES).toInt() &&
+               salle.at(Salle::INDICE_QUALITE_AIR).toInt() <=
+                 Salle::IndiceDeQualiteAir::MAUVAIS);
+            if(salleAVerifier)
                 return;
             break;
     }
