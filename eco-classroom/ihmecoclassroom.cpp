@@ -1018,7 +1018,7 @@ int IHMEcoClassroom::simulerDonnee(QString typeDonnee)
     }
     else if(typeDonnee == ("co2"))
     {
-        return randInt(1300, 1500);
+        return randInt(400, 1500);
     }
     else if(typeDonnee == ("luminosite"))
     {
@@ -1026,15 +1026,15 @@ int IHMEcoClassroom::simulerDonnee(QString typeDonnee)
     }
     else if(typeDonnee == ("air"))
     {
-        return randInt(6, 6);
+        return randInt(1, 6);
     }
     else if(typeDonnee == ("fenetres"))
     {
-        return randInt(1, 1);
+        return randInt(0, 1);
     }
     else if(typeDonnee == ("lumieres"))
     {
-        return randInt(1, 1);
+        return randInt(0, 1);
     }
     else if(typeDonnee == ("occupation"))
     {
