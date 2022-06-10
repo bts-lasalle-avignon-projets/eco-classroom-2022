@@ -79,7 +79,8 @@ class Salle
      */
     enum IndiceDeConfort
     {
-        FROID = -3,
+        INCONNU = -4,
+        FROID   = -3,
         FRAIS,
         LEGEREMENT_FRAIS,
         NEUTRE,

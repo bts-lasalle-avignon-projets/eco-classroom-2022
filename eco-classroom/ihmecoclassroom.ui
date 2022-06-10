@@ -21,7 +21,7 @@
     <item>
      <widget class="QStackedWidget" name="fenetres">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="accueil">
        <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -1018,6 +1018,20 @@
            </layout>
           </item>
           <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLabel" name="labelCo2Max">
+              <property name="styleSheet">
+               <string notr="true">font-size :20px; color :red</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
            <spacer name="verticalSpacer_7">
             <property name="orientation">
              <enum>Qt::Vertical</enum>
@@ -1358,7 +1372,7 @@
      <x>0</x>
      <y>0</y>
      <width>611</width>
-     <height>39</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

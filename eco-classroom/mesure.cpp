@@ -30,8 +30,8 @@ Mesure::Mesure(QStringList mesure)
     {
         temperature = mesure.at(ChampsTableMesure::TEMPERATURE).toDouble();
         humidite    = mesure.at(ChampsTableMesure::HUMIDITE).toInt();
-        co2         = mesure.at(ChampsTableMesure::CO2).toInt();
-        luminosite  = mesure.at(ChampsTableMesure::LUMINOSITE).toInt();
+        // co2         = mesure.at(ChampsTableMesure::CO2).toInt();
+        luminosite = mesure.at(ChampsTableMesure::LUMINOSITE).toInt();
     }
 }
 
