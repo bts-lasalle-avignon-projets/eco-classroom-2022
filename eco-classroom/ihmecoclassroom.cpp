@@ -445,10 +445,12 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
             if(!salle.at(Salle::ETAT_OCCUPATION).toInt())
                 return;
             break;
-        case FiltreSalles::QUALITE_AIR: // Utilisables
-            /**
-             * @todo Ajouter la disponibilité
-             */
+            // Utilisables
+        case FiltreSalles::QUALITE_AIR:
+
+            if(!salle.at(Salle::ETAT_OCCUPATION).toInt())
+                return;
+            // qualité d'air
             if(salle.at(Salle::INDICE_QUALITE_AIR).toInt() >=
                Salle::IndiceDeQualiteAir::MAUVAIS)
                 return;
@@ -462,9 +464,9 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
                                    salle.at(Salle::ETAT_DES_LUMIERES).toInt());
             if(!salleAVerifier)
                 return;
-            /**
-             * @todo Ajouter la qualité d'air
-             */
+            if(salle.at(Salle::INDICE_QUALITE_AIR).toInt() <=
+               Salle::IndiceDeQualiteAir::MAUVAIS)
+                return;
             break;
     }
 
@@ -1016,7 +1018,7 @@ int IHMEcoClassroom::simulerDonnee(QString typeDonnee)
     }
     else if(typeDonnee == ("co2"))
     {
-        return randInt(400, 1500);
+        return randInt(1300, 1500);
     }
     else if(typeDonnee == ("luminosite"))
     {
@@ -1024,15 +1026,15 @@ int IHMEcoClassroom::simulerDonnee(QString typeDonnee)
     }
     else if(typeDonnee == ("air"))
     {
-        return randInt(1, 6);
+        return randInt(6, 6);
     }
     else if(typeDonnee == ("fenetres"))
     {
-        return randInt(0, 1);
+        return randInt(1, 1);
     }
     else if(typeDonnee == ("lumieres"))
     {
-        return randInt(0, 1);
+        return randInt(1, 1);
     }
     else if(typeDonnee == ("occupation"))
     {
