@@ -7,7 +7,6 @@
   - [Auteur](#auteur)
   - [Kanban](#kanban)
   - [Documentation du code](#documentation-du-code)
-  - [Captures d'écran](#captures-décran)
   - [Base de données](#base-de-données)
   - [Qt MQTT](#qt-mqtt)
     - [Installation](#installation)
@@ -25,7 +24,9 @@ Chaque salle sera équipée de deux modules connectés afin de détecter et mesu
 
 Les informations seront accessibles à partir d’une application PC permettant aux personnels d’assurer un suivi et d’intervenir en conséquence.
 
-L'objectif est de superviser l’ensemble des salles afin d’intervenir directement dans les salles concernées (aérer ou fermer les fenêtres, éteindre les lumières)
+L'objectif est de superviser l’ensemble des salles afin d’intervenir directement dans les salles concernées (aérer ou fermer les fenêtres, éteindre les lumières).
+
+![](images/eco-classroom.gif)
 
 ## Ressources logicielles
 
@@ -41,16 +42,25 @@ L'objectif est de superviser l’ensemble des salles afin d’intervenir directe
 
 ## Historique des versions
 
-- Version 0.2 : 24/05/2022
+- [Version 1.1](https://github.com/btssn-lasalle-84/eco-classroom-2022/releases/tag/1.1) : 11/06/2022
+  - filtrage avec critères de la liste des salles
+  - évaluation de l'indice de confort
+
+- [Version 1.0](https://github.com/btssn-lasalle-84/eco-classroom-2022/releases/tag/1.0) : 27/05/2022
+  - documentation du code
+
+- [Version 0.2](https://github.com/btssn-lasalle-84/eco-classroom-2022/releases/tag/0.2) : 24/05/2022
   - mise à jour des données des salles en temps réel
   - édition et suppression d'une salle
   - ajout automatique d'une nouvelle salle
   - affichage de la liste des salles à partir de critères de filtrage 
 
-- Version 0.1 : 03/04/2022
+- [Version 0.1](https://github.com/btssn-lasalle-84/eco-classroom-2022/releases/tag/0.1) : 03/04/2022
   - affichage de la liste des salles à partir de la base de données
   - affichage des informations d'une salle en la sélectionnant dans la liste
   - mise en oeuvre de la communication MQTT
+
+![](images/jira-versions-eco-classroom.png)
 
 ## Auteur
 
@@ -63,18 +73,6 @@ L'objectif est de superviser l’ensemble des salles afin d’intervenir directe
 ## Documentation du code
 
 https://btssn-lasalle-84.github.io/eco-classroom-2022/
-
-## Captures d'écran
-
-![](images/capture-liste-salle.png)
-
-![](images/capture-filtrage.png)
-
-![](images/capture-etat-salle.png)
-
-![](images/capture-edition-salle.png)
-
-![](images/capture-suppression.png)
 
 ## Base de données
 
@@ -292,3 +290,5 @@ Deux « _wild-cards_ » (jokers) sont utilisables dans les topics : `+` et `#` :
 
 - `+` : sujet unique. Par exemple : `salles/+/temperature` sera abonné pour recevoir la température de toutes les salles (`salles/B20/temperature`, `salles/B11/temperature`, ...
 - `#` : multi-sujets. Par exemple : `salles/#` sera abonné à toutes les données de toutes les salles (`salles/B20`, `salles/B11`, ...)
+
+©️ LaSalle Avignon 2022
