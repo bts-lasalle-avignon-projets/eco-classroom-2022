@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="eco-classroom.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">eco-classroom
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2022</div>
   </td>
@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 : <a class="el" href="class_i_h_m_eco_classroom.html#a4ab0115b91d321f14ce8cc52c8626223">IHMEcoClassroom</a>
 </li>
 <li>afficherMesureSalle()
-: <a class="el" href="class_i_h_m_eco_classroom.html#aedaca6ca3d8ef669f93f7b4d050fe1ea">IHMEcoClassroom</a>
+: <a class="el" href="class_i_h_m_eco_classroom.html#a74479f741b1aad6561649b9432a45754">IHMEcoClassroom</a>
 </li>
 <li>afficherSalleTable()
 : <a class="el" href="class_i_h_m_eco_classroom.html#a194d7c09e2a2ceeaf53f96a7b96dcf1d">IHMEcoClassroom</a>
@@ -135,6 +135,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_c"></a>- c -</h3><ul>
+<li>calculerConfortThermique()
+: <a class="el" href="class_i_h_m_eco_classroom.html#a96f895713dde6f403fcc8d36a863a1da">IHMEcoClassroom</a>
+</li>
 <li>ChampsTableMesure
 : <a class="el" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90">Mesure</a>
 </li>
@@ -155,9 +158,6 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 </li>
 <li>co2
 : <a class="el" href="class_mesure.html#a9e5a80191ac6d8518d5d7d8712d8d1f4">Mesure</a>
-</li>
-<li>CO2
-: <a class="el" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90a6e90f756872ea138a1697a9df2196883">Mesure</a>
 </li>
 <li>COLONNE_SALLE_DESCRIPTION
 : <a class="el" href="class_i_h_m_eco_classroom.html#ab00329bfb1bafd4641e589ce25152536a3a1a3105c10805f17dad291e2280d592">IHMEcoClassroom</a>
@@ -367,6 +367,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>IHMEcoClassroom()
 : <a class="el" href="class_i_h_m_eco_classroom.html#a4e597d79f14e6276e31bb2c783c89c15">IHMEcoClassroom</a>
 </li>
+<li>INCONNU
+: <a class="el" href="class_salle.html#a91e2f16abe54bc84dcf8a52e614a0c18acb3fddb19f9266f054e9e09f37b43d21">Salle</a>
+</li>
 <li>INDICE_DE_CONFORT
 : <a class="el" href="class_salle.html#a89d3b95e5cbee16ae8160ded1b4e565ba25f4a9c670336ea967d5545337b3cac2">Salle</a>
 </li>
@@ -533,11 +536,11 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
-<li>Salle()
-: <a class="el" href="class_salle.html#a4cb05b76fb2b5430ac2bf903b8f75906">Salle</a>
-</li>
 <li>salle
 : <a class="el" href="class_salle.html#aa2399bc34a2e68eefe9bb51ab30f6398">Salle</a>
+</li>
+<li>Salle()
+: <a class="el" href="class_salle.html#a4cb05b76fb2b5430ac2bf903b8f75906">Salle</a>
 </li>
 <li>salles
 : <a class="el" href="class_i_h_m_eco_classroom.html#a3fd571a3387651c01829660cb6ff2a2a">IHMEcoClassroom</a>
@@ -582,11 +585,11 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 
 
 <h3><a id="index_t"></a>- t -</h3><ul>
-<li>temperature
-: <a class="el" href="class_mesure.html#a6e8d883186aafbd75b02d5fb8b8d8464">Mesure</a>
-</li>
 <li>TEMPERATURE
 : <a class="el" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90aef3c6b8497cc2cd6b260c670b7bb849e">Mesure</a>
+</li>
+<li>temperature
+: <a class="el" href="class_mesure.html#a6e8d883186aafbd75b02d5fb8b8d8464">Mesure</a>
 </li>
 <li>TIEDE
 : <a class="el" href="class_salle.html#a91e2f16abe54bc84dcf8a52e614a0c18ae1d3a6b5b332167658dae34f5dc5ced2">Salle</a>
@@ -626,6 +629,9 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <li>validerEditionSalle()
 : <a class="el" href="class_i_h_m_eco_classroom.html#a42045f78ef93d6f29186e9f36669ed2d">IHMEcoClassroom</a>
 </li>
+<li>verifierSeuilCO2()
+: <a class="el" href="class_i_h_m_eco_classroom.html#a5c78459d7e3b396cd1f3940aca9acf97">IHMEcoClassroom</a>
+</li>
 </ul>
 
 
@@ -652,7 +658,7 @@ $(document).ready(function(){initNavTree('functions.html',''); initResizable(); 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 26 Mai 2022 08:09:57 pour eco-classroom par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Samedi 11 Juin 2022 10:08:52 pour eco-classroom par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
   </ul>
 </div>
 </body>

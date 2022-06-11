@@ -15,6 +15,7 @@ var class_salle =
       [ "ETAT_OCCUPATION", "class_salle.html#a89d3b95e5cbee16ae8160ded1b4e565bad0ff4c0a050bc6bc919a4835bb5afabd", null ]
     ] ],
     [ "IndiceDeConfort", "class_salle.html#a91e2f16abe54bc84dcf8a52e614a0c18", [
+      [ "INCONNU", "class_salle.html#a91e2f16abe54bc84dcf8a52e614a0c18acb3fddb19f9266f054e9e09f37b43d21", null ],
       [ "FROID", "class_salle.html#a91e2f16abe54bc84dcf8a52e614a0c18abb571a09adc36c44a06fb4ac3cf41d43", null ],
       [ "FRAIS", "class_salle.html#a91e2f16abe54bc84dcf8a52e614a0c18a540b18c3aebef7199a560ef10c8462a9", null ],
       [ "LEGEREMENT_FRAIS", "class_salle.html#a91e2f16abe54bc84dcf8a52e614a0c18acb2daeb6d5b607613899d41933c40a20", null ],

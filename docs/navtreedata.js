@@ -30,6 +30,7 @@ var NAVTREE =
     [ "README", "page__r_e_a_d_m_e.html", null ],
     [ "A propos", "page_about.html", null ],
     [ "Licence GPL", "page_licence.html", null ],
+    [ "Notes sur la qualité de l'air et le confort thermique", "md__home_tv__documents_git_projets-2022_eco-classroom-2022__n_o_t_e_s.html", null ],
     [ "Le projet eco-classroom-2022", "md__home_tv__documents_git_projets-2022_eco-classroom-2022__r_e_a_d_m_e.html", null ],
     [ "Liste des choses à faire", "todo.html", null ],
     [ "Classes", "annotated.html", [

@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="eco-classroom.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">eco-classroom
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2022</div>
   </td>
@@ -116,7 +116,6 @@ Types publics</h2></td></tr>
 <a class="el" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90a822498fc57d9357412c0b51237cd2c86">LUMINOSITE</a>, 
 <br />
 &#160;&#160;<a class="el" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90a3867d9c0c33c3cfa3643ba9a2112e6aa">HUMIDITE</a>, 
-<a class="el" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90a6e90f756872ea138a1697a9df2196883">CO2</a>, 
 <a class="el" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90aa23b1618ff17c56d6ba0e2c891dc1c81">HORODATAGE</a>
 <br />
  }</td></tr>
@@ -203,8 +202,6 @@ Attributs privés</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a7e13ade788257a7c7b129aa8104b6f90a3867d9c0c33c3cfa3643ba9a2112e6aa"></a>HUMIDITE&#160;</td><td class="fielddoc"><p>Emplacement de l'humidité dans la salle. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a7e13ade788257a7c7b129aa8104b6f90a6e90f756872ea138a1697a9df2196883"></a>CO2&#160;</td><td class="fielddoc"><p>Emplacement du taux de CO2 dans la salle. </p>
-</td></tr>
 <tr><td class="fieldname"><a id="a7e13ade788257a7c7b129aa8104b6f90aa23b1618ff17c56d6ba0e2c891dc1c81"></a>HORODATAGE&#160;</td><td class="fielddoc"><p>Emplacement de l'horodatage de la mesure. </p>
 </td></tr>
 </table>
@@ -216,8 +213,8 @@ Attributs privés</h2></td></tr>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90aef3c6b8497cc2cd6b260c670b7bb849e">TEMPERATURE</a>, </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90a822498fc57d9357412c0b51237cd2c86">LUMINOSITE</a>,  </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <a class="code" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90a3867d9c0c33c3cfa3643ba9a2112e6aa">HUMIDITE</a>,    </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90a6e90f756872ea138a1697a9df2196883">CO2</a>,         </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90aa23b1618ff17c56d6ba0e2c891dc1c81">HORODATAGE</a>   </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="comment">// CO2,         //!&lt; Emplacement du taux de CO2 dans la salle</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90aa23b1618ff17c56d6ba0e2c891dc1c81">HORODATAGE</a> </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    };</div>
 </div><!-- fragment -->
 </div>
@@ -278,12 +275,12 @@ Attributs privés</h2></td></tr>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <a class="code" href="class_mesure.html#a6e8d883186aafbd75b02d5fb8b8d8464">temperature</a> = mesure.at(ChampsTableMesure::TEMPERATURE).toDouble();</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="class_mesure.html#ad64032ef98b7a9ced2cf142c36309f12">humidite</a>    = mesure.at(ChampsTableMesure::HUMIDITE).toInt();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="class_mesure.html#a9e5a80191ac6d8518d5d7d8712d8d1f4">co2</a>         = mesure.at(ChampsTableMesure::CO2).toInt();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="class_mesure.html#a0c50c375712f9904b46a2dad80554ff6">luminosite</a>  = mesure.at(ChampsTableMesure::LUMINOSITE).toInt();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="comment">// co2         = mesure.at(ChampsTableMesure::CO2).toInt();</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="class_mesure.html#a0c50c375712f9904b46a2dad80554ff6">luminosite</a> = mesure.at(ChampsTableMesure::LUMINOSITE).toInt();</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Références <a class="el" href="mesure_8h_source.html#l00022">co2</a>, <a class="el" href="mesure_8h_source.html#l00021">humidite</a>, <a class="el" href="mesure_8h_source.html#l00023">luminosite</a>, et <a class="el" href="mesure_8h_source.html#l00020">temperature</a>.</p>
+<p class="reference">Références <a class="el" href="mesure_8h_source.html#l00021">humidite</a>, <a class="el" href="mesure_8h_source.html#l00023">luminosite</a>, et <a class="el" href="mesure_8h_source.html#l00020">temperature</a>.</p>
 
 </div>
 </div>
@@ -637,7 +634,7 @@ Attributs privés</h2></td></tr>
 
 <p class="definition">Définition à la ligne <a class="el" href="mesure_8h_source.html#l00022">22</a> du fichier <a class="el" href="mesure_8h_source.html">mesure.h</a>.</p>
 
-<p class="reference">Référencé par <a class="el" href="mesure_8cpp_source.html#l00087">getCo2()</a>, <a class="el" href="mesure_8cpp_source.html#l00027">Mesure()</a>, et <a class="el" href="mesure_8cpp_source.html#l00123">setCo2()</a>.</p>
+<p class="reference">Référencé par <a class="el" href="mesure_8cpp_source.html#l00087">getCo2()</a>, et <a class="el" href="mesure_8cpp_source.html#l00123">setCo2()</a>.</p>
 
 </div>
 </div>
@@ -736,7 +733,6 @@ Attributs privés</h2></td></tr>
 <div class="ttc" id="aclass_mesure_html_a7e13ade788257a7c7b129aa8104b6f90aa23b1618ff17c56d6ba0e2c891dc1c81"><div class="ttname"><a href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90aa23b1618ff17c56d6ba0e2c891dc1c81">Mesure::HORODATAGE</a></div><div class="ttdeci">@ HORODATAGE</div><div class="ttdoc">Emplacement de l'horodatage de la mesure.</div><div class="ttdef"><b>Definition:</b> <a href="mesure_8h_source.html#l00049">mesure.h:49</a></div></div>
 <div class="ttc" id="aclass_mesure_html_a0c50c375712f9904b46a2dad80554ff6"><div class="ttname"><a href="class_mesure.html#a0c50c375712f9904b46a2dad80554ff6">Mesure::luminosite</a></div><div class="ttdeci">int luminosite</div><div class="ttdoc">La luminosite dans la salle.</div><div class="ttdef"><b>Definition:</b> <a href="mesure_8h_source.html#l00023">mesure.h:23</a></div></div>
 <div class="ttc" id="aclass_mesure_html_a7e13ade788257a7c7b129aa8104b6f90aaf8b6eb8620bffa1a857890cedfc6c38"><div class="ttname"><a href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90aaf8b6eb8620bffa1a857890cedfc6c38">Mesure::ID</a></div><div class="ttdeci">@ ID</div><div class="ttdoc">Emplacement de l'id de la mesure.</div><div class="ttdef"><b>Definition:</b> <a href="mesure_8h_source.html#l00043">mesure.h:43</a></div></div>
-<div class="ttc" id="aclass_mesure_html_a7e13ade788257a7c7b129aa8104b6f90a6e90f756872ea138a1697a9df2196883"><div class="ttname"><a href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90a6e90f756872ea138a1697a9df2196883">Mesure::CO2</a></div><div class="ttdeci">@ CO2</div><div class="ttdoc">Emplacement du taux de CO2 dans la salle.</div><div class="ttdef"><b>Definition:</b> <a href="mesure_8h_source.html#l00048">mesure.h:48</a></div></div>
 <div class="ttc" id="aclass_mesure_html_a7e13ade788257a7c7b129aa8104b6f90aef3c6b8497cc2cd6b260c670b7bb849e"><div class="ttname"><a href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90aef3c6b8497cc2cd6b260c670b7bb849e">Mesure::TEMPERATURE</a></div><div class="ttdeci">@ TEMPERATURE</div><div class="ttdoc">Emplacement de la température dans la salle.</div><div class="ttdef"><b>Definition:</b> <a href="mesure_8h_source.html#l00045">mesure.h:45</a></div></div>
 <div class="ttc" id="aclass_mesure_html_a9e5a80191ac6d8518d5d7d8712d8d1f4"><div class="ttname"><a href="class_mesure.html#a9e5a80191ac6d8518d5d7d8712d8d1f4">Mesure::co2</a></div><div class="ttdeci">int co2</div><div class="ttdoc">Le taux de CO2 dans la salle.</div><div class="ttdef"><b>Definition:</b> <a href="mesure_8h_source.html#l00022">mesure.h:22</a></div></div>
 <div class="ttc" id="aclass_mesure_html_a7e13ade788257a7c7b129aa8104b6f90a3867d9c0c33c3cfa3643ba9a2112e6aa"><div class="ttname"><a href="class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90a3867d9c0c33c3cfa3643ba9a2112e6aa">Mesure::HUMIDITE</a></div><div class="ttdeci">@ HUMIDITE</div><div class="ttdoc">Emplacement de l'humidité dans la salle.</div><div class="ttdef"><b>Definition:</b> <a href="mesure_8h_source.html#l00047">mesure.h:47</a></div></div>
@@ -747,7 +743,7 @@ Attributs privés</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_mesure.html">Mesure</a></li>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 26 Mai 2022 08:09:57 pour eco-classroom par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Samedi 11 Juin 2022 10:08:52 pour eco-classroom par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
   </ul>
 </div>
 </body>
