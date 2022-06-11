@@ -433,7 +433,7 @@ void IHMEcoClassroom::filtrerSalles()
  */
 void IHMEcoClassroom::afficherSalleTable(QStringList salle)
 {
-    qDebug() << Q_FUNC_INFO << salle;
+    // qDebug() << Q_FUNC_INFO << salle;
 
     switch(ui->listeSallesDetectees->currentIndex())
     {
@@ -445,9 +445,8 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
             if(!salle.at(Salle::ETAT_OCCUPATION).toInt())
                 return;
             break;
-            // Utilisables
-        case FiltreSalles::QUALITE_AIR:
-
+        case FiltreSalles::QUALITE_AIR: // Utilisables
+            // disponibles
             if(!salle.at(Salle::ETAT_OCCUPATION).toInt())
                 return;
             // qualité d'air
@@ -456,17 +455,14 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
                 return;
             break;
         case FiltreSalles::A_VERIFIER:
-            // disponibles et les lumières sont alumée ?
-            bool sallesAVerfier = (salle.at(Salle::ETAT_OCCUPATION).toInt() &&
-                                   salle.at(Salle::ETAT_DES_LUMIERES).toInt());
-            if(!sallesAVerfier)
-                return;
-            // fermée ou la qualité d'air n'est pas bonne ?
-            bool salleAVerifier =
-              (!salle.at(Salle::ETAT_DES_FENETRES).toInt() &&
-               salle.at(Salle::INDICE_QUALITE_AIR).toInt() <=
-                 Salle::IndiceDeQualiteAir::MAUVAIS);
-            if(salleAVerifier)
+            // disponibles et fenêtres ouvertes ou lumières allumée
+            // ou la qualité d'air n'est pas bonne et fenêtres fermées
+            if(!((salle.at(Salle::ETAT_OCCUPATION).toInt() &&
+                  (salle.at(Salle::ETAT_DES_LUMIERES).toInt() ||
+                   salle.at(Salle::ETAT_DES_FENETRES).toInt())) ||
+                 (salle.at(Salle::INDICE_QUALITE_AIR).toInt() >=
+                    Salle::IndiceDeQualiteAir::MAUVAIS &&
+                  !salle.at(Salle::ETAT_DES_FENETRES).toInt())))
                 return;
             break;
     }
