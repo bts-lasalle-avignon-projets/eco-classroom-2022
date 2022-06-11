@@ -433,7 +433,7 @@ void IHMEcoClassroom::filtrerSalles()
  */
 void IHMEcoClassroom::afficherSalleTable(QStringList salle)
 {
-    qDebug() << Q_FUNC_INFO << salle;
+    // qDebug() << Q_FUNC_INFO << salle;
 
     switch(ui->listeSallesDetectees->currentIndex())
     {
@@ -446,25 +446,24 @@ void IHMEcoClassroom::afficherSalleTable(QStringList salle)
                 return;
             break;
         case FiltreSalles::QUALITE_AIR: // Utilisables
-            /**
-             * @todo Ajouter la disponibilité
-             */
+            // disponibles
+            if(!salle.at(Salle::ETAT_OCCUPATION).toInt())
+                return;
+            // qualité d'air
             if(salle.at(Salle::INDICE_QUALITE_AIR).toInt() >=
                Salle::IndiceDeQualiteAir::MAUVAIS)
                 return;
             break;
         case FiltreSalles::A_VERIFIER:
-            // occupée ?
-            if(!salle.at(Salle::ETAT_OCCUPATION).toInt())
+            // disponibles et fenêtres ouvertes ou lumières allumée
+            // ou la qualité d'air n'est pas bonne et fenêtres fermées
+            if(!((salle.at(Salle::ETAT_OCCUPATION).toInt() &&
+                  (salle.at(Salle::ETAT_DES_LUMIERES).toInt() ||
+                   salle.at(Salle::ETAT_DES_FENETRES).toInt())) ||
+                 (salle.at(Salle::INDICE_QUALITE_AIR).toInt() >=
+                    Salle::IndiceDeQualiteAir::MAUVAIS &&
+                  !salle.at(Salle::ETAT_DES_FENETRES).toInt())))
                 return;
-            // ouverte ou allumée ?
-            bool salleAVerifier = (salle.at(Salle::ETAT_DES_FENETRES).toInt() ||
-                                   salle.at(Salle::ETAT_DES_LUMIERES).toInt());
-            if(!salleAVerifier)
-                return;
-            /**
-             * @todo Ajouter la qualité d'air
-             */
             break;
     }
 
