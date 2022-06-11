@@ -6,7 +6,6 @@ var class_mesure =
       [ "TEMPERATURE", "class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90aef3c6b8497cc2cd6b260c670b7bb849e", null ],
       [ "LUMINOSITE", "class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90a822498fc57d9357412c0b51237cd2c86", null ],
       [ "HUMIDITE", "class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90a3867d9c0c33c3cfa3643ba9a2112e6aa", null ],
-      [ "CO2", "class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90a6e90f756872ea138a1697a9df2196883", null ],
       [ "HORODATAGE", "class_mesure.html#a7e13ade788257a7c7b129aa8104b6f90aa23b1618ff17c56d6ba0e2c891dc1c81", null ]
     ] ],
     [ "Mesure", "class_mesure.html#a661e5b9944e67670ed31b06cbcc924f1", null ],

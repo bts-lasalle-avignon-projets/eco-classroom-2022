@@ -27,7 +27,7 @@
   <td id="projectlogo"><img alt="Logo" src="eco-classroom.png"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">eco-classroom
-   &#160;<span id="projectnumber">1.0</span>
+   &#160;<span id="projectnumber">1.1</span>
    </div>
    <div id="projectbrief">BTS SNIR LaSalle Avignon 2022</div>
   </td>
@@ -95,7 +95,7 @@ $(document).ready(function(){initNavTree('md__home_tv__documents_git_projets-202
 <li><a href="#historique-des-versions">Historique des versions</a></li>
 <li><a href="#auteur">Auteur</a></li>
 <li><a href="#kanban">Kanban</a></li>
-<li><a href="#captures-décran">Captures d'écran</a></li>
+<li><a href="#documentation-du-code">Documentation du code</a></li>
 <li><a href="#base-de-données">Base de données</a></li>
 <li><a href="#qt-mqtt">Qt MQTT</a><ul>
 <li><a href="#installation">Installation</a></li>
@@ -114,8 +114,11 @@ $(document).ready(function(){initNavTree('md__home_tv__documents_git_projets-202
 <li>état ouverture/fermeture des fenêtres et l’état allumé/éteint des lumières</li>
 </ul>
 <p>Les informations seront accessibles à partir d’une application PC permettant aux personnels d’assurer un suivi et d’intervenir en conséquence.</p>
-<p>L'objectif est de superviser l’ensemble des salles afin d’intervenir directement dans les salles concernées (aérer ou fermer les fenêtres, éteindre les lumières)</p>
-<h1>Ressources logicielles</h1>
+<p>L'objectif est de superviser l’ensemble des salles afin d’intervenir directement dans les salles concernées (aérer ou fermer les fenêtres, éteindre les lumières).</p>
+<div class="image">
+<img src="eco-classroom.gif" alt=""/>
+</div>
+   <h1>Ressources logicielles</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Désignation </th><th class="markdownTableHeadCenter">Caractéristiques  </th></tr>
@@ -136,43 +139,41 @@ $(document).ready(function(){initNavTree('md__home_tv__documents_git_projets-202
 </table>
 <h1>Historique des versions</h1>
 <ul>
-<li>Version 0.2 : 24/05/2022<ul>
+<li><a href="https://github.com/btssn-lasalle-84/eco-classroom-2022/releases/tag/1.1">Version 1.1</a> : 11/06/2022<ul>
+<li>filtrage avec critères de la liste des salles</li>
+<li>évaluation de l'indice de confort</li>
+</ul>
+</li>
+<li><a href="https://github.com/btssn-lasalle-84/eco-classroom-2022/releases/tag/1.0">Version 1.0</a> : 27/05/2022<ul>
+<li>documentation du code</li>
+</ul>
+</li>
+<li><a href="https://github.com/btssn-lasalle-84/eco-classroom-2022/releases/tag/0.2">Version 0.2</a> : 24/05/2022<ul>
 <li>mise à jour des données des salles en temps réel</li>
 <li>édition et suppression d'une salle</li>
 <li>ajout automatique d'une nouvelle salle</li>
 <li>affichage de la liste des salles à partir de critères de filtrage</li>
 </ul>
 </li>
-<li>Version 0.1 : 03/04/2022<ul>
+<li><a href="https://github.com/btssn-lasalle-84/eco-classroom-2022/releases/tag/0.1">Version 0.1</a> : 03/04/2022<ul>
 <li>affichage de la liste des salles à partir de la base de données</li>
 <li>affichage des informations d'une salle en la sélectionnant dans la liste</li>
 <li>mise en oeuvre de la communication MQTT</li>
 </ul>
 </li>
 </ul>
-<h1>Auteur</h1>
+<div class="image">
+<img src="jira-versions-eco-classroom.png" alt=""/>
+</div>
+   <h1>Auteur</h1>
 <ul>
 <li>Amine Zeryouhi &lt;<a href="#" onclick="location.href='mai'+'lto:'+'ami'+'nz'+'er2'+'02'+'2@g'+'ma'+'il.'+'co'+'m'; return false;">aminz<span style="display: none;">.nosp@m.</span>er20<span style="display: none;">.nosp@m.</span>22@gm<span style="display: none;">.nosp@m.</span>ail.<span style="display: none;">.nosp@m.</span>com</a>&gt;</li>
 </ul>
 <h1>Kanban</h1>
 <p><a href="https://github.com/btssn-lasalle-84/eco-classroom-2022/projects/1">eco-classroom-2022</a></p>
-<h1>Captures d'écran</h1>
-<div class="image">
-<img src="capture-liste-salle.png" alt=""/>
-</div>
-   <div class="image">
-<img src="capture-filtrage.png" alt=""/>
-</div>
-   <div class="image">
-<img src="capture-etat-salle.png" alt=""/>
-</div>
-   <div class="image">
-<img src="capture-edition-salle.png" alt=""/>
-</div>
-   <div class="image">
-<img src="capture-suppression.png" alt=""/>
-</div>
-   <h1>Base de données</h1>
+<h1>Documentation du code</h1>
+<p><a href="https://btssn-lasalle-84.github.io/eco-classroom-2022/">https://btssn-lasalle-84.github.io/eco-classroom-2022/</a></p>
+<h1>Base de données</h1>
 <p>L'application Qt embarque une base de données SQLite <code>eco-classroom.db</code>.</p>
 <div class="image">
 <img src="sqlite-eco-classroom-v0.2.png" alt=""/>
@@ -343,8 +344,9 @@ $(document).ready(function(){initNavTree('md__home_tv__documents_git_projets-202
 </div><!-- fragment --><p>Deux « <em>wild-cards</em> » (jokers) sont utilisables dans les topics : <code>+</code> et <code>#</code> :</p>
 <ul>
 <li><code>+</code> : sujet unique. Par exemple : <code>salles/+/temperature</code> sera abonné pour recevoir la température de toutes les salles (<code>salles/B20/temperature</code>, <code>salles/B11/temperature</code>, ...</li>
-<li><code>#</code> : multi-sujets. Par exemple : <code>salles/#</code> sera abonné à toutes les données de toutes les salles (<code>salles/B20</code>, <code>salles/B11</code>, ...) </li>
+<li><code>#</code> : multi-sujets. Par exemple : <code>salles/#</code> sera abonné à toutes les données de toutes les salles (<code>salles/B20</code>, <code>salles/B11</code>, ...)</li>
 </ul>
+<p>©️ LaSalle Avignon 2022 </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
@@ -352,7 +354,7 @@ $(document).ready(function(){initNavTree('md__home_tv__documents_git_projets-202
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Jeudi 26 Mai 2022 08:09:57 pour eco-classroom par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
+    <li class="footer"><img class="footer" src="lasalle-logo.png" height="31" alt="La Salle Avignon"/>&nbsp;<b>Campus La Salle Avignon</b>&nbsp;-&nbsp;9 Rue Notre Dame des 7 douleurs&nbsp;-&nbsp;BP 50165&nbsp;-&nbsp;84008 Avignon&nbsp;-&nbsp;Généré le Samedi 11 Juin 2022 10:08:52 pour eco-classroom par&nbsp;<a href="https://www.doxygen.org/index.html">doxygen</a>&nbsp;1.8.17&nbsp;</li>
   </ul>
 </div>
 </body>

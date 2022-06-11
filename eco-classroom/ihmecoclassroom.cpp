@@ -10,7 +10,7 @@
  * @file ihmecoclassroom.cpp
  * @brief Définition de la classe IHMEcoClassroom
  * @author Zeryouhi Mohamed Amine
- * @version 0.2
+ * @version 1.1
  */
 
 /**
@@ -204,9 +204,10 @@ void IHMEcoClassroom::reinitialiserAffichageMesureSalle()
  * @brief IHMEcoClassroom::afficherMesureSalle
  * @param mesureSalle
  */
-void IHMEcoClassroom::afficherMesureSalle(QStringList mesureSalle)
+void IHMEcoClassroom::afficherMesureSalle(QStringList mesureSalle,
+                                          QString     mesureCo2Salle)
 {
-    ui->labelCo2Salle->setText(mesureSalle.at(Mesure::CO2) + " ppm");
+    ui->labelCo2Salle->setText(mesureCo2Salle + " ppm");
     ui->labelCo2->setVisible(true);
     ui->labelCo2Salle->setVisible(true);
     ui->labelTemperatureSalle->setText(mesureSalle.at(Mesure::TEMPERATURE) +
@@ -260,6 +261,13 @@ void IHMEcoClassroom::afficheInformationsSalle(int index)
     ui->labelOccupationSalle->setText(estOccupe);
 }
 
+/**
+ * @brief IHMEcoClassroom::mettreAJourDonnee
+ * @param donnee
+ * @param typeDonnee
+ * @param idSalle
+ * @return
+ */
 bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
                                         QString typeDonnee,
                                         QString idSalle)
@@ -274,18 +282,14 @@ bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
                   "', horodatage='" +
                   horodatage.toString("yyyy-MM-dd HH:mm:ss") +
                   "' WHERE idSalle=" + idSalle + ";";
+        calculerConfortThermique(idSalle);
     }
     else if(typeDonnee == ("humidite"))
     {
         requete = "UPDATE Mesure SET humidite='" + donnee + "', horodatage='" +
                   horodatage.toString("yyyy-MM-dd HH:mm:ss") +
                   "' WHERE idSalle=" + idSalle + ";";
-    }
-    else if(typeDonnee == ("co2"))
-    {
-        requete = "UPDATE Mesure SET co2='" + donnee + "', horodatage='" +
-                  horodatage.toString("yyyy-MM-dd HH:mm:ss") +
-                  "' WHERE idSalle=" + idSalle + ";";
+        calculerConfortThermique(idSalle);
     }
     else if(typeDonnee == ("luminosite"))
     {
@@ -319,6 +323,12 @@ bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
         requete = "UPDATE Salle SET estOccupe='" + donnee +
                   "' WHERE idSalle=" + idSalle + ";";
     }
+    else if(typeDonnee == ("co2"))
+    {
+        requete = "INSERT INTO MesureCo2(co2, idSalle, horodatage) VALUES ('" +
+                  donnee + "', '" + idSalle + "', '" +
+                  horodatage.toString("yyyy-MM-dd HH:mm:ss") + "');";
+    }
     else
     {
         return false;
@@ -330,6 +340,11 @@ bool IHMEcoClassroom::mettreAJourDonnee(QString donnee,
     return retour;
 }
 
+/**
+ * @brief IHMEcoClassroom::insererNouvelleSalle
+ * @param nomSalle
+ * @return
+ */
 QString IHMEcoClassroom::insererNouvelleSalle(QString nomSalle)
 {
     qDebug() << Q_FUNC_INFO << nomSalle << "nouvelle salle détectée !";
@@ -346,6 +361,11 @@ QString IHMEcoClassroom::insererNouvelleSalle(QString nomSalle)
             qDebug() << Q_FUNC_INFO << nomSalle << idSalle;
             QDateTime horodatage = QDateTime::currentDateTime();
             requete = "INSERT INTO Mesure(idSalle, horodatage) VALUES ('" +
+                      idSalle + "', '" +
+                      horodatage.toString("yyyy-MM-dd HH:mm:ss") + "');";
+            retour = baseDeDonnees->executer(requete);
+
+            requete = "INSERT INTO MesureCo2(idSalle, horodatage) VALUES ('" +
                       idSalle + "', '" +
                       horodatage.toString("yyyy-MM-dd HH:mm:ss") + "');";
             retour = baseDeDonnees->executer(requete);
@@ -623,27 +643,131 @@ void IHMEcoClassroom::selectionner(QModelIndex index)
     QString idSalle   = salles.at(index.row()).at(Salle::ID);
     salleSelectionnee = index.row();
     QStringList mesureSalle;
-    QString     requete =
-      "SELECT * FROM Mesure WHERE Mesure.idSalle=" + idSalle + "";
-    bool retour;
-    retour = baseDeDonnees->recuperer(requete, mesureSalle);
-    qDebug() << Q_FUNC_INFO << mesureSalle;
+    QString     mesureCo2Salle;
+    QString     requete;
 
-    // Affiche la mesure effectuée dans cette salle
+    // Récupére les mesures de cette salle
+    requete     = "SELECT * FROM Mesure WHERE Mesure.idSalle=" + idSalle + "";
+    bool retour = baseDeDonnees->recuperer(requete, mesureSalle);
+    qDebug() << Q_FUNC_INFO << mesureSalle;
     if(retour)
     {
-        afficherMesureSalle(mesureSalle);
+        // Récupére la dernière mesure de CO2
+        requete =
+          "SELECT co2 FROM MesureCo2 WHERE MesureCo2.idSalle=" + idSalle +
+          " AND horodatage IN (SELECT max(horodatage) FROM MesureCo2" +
+          " WHERE MesureCo2.idSalle=" + idSalle + ")";
+        retour = baseDeDonnees->recuperer(requete, mesureCo2Salle);
+        qDebug() << Q_FUNC_INFO << "mesureCo2Salle" << mesureCo2Salle;
+        verifierSeuilCO2(mesureCo2Salle.toInt());
+
+        // Affiche les mesures effectuées dans cette salle
+        afficherMesureSalle(mesureSalle, mesureCo2Salle);
     }
     else
     {
         reinitialiserAffichageMesureSalle();
     }
 
+    calculerConfortThermique(salles.at(salleSelectionnee).at(Salle::ID));
+
     // Affiche les informations de la salle
     afficheInformationsSalle(index.row());
 
     // Affiche la fenêtre de la salle
     afficherFenetre(IHMEcoClassroom::Fenetre::InformationsSalle);
+}
+
+/**
+ * @brief IHMEcoClassroom::calculerConfortThermique
+ */
+void IHMEcoClassroom::calculerConfortThermique(QString idSalle)
+{
+    qDebug() << Q_FUNC_INFO << "idSalle" << idSalle;
+    QString requete;
+    QString mesureTemperature;
+    QString mesureHumidite;
+    bool    retour;
+
+    // Récupérer les mesures de températures et d'humidité
+    requete =
+      "SELECT temperature FROM Mesure WHERE Mesure.idSalle=" + idSalle + "";
+    retour = baseDeDonnees->recuperer(requete, mesureTemperature);
+    qDebug() << Q_FUNC_INFO << "mesuretemperature" << mesureTemperature;
+
+    requete =
+      "SELECT humidite FROM Mesure WHERE Mesure.idSalle=" + idSalle + "";
+    retour = baseDeDonnees->recuperer(requete, mesureHumidite);
+    qDebug() << Q_FUNC_INFO << "mesurehumidite" << mesureHumidite;
+    if(retour)
+    {
+        // Calculer l'indice de Thom
+        double temperature = mesureTemperature.toDouble();
+        double humidite    = mesureHumidite.toDouble();
+
+        double thom =
+          temperature - (0.55 - 0.0055 * humidite) * (temperature - 14.5);
+        qDebug() << Q_FUNC_INFO << "thom" << thom;
+
+        // Déterminer l'indice de niveau de confort
+        Salle::IndiceDeConfort indiceDeConfort =
+          (Salle::IndiceDeConfort::INCONNU);
+
+        if(thom < SEUIL_THOM_FROID)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::FROID);
+        }
+        else if(thom >= SEUIL_THOM_FROID && thom < SEUIL_THOM_FRAIS)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::FRAIS);
+        }
+        else if(thom >= SEUIL_THOM_FRAIS && thom < SEUIL_THOM_LEGEREMENT_FRAIS)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::LEGEREMENT_FRAIS);
+        }
+        else if(thom >= SEUIL_THOM_LEGEREMENT_FRAIS && thom < SEUIL_THOM_NEUTRE)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::NEUTRE);
+        }
+        else if(thom >= SEUIL_THOM_NEUTRE && thom < SEUIL_THOM_LEGEREMENT_TIEDE)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::LEGEREMENT_TIEDE);
+        }
+        else if(thom >= SEUIL_THOM_LEGEREMENT_TIEDE && thom < SEUIL_THOM_TIEDE)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::TIEDE);
+        }
+        else if(thom >= SEUIL_THOM_TIEDE)
+        {
+            indiceDeConfort = (Salle::IndiceDeConfort::CHAUD);
+        }
+
+        qDebug() << Q_FUNC_INFO << "indiceDeConfort" << indiceDeConfort;
+
+        QString requete = "UPDATE Salle SET idIndiceConfort='" +
+                          QString::number(indiceDeConfort) +
+                          "' WHERE idSalle=" + idSalle + ";";
+
+        // Enregistrer la nouvelle donnée dans la base de données
+        retour = baseDeDonnees->executer(requete);
+    }
+}
+
+/**
+ * @brief IHMEcoClassroom::verifierSeuilCO2
+ * @param int mesureCo2Salle
+ */
+void IHMEcoClassroom::verifierSeuilCO2(int mesureCo2Salle)
+{
+    qDebug() << Q_FUNC_INFO << "mesureCo2Salle" << mesureCo2Salle
+             << "SEUIL_MAX_CO2" << SEUIL_MAX_CO2;
+
+    if(mesureCo2Salle >= SEUIL_MAX_CO2)
+    {
+        ui->labelCo2Max->setText("Attention, la qualité d'air dans cette "
+                                 "salle dépasse le seuil réglementaire. "
+                                 "Il faut aérer.");
+    }
 }
 
 /**
@@ -748,6 +872,13 @@ void IHMEcoClassroom::validerEditionSalle()
     }
 }
 
+/**
+ * @brief Cette méthode permet de traiter la trams reçu
+ * @param nomSalle
+ * @param typeDonnee
+ * @param donnee
+ * @fn IHMEcoClassroom::traiterNouvelleDonnee
+ */
 void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
                                             QString typeDonnee,
                                             QString donnee)
@@ -770,12 +901,17 @@ void IHMEcoClassroom::traiterNouvelleDonnee(QString nomSalle,
             if(index != -1 && index == salleSelectionnee)
             {
                 QStringList mesureSalle;
+                QString     mesureCo2Salle;
                 QString     requete =
                   "SELECT * FROM Mesure WHERE Mesure.idSalle=" + idSalle + "";
-                retour = baseDeDonnees->recuperer(requete, mesureSalle);
+                retour  = baseDeDonnees->recuperer(requete, mesureSalle);
+                requete = "SELECT * FROM MesureCo2 WHERE MesureCo2.idSalle =" +
+                          idSalle + "";
+                retour = baseDeDonnees->recuperer(requete, mesureCo2Salle);
                 if(retour)
                 {
-                    afficherMesureSalle(mesureSalle);
+                    verifierSeuilCO2(mesureCo2Salle.toInt());
+                    afficherMesureSalle(mesureSalle, mesureCo2Salle);
                 }
                 afficheInformationsSalle(index);
             }
@@ -853,7 +989,6 @@ void IHMEcoClassroom::simuler()
     nomsDeTopic << "temperature"
                 << "humidite"
                 << "co2"
-                << "confort"
                 << "luminosite"
                 << "air"
                 << "fenetres"
@@ -882,10 +1017,6 @@ int IHMEcoClassroom::simulerDonnee(QString typeDonnee)
     else if(typeDonnee == ("co2"))
     {
         return randInt(400, 1500);
-    }
-    else if(typeDonnee == ("confort"))
-    {
-        return randInt(-3, 3);
     }
     else if(typeDonnee == ("luminosite"))
     {

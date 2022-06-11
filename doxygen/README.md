@@ -11,7 +11,7 @@
 
 \author Amine Zeryouhi <<aminzer2022@gmail.com>>
 \date 2022
-\version 1.0
+\version 1.1
 \see https://github.com/btssn-lasalle-84/eco-classroom-2022
 
 
@@ -34,7 +34,7 @@ L'objectif est de superviser l’ensemble des salles afin d’intervenir directe
 
 \author Amine Zeryouhi <<aminzer2022@gmail.com>>
 \date 2022
-\version 1.0
+\version 1.1
 \see https://github.com/btssn-lasalle-84/eco-classroom-2022
 
 
@@ -42,7 +42,7 @@ L'objectif est de superviser l’ensemble des salles afin d’intervenir directe
 
 \author Amine Zeryouhi <<aminzer2022@gmail.com>>
 \date 2022
-\version 1.0
+\version 1.1
 \see https://github.com/btssn-lasalle-84/eco-classroom-2022
 
 

@@ -5,7 +5,7 @@
  * @file ihmecoclassroom.h
  * @brief Déclaration de la classe IHMEcoClassroom
  * @author Zeryouhi Mohamed Amine
- * @version 0.2
+ * @version 1.1
  */
 
 #include <QtWidgets>
@@ -20,7 +20,21 @@
  * @def VERSION_APPLICATION
  * @brief La version de l'application
  */
-#define VERSION "0.2"
+#define VERSION "1.1"
+
+/**
+ * @def SEUIL_MAX_CO2
+ * @brief Seuile régelementaire
+ */
+#define SEUIL_MAX_CO2 1300
+
+#define SEUIL_THOM_FROID            -1.7
+#define SEUIL_THOM_FRAIS            13.
+#define SEUIL_THOM_LEGEREMENT_FRAIS 15.
+#define SEUIL_THOM_NEUTRE           20.
+#define SEUIL_THOM_LEGEREMENT_TIEDE 26.5
+#define SEUIL_THOM_TIEDE            30.
+//#define SEUIL_THOM_CHAUD
 
 #define TEST_SANS_BROKER_MQTT
 
@@ -110,10 +124,12 @@ class IHMEcoClassroom : public QMainWindow
     QString recupererIdSalle(QString nomSalle);
     int     recupererIndexSalle(QString idSalle);
     void    reinitialiserAffichageMesureSalle();
-    void    afficherMesureSalle(QStringList mesureSalle);
-    void    afficheInformationsSalle(int index);
+    void afficherMesureSalle(QStringList mesureSalle, QString mesureCo2Salle);
+    void afficheInformationsSalle(int index);
     bool mettreAJourDonnee(QString donnee, QString typeDonnee, QString idSalle);
     QString insererNouvelleSalle(QString nomSalle);
+    void    calculerConfortThermique(QString idSalle);
+    void    verifierSeuilCO2(int mesureCo2Salle);
 
   public slots:
     void chargerSalles();
