@@ -4,6 +4,7 @@
   - [Présentation](#présentation)
   - [Ressources logicielles](#ressources-logicielles)
   - [Historique des versions](#historique-des-versions)
+  - [Diaporama](#diaporama)
   - [Auteur](#auteur)
   - [Kanban](#kanban)
   - [Documentation du code](#documentation-du-code)
@@ -61,6 +62,10 @@ L'objectif est de superviser l’ensemble des salles afin d’intervenir directe
   - mise en oeuvre de la communication MQTT
 
 ![](images/jira-versions-eco-classroom.png)
+
+## Diaporama
+
+- [Revue finale ZERYOUHI Amine.pptx](docs/Revue%20finale%20ZERYOUHI%20Amine.pptx)
 
 ## Auteur
 
