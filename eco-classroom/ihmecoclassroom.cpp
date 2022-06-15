@@ -767,6 +767,10 @@ void IHMEcoClassroom::verifierSeuilCO2(int mesureCo2Salle)
                                  "salle dépasse le seuil réglementaire. "
                                  "Il faut aérer.");
     }
+    else
+    {
+        ui->labelCo2Max->setText("");
+    }
 }
 
 /**
@@ -840,11 +844,20 @@ void IHMEcoClassroom::validerEditionSalle()
              << ui->lineEditLieu->text() << ui->lineEditDescription->text()
              << ui->lineEditSurface->text();
 
+    bool verifierEntier = (ui->lineEditSurface->text() >= MIN_ENTIER &&
+                           ui->lineEditSurface->text() <= MAX_ENTIER);
+
     if(ui->lineEditNom->text().isEmpty())
     {
         QMessageBox::information(this,
                                  "Attention",
                                  "Vous devez saisir le nom de la salle !");
+    }
+    else if(!verifierEntier)
+    {
+        QMessageBox::information(this,
+                                 "Attention",
+                                 "Vous devez saisir un entier!");
     }
     else
     {

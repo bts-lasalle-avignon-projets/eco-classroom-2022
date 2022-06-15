@@ -36,6 +36,9 @@
 #define SEUIL_THOM_TIEDE            30.
 //#define SEUIL_THOM_CHAUD
 
+#define MIN_ENTIER 1
+#define MAX_ENTIER 9
+
 #define TEST_SANS_BROKER_MQTT
 
 namespace Ui
