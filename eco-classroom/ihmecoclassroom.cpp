@@ -850,7 +850,7 @@ void IHMEcoClassroom::validerEditionSalle()
                                  "Attention",
                                  "Vous devez saisir le nom de la salle !");
     }
-    else if(verifierEditionSuperficie() == true)
+    else if(verifierEditionSuperficie())
     {
         QString requete =
           "UPDATE Salle SET nom='" + ui->lineEditNom->text() + "', lieu='" +
