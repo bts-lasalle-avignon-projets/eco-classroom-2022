@@ -844,22 +844,13 @@ void IHMEcoClassroom::validerEditionSalle()
              << ui->lineEditLieu->text() << ui->lineEditDescription->text()
              << ui->lineEditSurface->text();
 
-    bool verifierEntier = (ui->lineEditSurface->text() >= MIN_ENTIER &&
-                           ui->lineEditSurface->text() <= MAX_ENTIER);
-
     if(ui->lineEditNom->text().isEmpty())
     {
         QMessageBox::information(this,
                                  "Attention",
                                  "Vous devez saisir le nom de la salle !");
     }
-    else if(!verifierEntier)
-    {
-        QMessageBox::information(this,
-                                 "Attention",
-                                 "Vous devez saisir un entier!");
-    }
-    else
+    else if(verifierEditionSuperficie() == true)
     {
         QString requete =
           "UPDATE Salle SET nom='" + ui->lineEditNom->text() + "', lieu='" +
@@ -881,6 +872,40 @@ void IHMEcoClassroom::validerEditionSalle()
             chargerSalles();
             afficherFenetrePrincipale();
         }
+    }
+    else
+    {
+        QMessageBox::information(this,
+                                 "Attention",
+                                 "Vous devez saisir un entier !");
+    }
+}
+
+/**
+ * @brief IHMEcoClassroom::verifierSuperficerSalle
+ */
+bool IHMEcoClassroom::verifierEditionSuperficie()
+{
+    bool verificationConversionEntiere;
+
+    int superficie =
+      ui->lineEditSurface->text().toInt(&verificationConversionEntiere);
+    qDebug() << Q_FUNC_INFO << "conversion réussie ?"
+             << verificationConversionEntiere;
+
+    if(verificationConversionEntiere)
+    {
+        if(superficie <= 0)
+        {
+            ui->lineEditSurface->setText("0");
+        }
+        qDebug() << Q_FUNC_INFO << "superficie"
+                 << ui->lineEditSurface->text().toInt();
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 

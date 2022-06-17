@@ -36,9 +36,6 @@
 #define SEUIL_THOM_TIEDE            30.
 //#define SEUIL_THOM_CHAUD
 
-#define MIN_ENTIER 1
-#define MAX_ENTIER 9
-
 #define TEST_SANS_BROKER_MQTT
 
 namespace Ui
@@ -133,6 +130,7 @@ class IHMEcoClassroom : public QMainWindow
     QString insererNouvelleSalle(QString nomSalle);
     void    calculerConfortThermique(QString idSalle);
     void    verifierSeuilCO2(int mesureCo2Salle);
+    bool    verifierEditionSuperficie();
 
   public slots:
     void chargerSalles();
