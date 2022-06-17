@@ -43,12 +43,20 @@ L'objectif est de superviser l’ensemble des salles afin d’intervenir directe
 
 ## Historique des versions
 
+Le projet a été géré avec [Jira Software](https://btssn-avignon.atlassian.net/) et la méthode Kanban.
+
+![](images/jira-versions-eco-classroom.png)
+
 - [Version 1.1](https://github.com/btssn-lasalle-84/eco-classroom-2022/releases/tag/1.1) : 11/06/2022
   - filtrage avec critères de la liste des salles
   - évaluation de l'indice de confort
 
+![](images/version-1.1.png)
+
 - [Version 1.0](https://github.com/btssn-lasalle-84/eco-classroom-2022/releases/tag/1.0) : 27/05/2022
   - documentation du code
+
+![](images/version-1.0.png)
 
 - [Version 0.2](https://github.com/btssn-lasalle-84/eco-classroom-2022/releases/tag/0.2) : 24/05/2022
   - mise à jour des données des salles en temps réel
@@ -56,12 +64,14 @@ L'objectif est de superviser l’ensemble des salles afin d’intervenir directe
   - ajout automatique d'une nouvelle salle
   - affichage de la liste des salles à partir de critères de filtrage 
 
+![](images/version-0.2.png)
+
 - [Version 0.1](https://github.com/btssn-lasalle-84/eco-classroom-2022/releases/tag/0.1) : 03/04/2022
   - affichage de la liste des salles à partir de la base de données
   - affichage des informations d'une salle en la sélectionnant dans la liste
   - mise en oeuvre de la communication MQTT
 
-![](images/jira-versions-eco-classroom.png)
+![](images/version-0.1.png)
 
 ## Diaporama
 
