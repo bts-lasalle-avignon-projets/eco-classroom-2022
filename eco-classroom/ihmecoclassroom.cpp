@@ -767,6 +767,10 @@ void IHMEcoClassroom::verifierSeuilCO2(int mesureCo2Salle)
                                  "salle dépasse le seuil réglementaire. "
                                  "Il faut aérer.");
     }
+    else
+    {
+        ui->labelCo2Max->setText("");
+    }
 }
 
 /**
@@ -846,7 +850,7 @@ void IHMEcoClassroom::validerEditionSalle()
                                  "Attention",
                                  "Vous devez saisir le nom de la salle !");
     }
-    else
+    else if(verifierEditionSuperficie())
     {
         QString requete =
           "UPDATE Salle SET nom='" + ui->lineEditNom->text() + "', lieu='" +
@@ -868,6 +872,40 @@ void IHMEcoClassroom::validerEditionSalle()
             chargerSalles();
             afficherFenetrePrincipale();
         }
+    }
+    else
+    {
+        QMessageBox::information(this,
+                                 "Attention",
+                                 "Vous devez saisir un entier !");
+    }
+}
+
+/**
+ * @brief IHMEcoClassroom::verifierSuperficerSalle
+ */
+bool IHMEcoClassroom::verifierEditionSuperficie()
+{
+    bool verificationConversionEntiere;
+
+    int superficie =
+      ui->lineEditSurface->text().toInt(&verificationConversionEntiere);
+    qDebug() << Q_FUNC_INFO << "conversion réussie ?"
+             << verificationConversionEntiere;
+
+    if(verificationConversionEntiere)
+    {
+        if(superficie <= 0)
+        {
+            ui->lineEditSurface->setText("0");
+        }
+        qDebug() << Q_FUNC_INFO << "superficie"
+                 << ui->lineEditSurface->text().toInt();
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 

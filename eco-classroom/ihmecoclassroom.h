@@ -130,6 +130,7 @@ class IHMEcoClassroom : public QMainWindow
     QString insererNouvelleSalle(QString nomSalle);
     void    calculerConfortThermique(QString idSalle);
     void    verifierSeuilCO2(int mesureCo2Salle);
+    bool    verifierEditionSuperficie();
 
   public slots:
     void chargerSalles();
